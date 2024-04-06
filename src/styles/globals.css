@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.fade-in {
+  opacity: 0;
+  animation: fade 1.5s ease forwards;
+  animation-delay: .5s; 
+}
+.fade-in-main {
+  opacity: 0;
+  animation: fade-main 1s ease forwards;
+}
+.fade-out {
+  animation: fade reverse 1.5s ease reverse;
+}
+@keyframes fade {
+  from {
+    transform: scale(1);
+    opacity: 0;
+    filter: blur(20px);
+    -webkit-filter: blur(20px);
+    -moz-filter: blur(20px);
+    -o-filter: blur(20px);
+    -ms-filter: blur(20px);
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0px);
+    -webkit-filter: blur(0px);
+    -moz-filter: blur(0px);
+    -o-filter: blur(0px);
+    -ms-filter: blur(0px);
+  }
+}
+@keyframes fade-main {
+  from {
+    transform: scale(1.3);
+    opacity: 0;
+    filter: blur(20px);
+    -webkit-filter: blur(20px);
+    -moz-filter: blur(20px);
+    -o-filter: blur(20px);
+    -ms-filter: blur(20px);
+  }
+  to {
+    transform: scale(1);
+    opacity: .7;  
+    filter: blur(0px);
+    -webkit-filter: blur(0px);
+    -moz-filter: blur(0px);
+    -o-filter: blur(0px);
+    -ms-filter: blur(0px);
+  }
+}
