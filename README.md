@@ -15,7 +15,7 @@ v0.2 (Preview Build)
 
 # RELEASE NOTES
 # Updating Code Previews
-
+ 
 # KNOWN ISSUES:
 
 This is a very early build, with lot of changes and additions to come before public release, already being worked on. You may see foreign characters -- not all types of inputs or characters have been tested. Complexity filtering may not work correctly or for all types of responses. Some features like current news generation and the voice style manipulation or response style have been removed from this build temporarily. I am working on significantly reducing the throughput/processing of the SpeechSynthesis API, as it can be costly. Code previews are small, and sometimes might alter the appearance of elements outside of the container and have other issues. 
