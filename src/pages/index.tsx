@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <main className="p-6 flex flex-col items-center justify-center h-screen w-100 z-10 relative">
-      <div className="scale-90 w-full md:w-3/7 lg:w-3/4 mx-auto p-5 z-10">
+      <div className="scale-9 w-full md:w-3/7 lg:w-3/4 mx-auto p-5 z-10">
         <div className="fade-in-main flex flex-col justify-center items-center bg-white shadow-2xl p-10 rounded-[40px] z-10 relative">
           <Calcantara />
           <Bight />
@@ -56,7 +56,20 @@ export default function Home() {
         base={base}
         speed={speed}
       />
+      <AudioPlayer
+      voiceChoice='piTKgcLEGmPE4e6mEKli'
+      inputText='"Artificial Intelligence is the frontier
+      of digital cognizance'
+      onPlay={updateColors}
+      onEnded={useDefaults}
+      ></AudioPlayer>
     </main>
   );
 }
 
+
+
+
+//, manifesting the ability
+//o//f machines to emulate human intellect and perform
+//tasks autonomously,
