@@ -1,5 +1,5 @@
 Bight.ai
-v0.1 (Preview Build)
+v0.2 (Preview Build)
 
 # Author: Christian Alcantara
 # Author: www.calcantara.com
@@ -13,7 +13,7 @@ v0.1 (Preview Build)
  
 # (?) KNOWN ISSUES:
 
-This is a very early build, with lot of changes and additions to come before public release, already being worked on for v0.2. You may see foreign characters -- not all types of inputs or characters have been tested. Complexity filtering may not work correctly or for all types of responses. Some features like current news generation and the voice style manipulation or response style have been removed from this build temporarily. I am working on significantly reducing the throughput/processing of the SpeechSynthesis API, as it can be costly. Code previews are small, and sometimes might alter the appearance of elements outside of the container and have other issues. 
+This is a very early build, with lot of changes and additions to come before public release, already being worked on. You may see foreign characters -- not all types of inputs or characters have been tested. Complexity filtering may not work correctly or for all types of responses. Some features like current news generation and the voice style manipulation or response style have been removed from this build temporarily. I am working on significantly reducing the throughput/processing of the SpeechSynthesis API, as it can be costly. Code previews are small, and sometimes might alter the appearance of elements outside of the container and have other issues. 
 
 Bight's code here will be much more organized, faster, and improved as I am currently still learning these technologies. My goal is to have as much of the processing done here. This version has not been tested on all devices or browsers. You may submit bugs and issues using the button on the page.
 Thank you, enjoy!
