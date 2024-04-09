@@ -7,6 +7,7 @@ import { keys } from '@/private/keys';
 import AudioPlayer from '@/components/AudioPlayer';
 import { Random } from '../components/Random';
 import { voice_ids } from '@/private/voice_ids';
+
 import Today from '@/components/Today';
 export default function Home() {
   const [highColor, setHigh] = useState(Math.floor(Math.random() * 0xFFFFFF));
@@ -37,7 +38,7 @@ export default function Home() {
   return (
     <main className="p-6 flex flex-col items-center justify-center h-screen w-100 z-10 relative">
       <div className="scale-9 w-full md:w-3/7 lg:w-3/4 mx-auto p-5 z-10">
-        <div className="fade-in-main flex flex-col justify-center items-center bg-white shadow-2xl p-10 rounded-[40px] z-10 relative">
+        <div className="fade-in-main flex flex-col justify-center items-center bg-white shadow-2xl p-10 rounded-[45px] z-10 relative">
           <Calcantara />
           <Bight />
           <Interact

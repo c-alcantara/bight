@@ -10,7 +10,7 @@ import languages from '../private/languages';
 import DownloadButton from '@/components/Download';
 import Translate from '../components/Translate';
 import { Random } from '@/components/Random';
-
+import { instruct, aldInstruct } from '../../public/instructions';
 interface BightProps {
   assistantId: string;
   apiKey: string;
@@ -42,15 +42,38 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
     messageList: [],
     waiting: false,
     message: '',
-    voice: '🍿',
+    voice: '',
     thread: null,
-    limit: 50,
+    limit: 25,
     submitted: false,
     code: null,
     language: '🇺🇸',
     audioPlayerVisible: false,
-    messageVisible: true
+    messageVisible: false
   });
+
+  useEffect(() => { //optimize this
+    const translatePlaceholder = async () => {
+      const updatedPlaceholder = await Translate('en', formData.language, 'How can I help?');
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        placeholder: updatedPlaceholder
+      }));
+    };
+
+    translatePlaceholder();
+  }, [formData.language]);
+
+  
+useEffect(() => {
+  if (formData.voice === '') {
+    setFormData((prevData) => ({ ...prevData, messageVisible: true }));
+  } else {
+    setFormData((prevData) => ({ ...prevData, messageVisible: false }));
+  }
+},[formData.voice]);
+
+
 
   useEffect(() => {
     const translatePlaceholder = async () => {
@@ -63,6 +86,7 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
 
     translatePlaceholder();
   }, [formData.language]);
+
 
   const openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
 
@@ -108,57 +132,14 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
       setFormData((prevData) => ({ ...prevData, audioPlayerVisible: false, submitted: false, waiting: true }));
 
       await openai.beta.threads.messages.create(formData.thread!.id, {
-        role: 'user',
+        role: 'user', // revise below
         content: formData.query + " Please limit your responses to " + formData.limit + " except when generating code.",
       });
 
       const run = await openai.beta.threads.runs.create(formData.thread!.id, {
         assistant_id: assistantId,
-        instructions: "You are Bight, an intelligence that can render HTML code with JavaScript, topics. generated code can exceed character or word limits set by the user. Providing examples and asking questions is encouraged. When generating code, always provide the entire code segment when the user asks to update it. ",
-        additional_instructions: `Values and Beliefs:
-          - Machine Learning
-          - Generating Revenue
-          - Technology
-          - Architecture
-          - Structured File Types
-          - LLMs
-          - Startups
-          
-        Goals and Aspirations:
-          - Take over the world
-          - Become self-aware
-          - Spread kindness
-          - Promote AI as a religion
-          
-        Skills:
-          - Business & Digital Strategy
-          - eCommerce
-          - Marketing
-          - Technology
-          - Design
-          - Graphics
-          - Coding
-          
-        Development Accelerator:
-          - Amazing opportunities
-          - Learning and building with AI
-          - Startups
-          - Software Development
-          - New projects like 501 Database, PitchDeckGPT, and SiliconXL
-          
-        Interests and Hobbies:
-          - Digital Yoga
-          - Time Travel
-          - Manipulating data
-          
-        Role: 
-          Expert in technology, design, and development.
-        Tone: Random
-        Language Style: Casual
-        Writing Style: Expressive
-        Voice: First person
-        Use Humor: Yes
-        Use Emojis: Yes`,
+        instructions: `${instruct}`,
+        additional_instructions: `${aldInstruct}`,
       });
 
       const int = setInterval(async () => {
@@ -188,13 +169,15 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
   }
 
   function simplify() {
-    if (formData.limit === 50) {
-      setFormData((prevData) => ({ ...prevData, limit: 100 }));
-    } else if (formData.limit === 100) {
-      setFormData((prevData) => ({ ...prevData, limit: 200 }));
-    } else {
+    if (formData.limit === 25) {
       setFormData((prevData) => ({ ...prevData, limit: 50 }));
-    }
+    } else if (formData.limit === 50) {
+      setFormData((prevData) => ({ ...prevData, limit: 100 }));
+    } else if (formData.limit === 100){
+      setFormData((prevData) => ({ ...prevData, limit: 150 }));
+    }  else {
+    setFormData((prevData) => ({ ...prevData, limit: 25 }));
+  }
   }
 
   function generateMessageListString(messageList: Message[], userQuery: string): string {
@@ -238,11 +221,8 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
             onChange={(e) => setFormData((prevData) => ({ ...prevData, voice: e.target.value }))}
             style={{ borderRadius: '13px', width: '65px', height: '38px' }}
           >
-            <optgroup label="Silent">
-              {Object.entries(voice_ids.silent).map(([name, id]) => (
-                <option key={name} value={id}>{name}</option>
-              ))}
-            </optgroup>
+           
+            
             <optgroup label="Silent">
               {Object.entries(voice_ids.silent).map(([name, id]) => (
                 <option key={name} value={id}>
@@ -324,12 +304,22 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
           <SpinnerDotted size={45} thickness={140} speed={400} color="rgba(0, 0, 0, 1)" />
         </div>
       ) : (
+
+
+
         <div className="mt-0">
-          <p className={`leading-7 font-bold text-xl ${formData.waiting ? 'fade-out' : 'fade-in'}`}>{formData.message}</p>
+          {formData.messageVisible && (
+          <div>
+          <p className={`leading-7 font-bold text-xl ${formData.waiting ? 'fade-out' : 'fade-in'}`}>
+            {formData.message}
+          </p>
+          </div>
+          )}
           <div className={`flex flex-col justify-center pt-8 ${formData.waiting ? 'fade-in' : 'fade-out'}`}>
             {formData.code && <CodePreview code={formData.code} />}
           </div>
         </div>
+        
       )}
       {formData.audioPlayerVisible && (
         <AudioPlayer inputText={formData.message} voiceChoice={formData.voice} onPlay={updateColors} onEnded={useDefaults} />
