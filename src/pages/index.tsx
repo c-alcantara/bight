@@ -48,7 +48,6 @@ export default function Home() {
           />
         </div>
       </div>
-      {/* Key the VantaComponent to force re-render when props change */}
       <VantaComponent
         highColor={highColor}
         midColor={midColor}
@@ -56,13 +55,6 @@ export default function Home() {
         base={base}
         speed={speed}
       />
-      <AudioPlayer
-      voiceChoice='piTKgcLEGmPE4e6mEKli'
-      inputText='"Artificial Intelligence is the frontier
-      of digital cognizance'
-      onPlay={updateColors}
-      onEnded={useDefaults}
-      ></AudioPlayer>
     </main>
   );
 }

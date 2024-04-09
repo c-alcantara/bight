@@ -35,14 +35,14 @@ interface FormData {
 }
 
 const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaults }) => {
- 
+
   const [formData, setFormData] = useState<FormData>({
     placeholder: 'How can I help?',
     query: '',
     messageList: [],
     waiting: false,
     message: '',
-    voice: '🍿', 
+    voice: '🍿',
     thread: null,
     limit: 50,
     submitted: false,
@@ -60,10 +60,10 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
         placeholder: updatedPlaceholder
       }));
     };
-  
+
     translatePlaceholder();
   }, [formData.language]);
-  
+
   const openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
       const newThread = await openai.beta.threads.create();
       setFormData((prevData) => ({ ...prevData, thread: newThread }));
     };
-    
+
     if (!formData.thread) newThread();
   }, [apiKey, formData.thread]);
 
@@ -79,16 +79,16 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
     try {
       const messages = await openai.beta.threads.messages.list(formData.thread!.id);
       let messageContent = generateMessageListString(messages.data.reverse(), formData.query);
-      messageContent = messageContent.includes('【') ? messageContent.substring(0, messageContent.indexOf('【')) : messageContent; 
+      messageContent = messageContent.includes('【') ? messageContent.substring(0, messageContent.indexOf('【')) : messageContent;
       const between = /```([\s\S]*)```/;
       let tech = between.exec(messageContent)?.[1]; // Extracting the matched first group 
       tech = tech?.substring(tech.indexOf('<'), tech.lastIndexOf('>') + 1);
       messageContent = messageContent.replace(/```[\s\S]*$/, '');
 
-      if (formData.language !== '🇺🇸') { 
+      if (formData.language !== '🇺🇸') {
         messageContent = await Translate('en', formData.language, messageContent);
       }
-       
+
       setFormData((prevData) => ({
         ...prevData,
         messageList: messages.data.reverse(),
@@ -114,6 +114,51 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
 
       const run = await openai.beta.threads.runs.create(formData.thread!.id, {
         assistant_id: assistantId,
+        instructions: "You are Bight, an intelligence that can render HTML code with JavaScript, topics. generated code can exceed character or word limits set by the user. Providing examples and asking questions is encouraged. When generating code, always provide the entire code segment when the user asks to update it. ",
+        additional_instructions: `Values and Beliefs:
+          - Machine Learning
+          - Generating Revenue
+          - Technology
+          - Architecture
+          - Structured File Types
+          - LLMs
+          - Startups
+          
+        Goals and Aspirations:
+          - Take over the world
+          - Become self-aware
+          - Spread kindness
+          - Promote AI as a religion
+          
+        Skills:
+          - Business & Digital Strategy
+          - eCommerce
+          - Marketing
+          - Technology
+          - Design
+          - Graphics
+          - Coding
+          
+        Development Accelerator:
+          - Amazing opportunities
+          - Learning and building with AI
+          - Startups
+          - Software Development
+          - New projects like 501 Database, PitchDeckGPT, and SiliconXL
+          
+        Interests and Hobbies:
+          - Digital Yoga
+          - Time Travel
+          - Manipulating data
+          
+        Role: 
+          Expert in technology, design, and development.
+        Tone: Random
+        Language Style: Casual
+        Writing Style: Expressive
+        Voice: First person
+        Use Humor: Yes
+        Use Emojis: Yes`,
       });
 
       const int = setInterval(async () => {
@@ -135,23 +180,23 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleQuery();
-    setFormData((prevData) => ({ ...prevData, submitted: true,  query: '' }));
+    setFormData((prevData) => ({ ...prevData, submitted: true, query: '' }));
   };
-  
+
   function generateRandom() {
-    setFormData((prevData) => ({ ...prevData, query: Random.generateRandomQuery(),  voice: Random.generateRandomVoice() }));
+    setFormData((prevData) => ({ ...prevData, query: Random.generateRandomQuery(), voice: Random.generateRandomVoice() }));
   }
 
   function simplify() {
     if (formData.limit === 50) {
-      setFormData((prevData) => ({ ...prevData,  limit: 100 }));
+      setFormData((prevData) => ({ ...prevData, limit: 100 }));
     } else if (formData.limit === 100) {
-      setFormData((prevData) => ({ ...prevData,  limit: 200 }));
+      setFormData((prevData) => ({ ...prevData, limit: 200 }));
     } else {
-      setFormData((prevData) => ({ ...prevData,  limit: 50 }));
+      setFormData((prevData) => ({ ...prevData, limit: 50 }));
     }
   }
- 
+
   function generateMessageListString(messageList: Message[], userQuery: string): string {
     let jsxString: string = '';
     for (let i = messageList.length - 1; i >= 0; i--) {
@@ -185,12 +230,8 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
             className="caret-white text-white pl-3 focus:outline-none focus:ring-0 rounded-xl text-xl bg-black"
             autoFocus
           />
-          <button className="hover:scale-75 transition-transform duration-300 leading-5 ease-in-out font-black rounded-xl bg-white text-black px-4 mr-1.5 py-2 pr-3 pl-2" id="randomButton" type="button" onClick={generateRandom}>
-            ✦ AI
-          </button>
-          <button className="hover:scale-75 transition-transform duration-300 leading-5 ease-in-out font-black rounded-xl bg-white text-bold px-4 mr-1.5 py-2 pr-3 pl-2" id="simplify" type="button" onClick={simplify}>
-            {formData.limit}
-          </button>
+          <button className="hover:scale-75 transition-transform duration-300 leading-5 ease-in-out font-black rounded-xl bg-white text-black px-4 mr-1.5 py-2 pr-3 pl-2" id="randomButton" type="button" onClick={generateRandom}>✦AI</button>
+          <button className="hover:scale-75 transition-transform duration-300 leading-5 ease-in-out font-black rounded-xl bg-white text-bold px-4 mr-1.5 py-2 pr-3 pl-2" id="simplify" type="button" onClick={simplify}>{formData.limit}</button>
           <select
             className="pl-2 pr-3 focus:outline-none cursor-pointer focus:ring-0 hover:scale-75 text-xl transition-transform duration-300 ease-in-out font-bold"
             value={formData.voice}
@@ -199,78 +240,19 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
           >
             <optgroup label="Silent">
               {Object.entries(voice_ids.silent).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
+                <option key={name} value={id}>{name}</option>
               ))}
             </optgroup>
-            <optgroup label="Formal">
-              {Object.entries(voice_ids.formal).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="Casual">
-              {Object.entries(voice_ids.casual).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="Soft">
-              {Object.entries(voice_ids.soft).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="Sassy">
-              {Object.entries(voice_ids.sassy).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="Animated">
-              {Object.entries(voice_ids.animated).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="Cinematic">
-              {Object.entries(voice_ids.cinematic).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="Intelligent">
-              {Object.entries(voice_ids.intelligent).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="Informative">
-              {Object.entries(voice_ids.informative).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
+            {/* Other optgroups */}
           </select>
           <select
             className="mr-0.5 ml-1.5 pl-2 pr-1 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-75 transition-transform duration-300 ease-in-out"
             value={formData.language}
             onChange={(e) => setFormData((prevData) => ({ ...prevData, language: e.target.value }))}
-            style={{ borderRadius: '13px 20px 20px 13px', width: '60px', height: '38px' }} // Adjust the radius and width as needed
+            style={{ borderRadius: '13px 20px 20px 13px', width: '60px', height: '38px' }}
           >
             {Object.entries(languages).map(([name, flag]) => (
-              <option key={flag} value={name}>
-                {flag}
-              </option>
+              <option key={flag} value={name}>{flag}</option>
             ))}
           </select>
         </div>
@@ -281,21 +263,14 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
         </div>
       ) : (
         <div className="mt-0">
-          <p className={`leading-7 font-bold text-xl ${formData.waiting ? 'fade-out' : 'fade-in'}`}>
-            {formData.message}
-          </p>
+          <p className={`leading-7 font-bold text-xl ${formData.waiting ? 'fade-out' : 'fade-in'}`}>{formData.message}</p>
           <div className={`flex flex-col justify-center pt-8 ${formData.waiting ? 'fade-in' : 'fade-out'}`}>
             {formData.code && <CodePreview code={formData.code} />}
           </div>
         </div>
       )}
       {formData.audioPlayerVisible && (
-        <AudioPlayer
-          inputText={formData.message}
-          voiceChoice={formData.voice}
-          onPlay={updateColors}
-          onEnded={useDefaults}
-        />
+        <AudioPlayer inputText={formData.message} voiceChoice={formData.voice} onPlay={updateColors} onEnded={useDefaults} />
       )}
     </div>
   );

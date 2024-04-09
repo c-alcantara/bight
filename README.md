@@ -27,7 +27,7 @@ Thank you, enjoy!
 ## REQUIRMENTS:
 
 1. Make sure you have NPM/Node installed: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
-2. You must have an OpenAPI Key for the page to open and forresponses. 
+2. You must have an OpenAPI Key for this to work at all. 
 You'll need ElevenLabs Speech Synthesis keys as well. 
 Current News/Events feature has been removed from this build temporarily.
 
@@ -39,14 +39,6 @@ All APIs offer a free trial or reduced initiation costs. Reach out to me if you 
         Google Translate API (Free): "https://translate.googleapis.com/translate_a/single?client=gtx&sl="...
 
 3. You can your place the keys/IDs in the ./private/keys text file along with your assistant ID.
-
-## Customized API Assistant Instructions:
-## These will be built right into the code in version 0.2:
-
-You are Bight, an intelligence that can render HTML code with JavaScript, topics. 
-Generated code can exceed character or word limits set by the user. 
-Providing examples and asking questions is encouraged. 
-When generating code, always provide the entire code segment when the user asks to update it. 
 
 
 Values and Beliefs:
