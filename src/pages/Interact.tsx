@@ -243,7 +243,69 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
                 <option key={name} value={id}>{name}</option>
               ))}
             </optgroup>
-            {/* Other optgroups */}
+            <optgroup label="Silent">
+              {Object.entries(voice_ids.silent).map(([name, id]) => (
+                <option key={name} value={id}>
+                  {name}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Formal">
+              {Object.entries(voice_ids.formal).map(([name, id]) => (
+                <option key={name} value={id}>
+                  {name}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Casual">
+              {Object.entries(voice_ids.casual).map(([name, id]) => (
+                <option key={name} value={id}>
+                  {name}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Soft">
+              {Object.entries(voice_ids.soft).map(([name, id]) => (
+                <option key={name} value={id}>
+                  {name}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Sassy">
+              {Object.entries(voice_ids.sassy).map(([name, id]) => (
+                <option key={name} value={id}>
+                  {name}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Animated">
+              {Object.entries(voice_ids.animated).map(([name, id]) => (
+                <option key={name} value={id}>
+                  {name}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Cinematic">
+              {Object.entries(voice_ids.cinematic).map(([name, id]) => (
+                <option key={name} value={id}>
+                  {name}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Intelligent">
+              {Object.entries(voice_ids.intelligent).map(([name, id]) => (
+                <option key={name} value={id}>
+                  {name}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Informative">
+              {Object.entries(voice_ids.informative).map(([name, id]) => (
+                <option key={name} value={id}>
+                  {name}
+                </option>
+              ))}
+            </optgroup>
           </select>
           <select
             className="mr-0.5 ml-1.5 pl-2 pr-1 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-75 transition-transform duration-300 ease-in-out"
