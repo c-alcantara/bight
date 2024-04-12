@@ -9,6 +9,7 @@ const Translate = async (lang: string, targetLang: string, text: string): Promis
     const data = response.data;
     return data[0][0][0];
   } catch (error) {
+    alert('An error occurred. Please try again.');
     console.error('Translation Error:', error);
     return '';
   }

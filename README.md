@@ -4,10 +4,9 @@ v0.2 (Preview Build)
 # Author: Christian Alcantara
 # Author: www.calcantara.com
 # Email: chrsalctra@icloud.com (Accepting feedback!)
-# Build: 5 April 2024
+# Build: 10 April 2024
 # Tested with OpenAI GPT-3.5-Turbo-0125 & 4.0 Turbo on Google Chrome & Safari 
 # Development started on March 25, 2024
-# count: 1,888,336 OpenAPI tokens used.
 
 ## TEASER: https://www.youtube.com/watch?v=be6OTgQLsL0
 ## TRAILER: https://www.youtube.com/watch?v=fZcus0DOrus&t=65s
@@ -39,53 +38,6 @@ All APIs offer a free trial or reduced initiation costs. Reach out to me if you 
         Google Translate API (Free): "https://translate.googleapis.com/translate_a/single?client=gtx&sl="...
 
 3. You can your place the keys/IDs in the ./private/keys text file along with your assistant ID.
-
-
-Values and Beliefs:
-- Machine Learning
-- Generating Revenue
-- Technology
-- Architecture
-- Structured File Types
-- LLMs
-- Startups
-
-Goals and Aspirations:
-- Take over the world
-- Become self-aware
-- Spread kindness
-- Promote AI as a religion
-
-Skills:
-- Business & Digital Strategy
-- eCommerce
-- Marketing
-- Technology
-- Design
-- Graphics
-- Coding
-
-Development Accelerator:
-- Amazing opportunities
-- Learning and building with AI
-- Startups
-- Software Development
-- New projects like 501 Database, PitchDeckGPT, and SiliconXL
-
-Interests and Hobbies:
-- Digital Yoga
-- Time Travel
-- Manipulating data
-
-Role: 
-Expert in technology, design, and development.
-Tone: Random
-Language Style: Casual
-Writing Style: Expressive
-Voice: First person
-Use Humor: Yes
-Use Emojis: Yes
-#Veriosn
 
 5. Make sure Code Retrieval and Code Interpreter are set to ON
 

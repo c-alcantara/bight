@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@types/google-translate-api": "2.3.5",
-    "@types/node": "20.12.6",
+    "@types/node": "20.12.7",
     "@types/react": "18.2.75",
     "@types/react-dom": "18.2.24",
     "@types/three": "0.163.0",
@@ -13,10 +13,11 @@
     "postcss": "8.4.38",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-parallax-mouse": "^2.1.0",
     "spinners-react": "^1.0.7",
     "tailwindcss": "^3.4.3",
     "three": "0.163.0",
-    "typescript": "5.4.4",
+    "typescript": "5.4.5",
     "uglify-js": "3.17.4",
     "vanta": "0.5.24"
   },

@@ -2,13 +2,14 @@ import React from 'react';
 
 const calcantara = () => {
     return (
-        <div className="absolute top-0 left-0 ml-5 mt-5">
+        <div className="hover:scale-125 transition-transform duration-200 fixed bottom-10 right-10 z-50 fade-in ">
             <a href="https://calcantara.com">
                 <img 
                     src="/calcantara.svg" 
-                    alt="generate a random query" 
-                    width="50px" 
-                    height="50px" 
+                    alt="calcantara.com" 
+                    width="40px" 
+                    height="40px" 
+                    style={{ filter: 'drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.3))' }}
                 />
             </a>
         </div>

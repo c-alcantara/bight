@@ -10,24 +10,28 @@ import { voice_ids } from '@/private/voice_ids';
 
 import Today from '@/components/Today';
 export default function Home() {
-  const [highColor, setHigh] = useState(Math.floor(Math.random() * 0xFFFFFF));
-  const [midColor, setMid] = useState(Math.floor(Math.random() * 0xFFFFFF));
-  const [lowColor, setLow] = useState(0xffffff);
+  const [highColor, setHigh] = useState(0x0);
+  const [midColor, setMid] = useState(0x0);
+  const [lowColor, setLow] = useState(0x0);
   const [base, setBase] = useState(0x0);
-  const [speed, setSpeed] = useState(2);
+  const [speed, setSpeed] = useState(1.5);
 
-  const updateColors = () => {
+
+
+
+const updateColors = () => {
+
     setHigh(Math.floor(Math.random() * 0xFFFFFF));
     setMid(Math.floor(Math.random() * 0xFFFFFF));
     setLow(Math.floor(Math.random() * 0xFFFFFF));
     setBase(Math.floor(Math.random() * 0xFFFFFF));
-    setSpeed(20);
+    setSpeed(22);
   };
 
   const useDefaults = () => {
-    setHigh(highColor);
-    setMid(midColor);
-    setLow(lowColor);
+    setHigh(0x0);
+    setMid(0x0);
+    setLow(0x0);
     setBase(base);
     setSpeed(3);
   };
@@ -36,11 +40,24 @@ export default function Home() {
   const key = useMemo(() => `${highColor}-${midColor}-${lowColor}-${base}-${speed}`, [highColor, midColor, lowColor, base, speed]);
 
   return (
-    <main className="p-6 flex flex-col items-center justify-center h-screen w-100 z-10 relative">
-      <div className="scale-9 w-full md:w-3/7 lg:w-3/4 mx-auto p-5 z-10">
-        <div className="fade-in-main flex flex-col justify-center items-center bg-white shadow-2xl p-10 rounded-[45px] z-10 relative">
-          <Calcantara />
-          <Bight />
+    
+    <main>
+      <Calcantara />
+      <div className="p-10 flex flex-col items-center justify-center h-screen w-100 z-10 relative">
+      <div className=" w-full md:w-3/7 lg:w-3/4 mx-auto z-10">
+     
+        <div className=" border border-white bg-gradient-to-b from-[rgba(255,255,255,0.4)] to-white fade-in-main flex flex-col justify-center items-center  shadow-2xl p-10 rounded-[50px] z-10 relative">
+         
+    
+      
+         
+
+
+    <Bight />
+
+
+
+
           <Interact
             updateColors={updateColors}
             useDefaults={useDefaults}
@@ -55,7 +72,9 @@ export default function Home() {
         lowColor={lowColor}
         base={base}
         speed={speed}
+         
       />
+      </div>
     </main>
   );
 }
