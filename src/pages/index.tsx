@@ -3,7 +3,7 @@ import VantaComponent from "@/components/VantaComponent";
 import Bight from '@/components/Bight';
 import Interact from './Interact';
 import Calcantara from '../components/Calcantara';
-import { keys } from '@/private/keys';
+import { keys } from '../../keys';
 import AudioPlayer from '@/components/AudioPlayer';
 import { Random } from '../components/Random';
 import { voice_ids } from '@/private/voice_ids';

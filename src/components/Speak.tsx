@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { keys } from '@/private/keys';
+import { keys } from '../../keys';
 import { voice_ids } from '../private/voice_ids';
 const Speak = async (inputText: string, voiceid: string): Promise<ArrayBuffer> => {
     
