@@ -20,6 +20,7 @@ interface BightProps {
   apiKey: string;
   updateColors: () => void;
   useDefaults: () => void;
+  
 }
 
 interface FormData {
@@ -49,14 +50,14 @@ const [isHovered, setIsHovered] = useState(false);
     messageList: [],
     waiting: false,
     message: '',
-    voice: '',
+    voice: Random.generateRandomVoice(),
     thread: null,
-    limit: 25,
+    limit: 15,
     submitted: false,
     code: null,
     language: '🇺🇸',
     audioPlayerVisible: false,
-    messageVisible: false
+    messageVisible: true
   });
 
   useEffect(() => { //optimize this
@@ -75,13 +76,14 @@ const [isHovered, setIsHovered] = useState(false);
   // Inside your component
   const [prevLimit, setPrevLimit] = useState(formData.limit);
   const [animate, setAnimate] = useState(false);
-
+  const [animate2, setAnimate2] = useState(false);
   useEffect(() => {
     if (prevLimit !== formData.limit) {
       setAnimate(true);
       setPrevLimit(formData.limit);
     }
   }, [formData.limit]);
+
 
   useEffect(() => {
     if (animate) {
@@ -91,15 +93,23 @@ const [isHovered, setIsHovered] = useState(false);
   }, [animate]);
 
   // In your button
-useEffect(() => {
-  if (formData.voice === '') {
-    setFormData((prevData) => ({ ...prevData, messageVisible: true }));
-  } else {
-    setFormData((prevData) => ({ ...prevData, messageVisible: false }));
-  }
-},[formData.voice]);
+// useEffect(() => {
+//   if (formData.voice === '') {
+//     setFormData((prevData) => ({ ...prevData, messageVisible: true }));
+//   } else {
+//     setFormData((prevData) => ({ ...prevData, messageVisible: false }));
+//   }
+// },[formData.voice]);
 
-  
+  useEffect(() => {
+    if (formData.audioPlayerVisible) {
+      setAnimate2(true);
+      formData.messageVisible=true
+    } else {
+      setAnimate2(false);
+      formData.messageVisible = false
+    }
+  }, [formData.audioPlayerVisible]);
 
   const openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
 
@@ -111,6 +121,8 @@ useEffect(() => {
 
     if (!formData.thread) newThread();
   }, [apiKey, formData.thread]);
+
+
 
   const updateMessages = async () => {
     try {
@@ -133,6 +145,7 @@ useEffect(() => {
         code: tech,
         message: messageContent,
         audioPlayerVisible: true,
+        messageVisible: true,
         waiting: false
       }));
     } catch (error) {
@@ -147,7 +160,7 @@ useEffect(() => {
 
       await openai.beta.threads.messages.create(formData.thread!.id, {
         role: 'user', // revise below
-        content: formData.query + "; Please limit your responses to " + formData.limit + " except when generating code.",
+        content: formData.query + "; Please limit your responses to " + formData.limit + "words except when generating code.",
       });
 
       const run = await openai.beta.threads.runs.create(formData.thread!.id, {
@@ -185,14 +198,14 @@ useEffect(() => {
 }
 
   function simplify() {
-    if (formData.limit === 25) {
-      setFormData((prevData) => ({ ...prevData, limit: 50 }));
-    } else if (formData.limit === 50) {
-      setFormData((prevData) => ({ ...prevData, limit: 75 }));
-    } else if (formData.limit === 75){
-      setFormData((prevData) => ({ ...prevData, limit: 99 }));
-    }  else {
-    setFormData((prevData) => ({ ...prevData, limit: 25 }));
+    if (formData.limit === 15) {
+      setFormData((prevData) => ({ ...prevData, limit: 30 }));
+    } else if (formData.limit === 30) {
+      setFormData((prevData) => ({ ...prevData, limit: 45 }));
+    } else if (formData.limit === 45){
+      setFormData((prevData) => ({ ...prevData, limit: 60 }));
+    } else {
+    setFormData((prevData) => ({ ...prevData, limit: 15 }));
   }
   }
 
@@ -216,12 +229,12 @@ useEffect(() => {
   }
 
   return (
-    <div className="lg:container md:mx-auto p-20 z-10 px-15">
-      <form onSubmit={handleSubmit} className={`hover:scale-105  transition-all ease-out duration-500 flex flex-col text-center w-full mb-8 z-10 ${!formData.waiting ? (formData.waiting ? 'fade-in' : 'fade-out') : ''}`}>
-        <div className=" z-10 flex justify-center items-center bg-black p-1.5 outline-1 outline outline-white rounded-full shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.05),_0_6.7px_5.3px_rgba(0,_0,_0,_0.06),_0_12.5px_10px_rgba(0,_0,_0,_0.07),_0_22.3px_17.9px_rgba(0,_0,_0,_0.09),_0_41.8px_33.4px_rgba(0,_0,_0,_0.1),_0_100px_80px_rgba(0,_0,_0,_0.14)] ">
+    <div className=" items-center justify-center lg:container  p-20 z-10 ">
+      <form onSubmit={handleSubmit} className={`flex items-center justify-center hover:scale-105 z-10 ${formData.waiting ? 'fade-out-main' : 'fade-in-main'} `}>
+        <div className="items-center justify-center z-10 flex w-4/5 bg-black p-1.5 outline-0 outline outline-white rounded-full shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.05),_0_6.7px_5.3px_rgba(0,_0,_0,_0.06),_0_12.5px_10px_rgba(0,_0,_0,_0.07),_0_22.3px_17.9px_rgba(0,_0,_0,_0.09),_0_41.8px_33.4px_rgba(0,_0,_0,_0.1),_0_100px_80px_rgba(0,_0,_0,_0.14)] ">
           {formData.code && <DownloadButton formData={{ code: formData.code }} />}
           <button 
-    className="pl-1 hover:scale-90 transition-transform duration-500  ease-out " 
+    className="pl-1 hover:scale-90 transition-all duration-500  ease-out " 
     id="randomButton" 
     type="button" 
     onClick={generateRandom}
@@ -234,20 +247,20 @@ useEffect(() => {
             value={formData.query}
             id="query"
             placeholder={formData.placeholder}
-            className=" caret-white text-white pl-2 focus:outline-none focus:ring-0 rounded-xl text-xl font-normal  bg-black"
+            className=" caret-white text-white pl-2 focus:outline-none focus:ring-0 rounded-xl text-xl font-light  bg-black"
             autoFocus
           />
           
           <button
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className={`hover:scale-90 transition-all duration-500 leading-5 ease-out rounded-xl bg-white px-4 mr-1.5 py-2 pr-2 pl-2 transition-all   ${formData.limit === 25 ? 'font-medium text-sm' : ''} ${formData.limit === 50 ? 'font-bold text-md' : ''} ${formData.limit === 75 ? 'font-extrabold text-lg' : ''} ${formData.limit === 99 ? 'font-black text-xl' : ''}`}
+            className={`hover:scale-90 transition-all duration-500 leading-5 ease-out rounded-xl bg-white px-4 mr-1.5 py-2 pr-2 pl-2 transition-all   ${formData.limit === 15 ? 'font-medium text-sm' : ''} ${formData.limit === 30 ? 'font-bold text-md' : ''} ${formData.limit === 45 ? 'font-extrabold text-lg' : ''} ${formData.limit === 60 ? 'font-black text-xl' : ''}`}
             id="simplify"
             type="button"
             onClick={simplify}
           >
             <span style={{ fontSize: '15px' }}>{''}</span>
-            {'<' + (formData.limit === 25 ? '25' : formData.limit === 50 ? '50' : formData.limit === 75 ? '75' : formData.limit === 99 ? '99' : '')}
+            {'<' + (formData.limit === 15 ? '15' : formData.limit === 30 ? '30' : formData.limit === 45 ? '45' : formData.limit === 60 ? '60' : '')}
           
           </button>
           <select
@@ -323,7 +336,7 @@ useEffect(() => {
             </optgroup>
           </select>
           <select
-            className="mr-0.5 ml-1.5 pl-2 pr-1 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out"
+            className="mr-0.5 ml-1.5 pl-1.5 pr-1 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out"
             value={formData.language}
             onChange={(e) => setFormData((prevData) => ({ ...prevData, language: e.target.value }))}
             style={{ borderRadius: '13px 20px 20px 13px', width: '42px', height: '38px', WebkitAppearance: 'none' }}
@@ -335,9 +348,9 @@ useEffect(() => {
         </div>
       </form>
       {formData.waiting ? (
-        <div className={`flex absolute bottom-8 right-10 justify-center items-center ${formData.waiting ? 'fade-in' : 'fade-out'}`}>
-          <SpinnerDotted size={45} thickness={140} speed={400} color="rgba(0, 0, 0, 1)" />
-        </div>
+        <div className={`flex absolute  left-0 right-0  justify-center items-center ${formData.waiting ? 'fade-in' : 'fade-out'}`}>
+  <SpinnerDotted size={45} thickness={160} speed={400} color="rgba(0, 0, 0, 1)" />
+</div>
       ) : (
 
 
@@ -345,7 +358,7 @@ useEffect(() => {
         <div className="mt-0">
           {formData.messageVisible && (
           <div>
-          <p className={`leading-7 font-bold text-xl ${formData.waiting ? 'fade-out' : 'fade-in'}`}>
+                <p className={` flex  justify-center items-center flex-col pt-4 leading-7 font-bold text-xl ${!formData.waiting ? 'fade-in-main' : 'fade-out-main'}`}>
             {formData.message}
           </p>
           </div>
@@ -357,7 +370,7 @@ useEffect(() => {
         
       )}
       {formData.audioPlayerVisible && (
-        <AudioPlayer inputText={formData.message} voiceChoice={formData.voice} onPlay={updateColors} onEnded={useDefaults} />
+        <AudioPlayer inputText={formData.message} voiceChoice={formData.voice} onPlay={updateColors} onEnded={useDefaults}  />
       )}
     </div>
   );

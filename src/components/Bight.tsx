@@ -4,7 +4,7 @@ const Bight = () => {
   return (
 
 
-    <div className=" mt-10 relative cursor-pointer active:scale-90 transition-transform duration-500 mix-blend-mode-multiply'">
+    <div className=" fade-in-main-c transition-all duration-500 mt-20 relative cursor-pointer  transition-all duration-500 '">
 
       <img
         src="/bight.svg"

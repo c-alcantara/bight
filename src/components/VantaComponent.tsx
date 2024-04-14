@@ -12,8 +12,8 @@ interface Props {
 
 class VantaComponent extends Component<Props> {
 
-  
-  
+  //const[transitionDuration, setTransitionDuration] = useState(1000);
+
   private sceneRef: RefObject<HTMLDivElement>;
   private vantaEffect: any;
 
@@ -62,9 +62,15 @@ class VantaComponent extends Component<Props> {
     }
   }
 
-
   startColorTransition(prevProps: Props) {
-    const transitionDuration = 1200; // Transition duration in milliseconds
+
+    var transitionDuration: any = '';
+    
+    if (prevProps.speed!= 18) {
+      transitionDuration = 300; // Transition duration in milliseconds
+    } else {
+      transitionDuration = 3000; // Transition duration in milliseconds
+    }
     const stepDuration = 10; // Step duration in milliseconds
     const steps = transitionDuration / stepDuration;
 
@@ -100,9 +106,18 @@ class VantaComponent extends Component<Props> {
   }
   updateSpeed() {
   if (this.vantaEffect) {
+
+    var transitionDuration: any = '';
+
+    if (this.props.speed != 18) {
+      transitionDuration = 2250; // Transition duration in milliseconds
+    } else {
+      transitionDuration = 250; // Transition duration in milliseconds
+    }
+
     const startSpeed = this.vantaEffect.options.speed;
     const endSpeed = this.props.speed;
-    const transitionDuration = 1300; // Transition duration in milliseconds
+    //const transitionDuration = 500; // Transition duration in milliseconds
     const stepDuration = 10; // Step duration in milliseconds
     const steps = transitionDuration / stepDuration;
     const speedStep = (endSpeed - startSpeed) / steps;
@@ -134,7 +149,7 @@ class VantaComponent extends Component<Props> {
     return (
       <div
         ref={this.sceneRef}
-        className="fade-in-v w-full h-screen absolute z-0 transition-speed duration-700 ease-in-out"
+        className=" w-full h-screen absolute z-0 transition-all duration-500 ease-out"
       />
     );
   }
