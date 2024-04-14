@@ -39,12 +39,12 @@ All APIs offer a free trial or reduced initiation costs. Reach out to me if you 
 
 3. You MUST place the keys+assistant ID in the root in a keys.ts file in the format:
 
- export const keys: { [key: string]: string } = {
-    assistantID: '', // OpenAI Assistant ID
-    openKey: '', // OpenAI
-    voiceKey: '', //ElevenLabs
-    // newsKey: '' //newsapi
-}; 
+        export const keys: { [key: string]: string } = {
+        assistantID: '', // OpenAI Assistant ID
+        openKey: '', // OpenAI
+        voiceKey: '', //ElevenLabs
+        // newsKey: '' //newsapi
+        }; 
 
 5. Make sure Code Retrieval and Code Interpreter are set to ON
 
