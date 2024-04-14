@@ -27,7 +27,7 @@ Thank you, enjoy!
 
 1. Make sure you have NPM/Node installed: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 2. You must have an OpenAPI Key for this to work at all. 
-You'll need ElevenLabs Speech Synthesis keys as well. 
+You'll need ElevenLabs Speech Synthesis key as well. 
 Current News/Events feature has been removed from this build temporarily.
 
 All APIs offer a free trial or reduced initiation costs. Reach out to me if you have any issues or questions --> chrsalctra@icloud.com
@@ -37,7 +37,14 @@ All APIs offer a free trial or reduced initiation costs. Reach out to me if you 
         https://newsapi.org (in progress)
         Google Translate API (Free): "https://translate.googleapis.com/translate_a/single?client=gtx&sl="...
 
-3. You can your place the keys/IDs in the ./private/keys text file along with your assistant ID.
+3. You MUST place the keys+assistant ID in the root in a keys.ts file in the format:
+
+ export const keys: { [key: string]: string } = {
+    assistantID: '', // OpenAI Assistant ID
+    openKey: '', // OpenAI
+    voiceKey: '', //ElevenLabs
+    // newsKey: '' //newsapi
+}; 
 
 5. Make sure Code Retrieval and Code Interpreter are set to ON
 
