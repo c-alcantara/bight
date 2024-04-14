@@ -9,7 +9,7 @@ export const voice_ids = {
     "💼  Lily": 'pFZP5JQG7iQjIQuC4Bku',
     "🙋‍♂️  Adam": 'pNInz6obpgDQGcFmaJgB',
     "🫖  Matthew": 'Yko7PKHZNXotIFUBG7I9',
-  },
+  }, 
   casual: {
     "👟  Sarah": 'EXAVITQu4vr4xnSDxMaE',
     "👕  Chris": 'iP95p4xoKVk53GoZ742B',
