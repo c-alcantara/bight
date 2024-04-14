@@ -11,10 +11,6 @@ import DownloadButton from '@/components/Download';
 import Translate from '../components/Translate';
 import { Random } from '@/components/Random';
 import { instruct, aldInstruct } from '../../public/instructions';
-import {
-  MouseParallaxChild,
-  MouseParallaxContainer
-} from "react-parallax-mouse";
 interface BightProps {
   assistantId: string;
   apiKey: string;
@@ -43,6 +39,16 @@ const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaul
 const [isHovered, setIsHovered] = useState(false);
 
 
+
+
+  const syncPrompt = prompt();
+
+  export const keys: { [key: string]: string } = {
+    assistantID: syncPrompt('Enter OpenAI Assistant ID: '),
+    openKey: syncPrompt('Enter OpenAI Key: '),
+    voiceKey: syncPrompt('Enter ElevenLabs Key: '),
+    // newsKey: syncPrompt('Enter NewsAPI Key: ') 
+  };
 
   const [formData, setFormData] = useState<FormData>({
     placeholder: '',
