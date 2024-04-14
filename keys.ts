@@ -3,4 +3,4 @@ export const keys: { [key: string]: string } = {
     openKey: '', // OpenAI
     voiceKey: '', //ElevenLabs
     newsKey: '' //newsapi
-};         
+};          
