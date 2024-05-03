@@ -69,7 +69,7 @@ class VantaComponent extends Component<Props> {
     if (prevProps.speed!= 18) {
       transitionDuration = 300; // Transition duration in milliseconds
     } else {
-      transitionDuration = 3000; // Transition duration in milliseconds
+      transitionDuration = 1250; // Transition duration in milliseconds
     }
     const stepDuration = 10; // Step duration in milliseconds
     const steps = transitionDuration / stepDuration;
@@ -110,7 +110,7 @@ class VantaComponent extends Component<Props> {
     var transitionDuration: any = '';
 
     if (this.props.speed != 18) {
-      transitionDuration = 2250; // Transition duration in milliseconds
+      transitionDuration = 1750; // Transition duration in milliseconds
     } else {
       transitionDuration = 250; // Transition duration in milliseconds
     }

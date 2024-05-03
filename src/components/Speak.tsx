@@ -25,6 +25,7 @@ const Speak = async (inputText: string, voiceid: string): Promise<ArrayBuffer> =
         return response.data;
 
     } catch (error) {
+        alert("error!"+error);
         throw error; // Rethrow the error to handle it in the calling code
     }
 };

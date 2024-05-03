@@ -76,7 +76,7 @@
 @keyframes fade-main {
   to {
     transform: scale(1);
-      opacity: .75;
+      opacity: .70;
       filter: blur(0px);
       -webkit-filter: blur(0px);
       -moz-filter: blur(0px);
@@ -146,7 +146,7 @@
 @keyframes fade-main2 {
   from {
     transform: scale(.5);
-    opacity: .75;
+    opacity: .70;
     filter: blur(0px);
     -webkit-filter: blur(0px);
     -moz-filter: blur(0px);

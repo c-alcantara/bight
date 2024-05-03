@@ -243,7 +243,7 @@ const [isHovered, setIsHovered] = useState(false);
             value={formData.query}
             id="query"
             placeholder={formData.placeholder}
-            className=" caret-white text-white pl-2 focus:outline-none focus:ring-0 rounded-xl text-xl font-light  bg-black"
+            className=" caret-white text-white pl-2 focus:outline-none focus:ring-0 rounded-xl text-lg font-light  bg-black"
             autoFocus
           />
           
