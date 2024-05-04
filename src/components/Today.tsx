@@ -10,7 +10,7 @@ const url = `https://newsapi.org/v2/top-headlines?country=us&from=${queryString}
         alert(descriptions);
         return descriptions;
       
-    } catch (error) { alert("NEWS ERROR!!! 😡"); throw error; }
+    } catch (error) { alert('An error occurred. Please try again.'); throw error; }
 };
 
 const processNews = (data: any): string => {

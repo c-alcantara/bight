@@ -24,7 +24,7 @@ const AudioPlayer: React.FC<AudioProps> = ({ inputText, voiceChoice, onPlay, onE
         const url = URL.createObjectURL(new Blob([data], { type: 'audio/mpeg' }));
         setAudioURL(url);
       } catch (error) {
-  
+        alert("error!");
         console.error('ERROR!!! 😡', error);
       }
     };

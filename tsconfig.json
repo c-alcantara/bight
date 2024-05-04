@@ -4,6 +4,7 @@
       "dom",
       "dom.iterable",
       "esnext",
+      "es2019"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -26,13 +27,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "src/components/",
-    "src/api"
-, "src/private/voice_ids.ts"],
-  "lib": [
-    "es2019",
-    "dom"
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"

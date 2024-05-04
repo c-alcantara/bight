@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { keys } from '@/private/keys';
+import { keys } from '../../keys';
 import { voice_ids } from '../private/voice_ids';
 const Speak = async (inputText: string, voiceid: string): Promise<ArrayBuffer> => {
     
@@ -25,6 +25,7 @@ const Speak = async (inputText: string, voiceid: string): Promise<ArrayBuffer> =
         return response.data;
 
     } catch (error) {
+        alert("error!"+error);
         throw error; // Rethrow the error to handle it in the calling code
     }
 };
