@@ -12,9 +12,9 @@ import { voice_ids } from '@/private/voice_ids';
 
 import Today from '@/components/Today';
 export default function Home() {
-  const [highColor, setHigh] = useState(0x9d9d9d);
+  const [highColor, setHigh] = useState(0x0);
   const [midColor, setMid] = useState(0x0);
-  const [lowColor, setLow] = useState(0x9d9d9d);
+  const [lowColor, setLow] = useState(0x0);
   const [base, setBase] = useState(0x0);
   const [speed, setSpeed] = useState(1);
 
@@ -34,9 +34,9 @@ const updateColors = () => {
 
   const useDefaults = () => {
    
-    setHigh(0x9d9d9d);
+    setHigh(0x0);
     setMid(0x0);
-    setLow(0x9d9d9d);
+    setLow(0x0);
     setBase(0x0);
     setSpeed(1);
   };
@@ -79,8 +79,7 @@ const updateColors = () => {
         base={base}
         speed={speed}
          
-      />
-      
+      />  
       </div>
     </main>
   );
