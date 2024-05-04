@@ -1,29 +1,29 @@
 export const languages = {
-  en: '🇺🇸', // English
-  ja: '🇯🇵', // Japanese
-  'zh-CN': '🇨🇳', // Chinese
-  de: '🇩🇪', // German
-  hi: '🇮🇳', // Hindi
-  fr: '🇫🇷', // French
-  ko: '🇰🇷', // Korean
-  it: '🇮🇹', // Italian
-  es: '🇪🇸', // Spanish
-  id: '🇮🇩', // Indonesian
-  nl: '🇳🇱', // Dutch
-  tr: '🇹🇷', // Turkish
-  fil: '🇵🇭', // Filipino
-  pl: '🇵🇱', // Polish
-  sv: '🇸🇪', // Swedish
-  bg: '🇧🇬', // Bulgarian
-  ro: '🇷🇴', // Romanian
-  ar: '🇸🇦', // Arabic
-  cs: '🇨🇿', // Czech
-  el: '🇬🇷', // Greek
-  hr: '🇫🇮', // Finnish
-  ms: '🇲🇾', // Malay
-  sk: '🇸🇰', // Slovak
-  da: '🇩🇰', // Danish
-  uk: '🇺🇦', // Ukrainian
-  ru: '🇷🇺' // Russian
+  en: '🇺🇸 English', // English
+  ja: '🇯🇵 Japanese', // Japanese
+  'zh-CN': '🇨🇳 Chinese', // Chinese
+  de: '🇩🇪 German', // German
+  hi: '🇮🇳 Hindi', // Hindi
+  fr: '🇫🇷 French', // French
+  ko: '🇰🇷 Korean', // Korean
+  it: '🇮🇹 Italian', // Italian
+  es: '🇪🇸 Spanish', // Spanish
+  id: '🇮🇩 Indonesian', // Indonesian
+  nl: '🇳🇱 Dutch', // Dutch
+  tr: '🇹🇷 Turkish', // Turkish
+  fil: '🇵🇭 Filipino', // Filipino
+  pl: '🇵🇱 Polish', // Polish
+  sv: '🇸🇪 Swedish', // Swedish
+  bg: '🇧🇬 Bulgarian', // Bulgarian
+  ro: '🇷🇴 Romanian', // Romanian
+  ar: '🇸🇦 Arabic', // Arabic
+  cs: '🇨🇿 Czech', // Czech
+  el: '🇬🇷 Greek', // Greek
+  hr: '🇫🇮 Finnish', // Finnish
+  ms: '🇲🇾 Malay', // Malay
+  sk: '🇸🇰 Slovak', // Slovak
+  da: '🇩🇰 Danish', // Danish
+  uk: '🇺🇦 Ukrainian', // Ukrainian
+  ru: '🇷🇺 Russian' // Russian
 };
 export default languages
