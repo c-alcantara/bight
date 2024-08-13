@@ -1,5 +1,5 @@
 Bight.ai
-1.0
+v1.0
 
 # Author: Christian Alcantara
 # Author: www.c-alcantara.com
@@ -32,6 +32,6 @@ All APIs offer a free trial or reduced initiation costs. Reach out to me if you 
 
 ## START:
 
-1. npm i
-2. npm run dev
+1. npm i --production
+2. npm run
 3. Open [http://localhost:3000] on a browser. 
