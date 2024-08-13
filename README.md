@@ -1,9 +1,9 @@
 Bight.ai
-v1.0 
+1.0
 
 # Author: Christian Alcantara
-# Author: www.calcantara.com
-# Email: chrsalctra@icloud.com (Accepting feedback!)
+# Author: www.c-alcantara.com
+# Email: hi@c-alcantara.com
 # Build: 12 August 2024
 # GPT-4o-mini  
 # Development started on March 25, 2024
