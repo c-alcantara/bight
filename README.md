@@ -1,11 +1,11 @@
 Bight.ai
-v1.0
+v1 (Preview Build)
 
 # Author: Christian Alcantara
-# Author: www.c-alcantara.com
-# Email: hi@c-alcantara.com
+# Author: www.calcantara.com
+# Email: chrsalctra@icloud.com (Accepting feedback!)
 # Build: 12 August 2024
-# GPT-4o-mini  
+# Tested with OpenAI GPT-3.5-Turbo-0125 & 4.0 Turbo on Google Chrome & Safari 
 # Development started on March 25, 2024
 
 ## TEASER: https://www.youtube.com/watch?v=be6OTgQLsL0
@@ -32,6 +32,6 @@ All APIs offer a free trial or reduced initiation costs. Reach out to me if you 
 
 ## START:
 
-1. npm i --production
-2. npm run
+1. npm i
+2. npm run dev
 3. Open [http://localhost:3000] on a browser. 
