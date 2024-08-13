@@ -5,6 +5,7 @@ import { OpenAI } from 'openai';
 import AudioPlayer from '../components/AudioPlayer';
 import { voice_ids } from '../private/voice_ids';
 import { SpinnerDotted } from 'spinners-react';
+import { PropagateLoader } from 'react-spinners';
 import CodePreview from '@/components/CodePreview';
 import languages from '../private/languages';
 import DownloadButton from '@/components/Download';
@@ -48,7 +49,7 @@ const [isHovered, setIsHovered] = useState(false);
     message: '',
     voice: Random.generateRandomVoice(),
     thread: null,
-    limit: 15,
+    limit: 30,
     submitted: false,
     code: null,
     language: '🇺🇸',
@@ -58,7 +59,7 @@ const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => { //optimize this
     const translatePlaceholder = async () => {
-      const updatedPlaceholder = await Translate('en', formData.language, 'Ask me anything ✦');
+      const updatedPlaceholder = await Translate('en', formData.language, 'Ask me anything...');
     
       setFormData(prevFormData => ({
         ...prevFormData,
@@ -194,14 +195,14 @@ const [isHovered, setIsHovered] = useState(false);
 }
 
   function simplify() {
-    if (formData.limit === 15) {
-      setFormData((prevData) => ({ ...prevData, limit: 30 }));
-    } else if (formData.limit === 30) {
-      setFormData((prevData) => ({ ...prevData, limit: 45 }));
-    } else if (formData.limit === 45){
+    if (formData.limit === 30) {
       setFormData((prevData) => ({ ...prevData, limit: 60 }));
+    } else if (formData.limit === 60) {
+      setFormData((prevData) => ({ ...prevData, limit: 90 }));
+     } else if (formData.limit === 90) {
+      setFormData((prevData) => ({ ...prevData, limit: 120 }));
     } else {
-    setFormData((prevData) => ({ ...prevData, limit: 15 }));
+    setFormData((prevData) => ({ ...prevData, limit: 30 }));
   }
   }
 
@@ -233,6 +234,7 @@ const [isHovered, setIsHovered] = useState(false);
     className="pl-1 hover:scale-90 transition-all duration-500  ease-out " 
     id="randomButton" 
     type="button" 
+            title="Generate random query"
     onClick={generateRandom}
 >
     <img src="/random.svg" alt="Random" />
@@ -243,25 +245,27 @@ const [isHovered, setIsHovered] = useState(false);
             value={formData.query}
             id="query"
             placeholder={formData.placeholder}
-            className=" caret-white text-white pl-2 focus:outline-none focus:ring-0 rounded-xl text-lg font-light  bg-black"
+            className="caret-white text-white pl-2 focus:outline-none focus:ring-0 rounded-xl text-lg font-small  bg-black"
             autoFocus
           />
           
           <button
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className={`hover:scale-90 transition-all duration-500 leading-5 ease-out rounded-xl bg-white px-4 mr-1.5 py-2 pr-2 pl-2 transition-all   ${formData.limit === 15 ? 'font-medium text-sm' : ''} ${formData.limit === 30 ? 'font-bold text-md' : ''} ${formData.limit === 45 ? 'font-extrabold text-lg' : ''} ${formData.limit === 60 ? 'font-black text-xl' : ''}`}
+            className={`hover:scale-90 transition-all duration-500 leading-5 ease-out rounded-xl bg-white px-4 mr-1.5 py-2 pr-1.5 pl-1.5 transition-all   ${formData.limit === 30 ? 'font-semibold text-sm' : ''} ${formData.limit === 60 ? 'font-bold text-md' : ''} ${formData.limit === 90 ? 'font-extrabold text-lg' : ''} ${formData.limit === 120 ? 'font-black text-xl' : ''}`}
             id="simplify"
+            title="Choose response length"
             type="button"
             onClick={simplify}
           >
             <span style={{ fontSize: '15px' }}>{''}</span>
-            {'<' + (formData.limit === 15 ? '15' : formData.limit === 30 ? '30' : formData.limit === 45 ? '45' : formData.limit === 60 ? '60' : '')}
+            {(formData.limit === 30 ? '30' : formData.limit === 60 ? '60' : formData.limit === 90 ? '90' : formData.limit === 120 ? '120' : '') }
           
           </button>
           <select
-            className=" pl-2 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 o  text-xl transition-transform duration-500 ease-out font-bold "
+            className=" pl-1.5 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 o  text-xl transition-transform duration-500 ease-out "
             value={formData.voice}
+            title="Customize voice"
             onChange={(e) => setFormData((prevData) => ({ ...prevData, voice: e.target.value }))}
             style={{ borderRadius: '12px', width: '37px', height: '37px', WebkitAppearance: 'none', color: 'white' }}
           >
@@ -332,10 +336,11 @@ const [isHovered, setIsHovered] = useState(false);
             </optgroup>
           </select>
           <select
-            className="mr-0.5 ml-1.5 pl-1.5 pr-1 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out"
+            className="mr-0.5 ml-1.5 pl-1.5 pr-1 text-xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out"
             value={formData.language}
+            title="Choose a language"
             onChange={(e) => setFormData((prevData) => ({ ...prevData, language: e.target.value }))}
-            style={{ borderRadius: '13px 20px 20px 13px', width: '42px', height: '38px', WebkitAppearance: 'none' }}
+            style={{ borderRadius: '13px 20px 20px 13px', width: '39px', height: '38px', WebkitAppearance: 'none' }}
           >
             {Object.entries(languages).map(([name, flag]) => (
               <option key={flag} value={name}>{flag}</option>
@@ -345,7 +350,13 @@ const [isHovered, setIsHovered] = useState(false);
       </form>
       {formData.waiting ? (
         <div className={`flex absolute  left-0 right-0  justify-center items-center ${formData.waiting ? 'fade-in' : 'fade-out'}`}>
-  <SpinnerDotted size={45} thickness={160} speed={400} color="rgba(0, 0, 0, 1)" />
+  {/* <SpinnerDotted size={45} thickness={160} speed={400} color="rgba(0, 0, 0, 1)" /> */}
+          <PropagateLoader
+            color="#000000"
+            size={20}
+            speedMultiplier={2}
+            
+          />
 </div>
       ) : (
 
