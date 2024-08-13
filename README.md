@@ -30,8 +30,8 @@ All APIs offer a free trial or reduced initiation costs. Reach out to me if you 
 
 5. Make sure Code Retrieval and Code Interpreter are set to ON
 
-## START:
+## START: (Node/NPM required)
 
-1. npm i
-2. npm run dev
-3. Open [http://localhost:3000] on a browser. 
+1. npm install -g pnpm
+2. pnpm install
+3. Open http://localhost on your browser to go live. 
