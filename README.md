@@ -1,5 +1,5 @@
 Bight.ai
-v1.0 
+v1.1 
 
 # Author: Christian Alcantara
 # Author: www.c-alcantara.com
