@@ -1,10 +1,10 @@
 Bight.ai
-v1.0
+v1.0 
 
 # Author: Christian Alcantara
 # Author: www.c-alcantara.com
 # Email: hi@c-alcantara.com
-# Build: 12 August 2024
+# Build: 13 August 2024
 # GPT-4o-mini  
 # Development started on March 25, 2024
 
@@ -30,8 +30,8 @@ All APIs offer a free trial or reduced initiation costs. Reach out to me if you 
 
 5. Make sure Code Retrieval and Code Interpreter are set to ON
 
-## START:
+## START: (Node/NPM required)
 
-1. npm i --production
-2. npm run
-3. Open [http://localhost:3000] on a browser. 
+1. npm install -g pnpm
+2. pnpm install
+3. Open http://localhost on your browser to go live. 

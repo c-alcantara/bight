@@ -8,7 +8,7 @@ interface Props {
   formData: item;
 }
 
-class Download extends React.Component<Props> {
+class Beautify extends React.Component<Props> {
   handleClick = () => {
     const { formData } = this.props;
     const code = formData.code;
@@ -38,16 +38,16 @@ link.download = `code${fileExtension}`;
   render() {
     return (
         <button
-        id="downloadButton"
-        title="Download the code"
-        className="invert max-w-[27px] max-h-[27px] ml-2"
+        id="beautify"
+        className="invert max-w-[22px] max-h-[22px] ml-2 mr-2"
         onClick={this.handleClick}
         type="button" 
+        title="Beautify element"
       >
-        <img src="/download.svg" alt="Download" />
+        <img src="/magic.svg" alt="Beautify" />
       </button>
     );
   }
 }
 
-export default Download;
+export default Beautify;

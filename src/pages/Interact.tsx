@@ -4,14 +4,16 @@ import { Message } from 'openai/resources/beta/threads/index.mjs';
 import { OpenAI } from 'openai';
 import AudioPlayer from '../components/AudioPlayer';
 import { voice_ids } from '../private/voice_ids';
-import { SpinnerDotted } from 'spinners-react';
+//import { SpinnerDotted } from 'spinners-react';
 import { PropagateLoader } from 'react-spinners';
 import CodePreview from '@/components/CodePreview';
 import languages from '../private/languages';
 import DownloadButton from '@/components/Download';
+//import beautify from '@/components/Beautify';
 import Translate from '../components/Translate';
 import { Random } from '@/components/Random';
 import { instruct, aldInstruct } from '../../public/instructions';
+import Beautify from '@/components/Beautify';
 interface BightProps {
   assistantId: string;
   apiKey: string;
@@ -146,7 +148,7 @@ const [isHovered, setIsHovered] = useState(false);
         waiting: false
       }));
     } catch (error) {
-      alert('An error occurred. Please try again.');
+      alert('An error occurred. Please try again. Keys?');
       console.error('API error or no keys provided', error);
     }
   };
@@ -174,7 +176,7 @@ const [isHovered, setIsHovered] = useState(false);
         }
       }, 1000);
     } catch (error) {
-      alert('An error occurred. Please try again.');
+      alert('An error occurred. Please try again. OpenAI?');
       console.error('An error occurred:', error);
     }
   };
@@ -226,10 +228,11 @@ const [isHovered, setIsHovered] = useState(false);
   }
 
   return (
-    <div className=" items-center justify-center lg:container  p-20 z-10 ">
+    <div className="  items-center justify-center lg:container  p-20 z-10 ">
       <form onSubmit={handleSubmit} className={`flex items-center justify-center hover:scale-105 z-10 ${formData.waiting ? 'fade-out-main' : 'fade-in-main'} `}>
-        <div className="items-center justify-center z-10 flex w-4/5 bg-black p-1.5 outline-0 outline outline-white rounded-full shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.05),_0_6.7px_5.3px_rgba(0,_0,_0,_0.06),_0_12.5px_10px_rgba(0,_0,_0,_0.07),_0_22.3px_17.9px_rgba(0,_0,_0,_0.09),_0_41.8px_33.4px_rgba(0,_0,_0,_0.1),_0_100px_80px_rgba(0,_0,_0,_0.14)] ">
+        <div className="hover:scale-x-105 transition-all duration-300 bounce items-center justify-center z-10 flex w-4/5 bg-black p-1.5 outline-0 outline outline-white rounded-full shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.05),_0_6.7px_5.3px_rgba(0,_0,_0,_0.06),_0_12.5px_10px_rgba(0,_0,_0,_0.07),_0_22.3px_17.9px_rgba(0,_0,_0,_0.09),_0_41.8px_33.4px_rgba(0,_0,_0,_0.1),_0_100px_80px_rgba(0,_0,_0,_0.14)] ">
           {formData.code && <DownloadButton formData={{ code: formData.code }} />}
+          {formData.code && <Beautify formData={{ code: formData.code }} />}
           <button 
     className="pl-1 hover:scale-90 transition-all duration-500  ease-out " 
     id="randomButton" 
