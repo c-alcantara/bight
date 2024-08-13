@@ -1,5 +1,5 @@
 Bight.ai
-v1 (Preview Build)
+v1.1 
 
 # Author: Christian Alcantara
 # Author: www.calcantara.com
