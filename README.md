@@ -1,27 +1,16 @@
 Bight.ai
-v0.2 (Preview Build)
+v1.0 
 
 # Author: Christian Alcantara
 # Author: www.calcantara.com
 # Email: chrsalctra@icloud.com (Accepting feedback!)
-# Build: 4 May 2024
+# Build: 12 August 2024
 # Tested with OpenAI GPT-3.5-Turbo-0125 & 4.0 Turbo on Google Chrome & Safari 
 # Development started on March 25, 2024
 
 ## TEASER: https://www.youtube.com/watch?v=be6OTgQLsL0
 ## TRAILER: https://www.youtube.com/watch?v=fZcus0DOrus&t=65s
- 
-
-# RELEASE NOTES
-# Updating Code Previews
- 
-# KNOWN ISSUES:
-
-This is a very early build, with lot of changes and additions to come before public release, already being worked on. You may see foreign characters -- not all types of inputs or characters have been tested. Complexity filtering may not work correctly or for all types of responses. Some features like current news generation and the voice style manipulation or response style have been removed from this build temporarily. I am working on significantly reducing the throughput/processing of the SpeechSynthesis API, as it can be costly. Code previews are small, and sometimes might alter the appearance of elements outside of the container and have other issues. 
-
-Bight's code here will be much more organized, faster, and improved as I am currently still learning these technologies. My goal is to have as much of the processing done here. This version has not been tested on all devices or browsers. You may submit bugs and issues using the button on the page.
-Thank you, enjoy!
-
+## DEMO: https://www.youtube.com/watch?v=f2oNr7RnA70
 
 ## REQUIRMENTS:
 
@@ -43,6 +32,6 @@ All APIs offer a free trial or reduced initiation costs. Reach out to me if you 
 
 ## START:
 
-1. npm install or npm i
+1. npm i
 2. npm run dev
 3. Open [http://localhost:3000] on a browser. 
