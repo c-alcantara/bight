@@ -5,7 +5,7 @@ v1.0
 # Author: www.calcantara.com
 # Email: chrsalctra@icloud.com (Accepting feedback!)
 # Build: 12 August 2024
-# Tested with OpenAI GPT-3.5-Turbo-0125 & 4.0 Turbo on Google Chrome & Safari 
+# GPT-4o-mini  
 # Development started on March 25, 2024
 
 ## TEASER: https://www.youtube.com/watch?v=be6OTgQLsL0
