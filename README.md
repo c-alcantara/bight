@@ -32,6 +32,7 @@ All APIs offer a free trial or reduced initiation costs. Reach out to me if you 
 
 ## START: (Node/NPM required)
 
-1. npm install -g pnpm
-2. pnpm install
+1. npm i pnpm
+2. modlcean
+2. npn run dev
 3. Open http://localhost on your browser to go live. 
