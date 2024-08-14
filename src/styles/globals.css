@@ -243,8 +243,8 @@ button{
 
 
 @font-face {
-  font-family: 'SF-Pro Expanded Regular';
-  src: url('/SF-Pro.ttf') format('truetype');
+  font-family: 'SF-Mono-Light';
+  src: url('/SF-Mono-Light.otf') format('opentype');
   font-weight: normal;
   font-style: italic;
 }
