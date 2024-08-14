@@ -186,7 +186,7 @@ select::after {
 
 select {
   
-  background-image: url('/0random.svg');
+  background-image: url('/random.svg');
   background-position: right 0px center;
   background-repeat: no-repeat;
 }

@@ -112,7 +112,7 @@ const [isHovered, setIsHovered] = useState(false);
 
   //const openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
   require('dotenv').config();
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY, dangerouslyAllowBrowser: true });
+  const openai = new OpenAI({ apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY, dangerouslyAllowBrowser: true });
   useEffect(() => {
     const newThread = async () => {
       const newThread = await openai.beta.threads.create();
