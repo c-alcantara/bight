@@ -49,7 +49,7 @@ const [isHovered, setIsHovered] = useState(false);
     messageList: [],
     waiting: false,
     message: '',
-    voice: Random.generateRandomVoice(),
+    voice: 'silent',
     thread: null,
     limit: 30,
     submitted: false,

@@ -55,9 +55,9 @@ class VantaComponent extends Component<Props> {
         midtoneColor: this.props.midColor,
         lowlightColor: this.props.lowColor,
         baseColor: this.props.base,
-        blurFactor: .9,
+        blurFactor: .99,
         speed: this.props.speed,
-        zoom: 0.4
+        zoom: .5
       });
     }
   }
@@ -67,9 +67,9 @@ class VantaComponent extends Component<Props> {
     var transitionDuration: any = '';
     
     if (prevProps.speed!= 18) {
-      transitionDuration = 300; // Transition duration in milliseconds
+      transitionDuration = 500; // Transition duration in milliseconds
     } else {
-      transitionDuration = 1250; // Transition duration in milliseconds
+      transitionDuration = 1750; // Transition duration in milliseconds
     }
     const stepDuration = 10; // Step duration in milliseconds
     const steps = transitionDuration / stepDuration;
@@ -112,7 +112,7 @@ class VantaComponent extends Component<Props> {
     if (this.props.speed != 18) {
       transitionDuration = 1750; // Transition duration in milliseconds
     } else {
-      transitionDuration = 250; // Transition duration in milliseconds
+      transitionDuration = 750; // Transition duration in milliseconds
     }
 
     const startSpeed = this.vantaEffect.options.speed;
