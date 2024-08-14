@@ -7,7 +7,12 @@ const Speak = async (inputText: string, voiceid: string): Promise<ArrayBuffer | 
     const API_KEY: string = `${keys.voiceKey}`;
 
     try {
-       
+        if (voiceid === '') {
+            alert ("returning null");
+            // Return an empty ArrayBuffer or null if voiceid is empty
+           return null
+
+        }
 
         const response: AxiosResponse<ArrayBuffer> = await axios.post(
             `https://api.elevenlabs.io/v1/text-to-speech/${voiceid}`,

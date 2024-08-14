@@ -20,8 +20,9 @@ const AudioPlayer: React.FC<AudioProps> = ({ inputText, voiceChoice, onPlay, onE
        
       
       try {
-        if (voiceChoice != ''){
+        
         const data = await Speak(inputText, voiceChoice);
+        if (data != null){
         const url = URL.createObjectURL(new Blob([data], { type: 'audio/mpeg' }));
         setAudioURL(url);
         }
