@@ -2,13 +2,13 @@ import Image from 'next/image';
 
 const Bight = () => {
   return (
-    <div className="fade-in-main-c transition-all duration-500 mt-20 relative cursor-pointer">
-      <img
-        src="/bight.svg"
-        alt="Bight.ai"
-        width="400px"
-      />
-    </div>
+   <div className=" flex justify-center hover:scale-200 transition-transform duration-100  z-55 pb-20 fade-in">
+  <img
+    src="/bight.svg"
+    alt="Bight.ai"
+    width="400px"
+  />
+</div>
   );
 }
 
