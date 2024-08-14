@@ -340,7 +340,7 @@ const [isHovered, setIsHovered] = useState(false);
             </optgroup>
           </select>
           <select
-            className="mr-0.5 ml-1.5 pl-1.5 pr-1 text-xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out"
+            className="ml-1.5 pl-1.5 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
             value={formData.language}
             title="Choose a language"
             onChange={(e) => setFormData((prevData) => ({ ...prevData, language: e.target.value }))}
