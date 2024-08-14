@@ -243,14 +243,12 @@ button{
 
 
 @font-face {
-  font-family: 'SF Pro';
+  font-family: 'SF-Pro Expanded Regular';
   src: url('/SF-Pro.ttf') format('truetype');
-  
-  font-weight: regular;
 }
 
 .body {
-  font-family: 'SF-Pro';
+  font-family: 'SF-Pro Expanded Regular', sans-serif;
 }
 
 .shrink {
