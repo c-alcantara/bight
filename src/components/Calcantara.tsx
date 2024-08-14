@@ -2,8 +2,8 @@ import React from 'react';
 
 const calcantara = () => {
     return (
-        <div className="hover:scale-125 transition-transform duration-100 fixed bottom-10 right-10 z-50 fade-in ">
-            <a href="https://calcantara.com">
+        <div className="hover:scale-200 transition-transform duration-100 fixed bottom-10 right-10 z-50 fade-in ">
+            <a href="https://c-alcantara.com">
                 <img 
                     src="/c.svg" 
                     alt="calcantara.com" 

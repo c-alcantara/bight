@@ -242,16 +242,9 @@ button{
 
 
 
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/jetbrains_mono.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
 
-.body {
-  font-family: 'JetBrains Mono', monospace;
-}
+
+
 
 .shrink {
   transition: width 0.5s ease-out;
