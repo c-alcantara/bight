@@ -268,13 +268,4 @@ button{
   }
 }
 
-.custom-select {
-  color: green;
-  /* Default text color */
-}
 
-.custom-select:focus {
-  color: white;
-  /* Text color when focused (selected option) */
-
-}

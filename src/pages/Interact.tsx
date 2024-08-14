@@ -267,7 +267,7 @@ const [isHovered, setIsHovered] = useState(false);
           
           </button>
           <select
-            className=" pl-2 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 o  font-bold text-md transition-transform duration-500 ease-out "
+            className=" pl-2 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 o  font-medium text-md transition-transform duration-500 ease-out "
             value={formData.voice}
             title="Customize voice"
             onChange={(e) => setFormData((prevData) => ({ ...prevData, voice: e.target.value }))}
