@@ -20,9 +20,11 @@ const AudioPlayer: React.FC<AudioProps> = ({ inputText, voiceChoice, onPlay, onE
        
       
       try {
+        if (voiceChoice != ''){
         const data = await Speak(inputText, voiceChoice);
         const url = URL.createObjectURL(new Blob([data], { type: 'audio/mpeg' }));
         setAudioURL(url);
+        }
       } catch (error) {
         alert("error!");
         console.error('ERROR!!! 😡', error);
