@@ -243,9 +243,9 @@ button{
 
 
 @font-face {
-  font-family: 'SF-Pro';
+  font-family: 'SF Pro';
   src: url('/SF-Pro.ttf') format('truetype');
-  font-style: expanded;
+  
   font-weight: regular;
 }
 
