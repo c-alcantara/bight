@@ -267,11 +267,11 @@ const [isHovered, setIsHovered] = useState(false);
           
           </button>
           <select
-            className=" pl-1.5 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 o  text-xl transition-transform duration-500 ease-out "
+            className=" pl-2 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 o  text-xl transition-transform duration-500 ease-out "
             value={formData.voice}
             title="Customize voice"
             onChange={(e) => setFormData((prevData) => ({ ...prevData, voice: e.target.value }))}
-            style={{ borderRadius: '12px', width: '37px', height: '37px', WebkitAppearance: 'none', color: 'white' }}
+            style={{ borderRadius: '12px', width: '100', height: '37px', WebkitAppearance: 'none', color: 'white' }}
           >
             
             

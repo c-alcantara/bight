@@ -11,7 +11,6 @@ export const voice_ids = {
     "💂🏻‍♀️  Matthew": 'Yko7PKHZNXotIFUBG7I9',
   }, 
   casual: {
-    "💇🏻‍♀️  Sarah": 'EXAVITQu4vr4xnSDxMaE',
     "👱🏻‍♂️  Chris": 'iP95p4xoKVk53GoZ742B',
     "👷🏻‍♂️  Sam": 'yoZ06aMxZJJ28mfd3POQ',
     "👸🏻  Rachel": '21m00Tcm4TlvDq8ikWAM',
