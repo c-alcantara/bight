@@ -11,37 +11,36 @@ import { voice_ids } from '@/private/voice_ids';
 // Subsets are really important. CHECK BELOW FOR MORE INFO
 
 import Today from '@/components/Today';
+const randomColor = () => Math.floor(Math.random() * 0xFFFFFF);
+
 export default function Home() {
-  const [highColor, setHigh] = useState(0x0);
-  const [midColor, setMid] = useState(0x0);
-  const [lowColor, setLow] = useState(0x0);
-  const [base, setBase] = useState(0x0);
+  // Initialize each color with its own random value
+  const [highColor, setHigh] = useState(0x999999);
+  const [midColor, setMid] = useState(0x999999);
+  const [lowColor, setLow] = useState(0x999999);
+  const [base, setBase] = useState(0x0); // Keeping this white as per your original code
   const [speed, setSpeed] = useState(1);
 
+  // Store the initial random colors
+  const [initialHighColor] = useState(highColor);
+  const [initialMidColor] = useState(midColor);
+  const [initialLowColor] = useState(lowColor);
 
-
-const updateColors = () => {
-
-    setHigh(Math.floor(Math.random() * 0xFFFFFF));
-    setMid(Math.floor(Math.random() * 0xFFFFFF));
-    setLow(Math.floor(Math.random() * 0xFFFFFF));
-  setBase((Math.floor(Math.random() * 0xFFFFFF)));
+  const updateColors = () => {
+    setHigh(randomColor());
+    setMid(randomColor());
+    setLow(randomColor());
+    setBase(0xFFFFFF); // Keeping this white as per your original code
     setSpeed(20);
-
-  
   };
 
   const useDefaults = () => {
-   
-    setHigh(0x0);
-    setMid(0x0);
-    setLow(0x0);
-    setBase(0x0);
+    setHigh(initialHighColor);
+    setMid(initialMidColor);
+    setLow(initialLowColor);
+    setBase(0xFFFFFF);
     setSpeed(1);
   };
-
-
-
  
 
   const key = useMemo(() => `${highColor}-${midColor}-${lowColor}-${base}-${speed}`, [highColor, midColor, lowColor, base, speed]);
