@@ -4,6 +4,7 @@ export const voice_ids = {
   },
   formal: {
     "👩🏻‍⚖️ Serena": 'pMsXgVXv3BLzUgSXRplE',
+    "💂🏻‍♀️Alyx": '1BUhH8aaMvGMUdGAmWVM',
     "👨🏻‍🦳 Paul": '5Q0t7uMcjvnagumLfvZi',
     "👩🏼 Matilda": 'XrExE9yKIg1WjnnlVkGX',
     "👱🏼‍♀️ Lily": 'pFZP5JQG7iQjIQuC4Bku',
