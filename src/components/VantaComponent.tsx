@@ -66,8 +66,8 @@ class VantaComponent extends Component<Props> {
 
     var transitionDuration: any = '';
     
-    if (prevProps.speed!= 18) {
-      transitionDuration = 500; // Transition duration in milliseconds
+    if (prevProps.speed!= 20) {
+      transitionDuration = 600; // Transition duration in milliseconds
     } else {
       transitionDuration = 1750; // Transition duration in milliseconds
     }
@@ -109,7 +109,7 @@ class VantaComponent extends Component<Props> {
 
     var transitionDuration: any = '';
 
-    if (this.props.speed != 18) {
+    if (this.props.speed != 20) {
       transitionDuration = 1750; // Transition duration in milliseconds
     } else {
       transitionDuration = 750; // Transition duration in milliseconds
@@ -149,7 +149,7 @@ class VantaComponent extends Component<Props> {
     return (
       <div
         ref={this.sceneRef}
-        className=" w-full h-screen absolute z-0 transition-all duration-500 ease-out"
+        className=" w-full h-screen absolute z-0 transition-all duration-500 ease-out "
       />
     );
   }

@@ -9,7 +9,7 @@ const calcantara = () => {
                     alt="calcantara.com" 
                     width="35px" 
                     height="35px" 
-                    // style={{ filter: 'drop-shadow(2px 4px 6px rgba(255, 255, 255, 0.3))' }}
+                    
                 />
             </a>
         </div>

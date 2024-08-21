@@ -49,7 +49,7 @@ const [isHovered, setIsHovered] = useState(false);
     messageList: [],
     waiting: false,
     message: '',
-    voice: '',
+    voice: '1BUhH8aaMvGMUdGAmWVM',
     thread: null,
     limit: 30,
     submitted: false,
@@ -61,7 +61,7 @@ const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => { //optimize this
     const translatePlaceholder = async () => {
-      const updatedPlaceholder = await Translate('en', formData.language, 'Ask me anything...');
+      const updatedPlaceholder = await Translate('en', formData.language, 'Ask away ✨');
     
       setFormData(prevFormData => ({
         ...prevFormData,
@@ -231,10 +231,10 @@ const [isHovered, setIsHovered] = useState(false);
   return (
     <div className="   w-[100%] items-center justify-center lg:container    ">
       <form onSubmit={handleSubmit} className={`flex items-center justify-center hover:scale-105  ${formData.waiting ? 'fade-out-main' : 'fade-in-main'} `}>
-        <div className="overflow-hidden hover:scale-x-105 transition-all duration-300 bounce items-center justify-center z-10 flex w-4/5 bg-black p-1.5 outline-0 outline outline-white rounded-full shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.05),_0_6.7px_5.3px_rgba(0,_0,_0,_0.06),_0_12.5px_10px_rgba(0,_0,_0,_0.07),_0_22.3px_17.9px_rgba(0,_0,_0,_0.09),_0_41.8px_33.4px_rgba(0,_0,_0,_0.1),_0_100px_80px_rgba(0,_0,_0,_0.14)] ">
+        <div className="overflow-hidden hover:scale-x-105 transition-all duration-300 bounce items-center justify-center z-10 flex w-4/5 bg-black p-1.5 outline-1 outline outline-white rounded-full shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.05),_0_6.7px_5.3px_rgba(0,_0,_0,_0.06),_0_12.5px_10px_rgba(0,_0,_0,_0.07),_0_22.3px_17.9px_rgba(0,_0,_0,_0.09),_0_41.8px_33.4px_rgba(0,_0,_0,_0.1),_0_100px_80px_rgba(0,_0,_0,_0.14)] ">
           {formData.code && <DownloadButton formData={{ code: formData.code }} />}
           {formData.code && <Beautify formData={{ code: formData.code }} />}
-          <button 
+          {/* <button 
     className="pl-1 hover:scale-90 transition-all duration-500  ease-out " 
     id="randomButton" 
     type="button" 
@@ -242,18 +242,18 @@ const [isHovered, setIsHovered] = useState(false);
     onClick={generateRandom}
 >
     <img src="/random.svg" alt="Random" />
-</button>
+</button> */}
           <input
             style={{ flex: 1 }}
             onChange={handleQueryChange}
             value={formData.query}
             id="query"
             placeholder={formData.placeholder}
-            className="caret-white text-white pl-2 focus:outline-none focus:ring-0 rounded-xl text-lg font-small  bg-transparent"
+            className="caret-white text-white pl-2 focus:outline-none focus:ring-0 rounded-xl  font-bold grayscale bg-transparent"
             autoFocus
           />
           
-          <button
+          {/* <button
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className={`hover:scale-90 transition-all duration-500 leading-5 ease-out rounded-xl bg-white px-4 mr-1.5 py-2 pr-1.5 pl-1.5 transition-all   ${formData.limit === 30 ? 'font-semibold text-sm' : ''} ${formData.limit === 60 ? 'font-bold text-md' : ''} ${formData.limit === 90 ? 'font-extrabold text-lg' : ''} ${formData.limit === 120 ? 'font-black text-xl' : ''}`}
@@ -265,9 +265,9 @@ const [isHovered, setIsHovered] = useState(false);
             <span style={{ fontSize: '15px' }}>{''}</span>
             {(formData.limit === 30 ? '30' : formData.limit === 60 ? '60' : formData.limit === 90 ? '90' : formData.limit === 120 ? '120' : '') }
           
-          </button>
+          </button> */}
           <select
-            className=" pl-2 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 o  font-medium text-md transition-transform duration-500 ease-out "
+            className=" focus:outline-none cursor-pointer focus:ring-0 hover:scale-90  font-medium text-md transition-transform duration-500 ease-out "
             value={formData.voice}
             title="Customize voice"
             onChange={(e) => setFormData((prevData) => ({ ...prevData, voice: e.target.value }))}
@@ -340,7 +340,7 @@ const [isHovered, setIsHovered] = useState(false);
             </optgroup>
           </select>
           <select
-            className="ml-1.5 pl-1.5 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
+            className="ml-1.5 pl-1.5 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90  transition-transform duration-500 ease-in-out custom-select"
             value={formData.language}
             title="Choose a language"
             onChange={(e) => setFormData((prevData) => ({ ...prevData, language: e.target.value }))}
@@ -357,8 +357,8 @@ const [isHovered, setIsHovered] = useState(false);
   {/* <SpinnerDotted size={45} thickness={160} speed={400} color="rgba(0, 0, 0, 1)" /> */}
           <PropagateLoader
             color="#000000"
-            size={20}
-            speedMultiplier={2}
+            size={18}
+            speedMultiplier={1.5}
             
           />
 </div>
@@ -369,7 +369,7 @@ const [isHovered, setIsHovered] = useState(false);
         <div className="mt-0">
           {formData.messageVisible && (
           <div>
-                <p className={` flex  justify-center items-center flex-col pt-4 leading-7 font-bold text-xl ${!formData.waiting ? 'fade-in-main' : 'fade-out-main'}`}>
+                <p className={` flex  justify-center items-center flex-col pt-4 leading-7 font-medium text-md ${!formData.waiting ? 'fade-in-main' : 'fade-out-main'}`}>
             {formData.message}
           </p>
           </div>
