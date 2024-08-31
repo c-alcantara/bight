@@ -15,23 +15,23 @@ const Speak = async (inputText: string, voiceid: string): Promise<ArrayBuffer | 
         }
 
         const response: AxiosResponse<ArrayBuffer> = await axios.post(
-            `https://api.elevenlabs.io/v1/text-to-speech/${voiceid}`,
-            {
-                text: inputText,
-                use_speaker_boost: true,
-                style: 30,
-                stability: 6,
-                similarity_boost: 5,
-                model_id: 'eleven_turbo_v2'
+          `https://api.elevenlabs.io/v1/text-to-speech/${voiceid}`,
+          {
+            text: inputText,
+            use_speaker_boost: true,
+            style: 30,
+            stability: 6,
+            similarity_boost: 5,
+            model_id: "eleven_turbo_v2",
+          },
+          {
+            headers: {
+              accept: "audio/mpeg",
+              "Content-Type": "application/json",
+              "xi-api-key": process.env.NEXT_PRIVATE_ELEVENLABS_API_KEY,
             },
-            {
-                headers: {
-                    accept: "audio/mpeg",
-                    "Content-Type": "application/json",
-                    "xi-api-key": API_KEY,
-                },
-                responseType: "arraybuffer",
-            }
+            responseType: "arraybuffer",
+          }
         );
 
         return response.data;
