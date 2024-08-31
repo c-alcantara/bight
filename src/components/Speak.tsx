@@ -4,7 +4,7 @@ import { ElevenLabsClient, ElevenLabs } from "elevenlabs";
 import { voice_ids } from '../private/voice_ids';
 
 const Speak = async (inputText: string, voiceid: string): Promise<ArrayBuffer | null> => {
-    const API_KEY: string = `${keys.voiceKey}`;
+    const API_KEY: string = `${process.env.NEXT_PRIVATE_ELEVENLABS_API_KEY}`;
 
     try {
         if (voiceid === '') {

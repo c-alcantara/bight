@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Threads } from 'openai/resources/beta/index.mjs';
 import { Message } from 'openai/resources/beta/threads/index.mjs';
-import { OpenAI } from 'openai';
+//import { OpenAI } from 'openai';
 import AudioPlayer from '../components/AudioPlayer';
 import { voice_ids } from '../private/voice_ids';
 //import { SpinnerDotted } from 'spinners-react';
@@ -15,8 +15,6 @@ import { Random } from '@/components/Random';
 import { instruct, aldInstruct } from '../../public/instructions';
 import Beautify from '@/components/Beautify';
 interface BightProps {
-  assistantId: any;
-  apiKey: any;
   updateColors: () => void;
   useDefaults: () => void;
   
@@ -38,7 +36,7 @@ interface FormData {
   messageVisible: boolean;
 }
 
-const Interact: FC<BightProps> = ({ assistantId, apiKey, updateColors, useDefaults }) => {
+const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
 const [isHovered, setIsHovered] = useState(false);
 
 
@@ -112,21 +110,35 @@ const [isHovered, setIsHovered] = useState(false);
 
   //const openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
   require('dotenv').config();
-  const openai = new OpenAI({ apiKey: process.env.NEXT_PRIVATE_OPENAI_API_KEY, dangerouslyAllowBrowser: true });
+  // const openai = new OpenAI({ apiKey: process.env.NEXT_PRIVATE_OPENAI_API_KEY, dangerouslyAllowBrowser: true });
   useEffect(() => {
     const newThread = async () => {
-      const newThread = await openai.beta.threads.create();
+      const response = await fetch('/api/openai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ action: 'createThread' }),
+      });
+      const newThread = await response.json();
       setFormData((prevData) => ({ ...prevData, thread: newThread }));
     };
 
     if (!formData.thread) newThread();
-  }, [apiKey, formData.thread]);
+  }, []);
 
 
 
   const updateMessages = async () => {
     try {
-      const messages = await openai.beta.threads.messages.list(formData.thread!.id);
+      const response = await fetch('/api/openai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ action: 'listMessages', threadId: formData.thread!.id }),
+      });
+      const messages = await response.json();
       let messageContent = generateMessageListString(messages.data.reverse(), formData.query);
       messageContent = messageContent.includes('【') ? messageContent.substring(0, messageContent.indexOf('【')) : messageContent;
       const between = /```([\s\S]*)```/;
@@ -158,24 +170,61 @@ const [isHovered, setIsHovered] = useState(false);
     try {
       setFormData((prevData) => ({ ...prevData, audioPlayerVisible: false, submitted: false, waiting: true }));
 
-      await openai.beta.threads.messages.create(formData.thread!.id, {
-        role: 'user', // revise below
-        content: formData.query + "; Please limit your responses to " + formData.limit + "words except when generating code.",
+      // Create message
+      await fetch('/api/openai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'createMessage',
+          threadId: formData.thread!.id,
+          content: formData.query + "; Please limit your responses to " + formData.limit + "words except when generating code.",
+        }),
       });
 
-      const run = await openai.beta.threads.runs.create(formData.thread!.id, {
-        assistant_id: assistantId,
-        instructions: `${instruct}`,
-        additional_instructions: `${aldInstruct}`,
+      // Create run
+      const runResponse = await fetch('/api/openai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'createRun',
+          threadId: formData.thread!.id,
+          instructions: `${instruct}`,
+          additional_instructions: `${aldInstruct}`,
+        }),
       });
+      const runData = await runResponse.json();
 
-      const int = setInterval(async () => {
-        const res = await openai.beta.threads.runs.retrieve(formData.thread!.id, run.id);
+      if (!runData.id) {
+        throw new Error('Failed to create run');
+      }
+
+      const checkRunStatus = async () => {
+        const resResponse = await fetch('/api/openai', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            action: 'retrieveRun',
+            threadId: formData.thread!.id,
+            runId: runData.id,
+          }),
+        });
+        const res = await resResponse.json();
         if (res.status === 'completed') {
-          clearInterval(int);
           updateMessages();
+        } else if (res.status === 'failed') {
+          throw new Error('Run failed');
+        } else {
+          setTimeout(checkRunStatus, 1000);
         }
-      }, 1000);
+      };
+
+      checkRunStatus();
     } catch (error) {
       alert('An error occurred. Please try again. OpenAI?');
       console.error('An error occurred:', error);

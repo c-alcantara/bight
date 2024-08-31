@@ -22,7 +22,8 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "types": ["prop-types"]
   },
   "include": [
     "next-env.d.ts",
