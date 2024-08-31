@@ -15,8 +15,8 @@ import { Random } from '@/components/Random';
 import { instruct, aldInstruct } from '../../public/instructions';
 import Beautify from '@/components/Beautify';
 interface BightProps {
-  assistantId: string;
-  apiKey: string;
+  assistantId: any;
+  apiKey: any;
   updateColors: () => void;
   useDefaults: () => void;
   

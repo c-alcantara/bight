@@ -65,8 +65,8 @@ export default function Home() {
           <Interact
             updateColors={updateColors}
             useDefaults={useDefaults}
-            assistantId={keys.assistantID}
-            apiKey={keys.openKey}
+            assistantId={process.env.NEXT_PRIVATE_ASSISTANT_API_KEY}
+            apiKey={process.env.NEXT_PRIVATE_OPENAI_API_KEY}
           />
     
       </div >
