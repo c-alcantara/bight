@@ -1,11 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import VantaComponent from "@/components/VantaComponent";
 import Bight from '@/components/Bight';
-import Interact from './Interact';
-import Calcantara from '../components/Calcantara';
-import { keys } from '../../keys';
+import Interact from '@/components/Interact'; // Updated import path
+import Calcantara from '@/components/Calcantara'; // Updated import path
 import AudioPlayer from '@/components/AudioPlayer';
-import { Random } from '../components/Random';
+import { Random } from '@/components/Random'; // Updated import path
 import { voice_ids } from '@/private/voice_ids';
 
 // Subsets are really important. CHECK BELOW FOR MORE INFO
