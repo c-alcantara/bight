@@ -1,6 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
 
 const Speak = async (inputText: string, voiceid: string): Promise<ArrayBuffer | null> => {
+    const API_KEY: string = `${process.env.NEXT_PRIVATE_ELEVENLABS_API_KEY}`;
+
     try {
         if (voiceid === '') {
             console.warn("Voice ID is empty, returning null");
