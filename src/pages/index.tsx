@@ -1,86 +1,122 @@
-import React, { useState, useMemo } from 'react';
-import VantaComponent from "@/components/VantaComponent";
-import Bight from '@/components/Bight';
-import Interact from '@/components/Interact'; // Updated import path
-import Calcantara from '@/components/Calcantara'; // Updated import path
-import AudioPlayer from '@/components/AudioPlayer';
-import { Random } from '@/components/Random'; // Updated import path
-import { voice_ids } from '@/private/voice_ids';
-
-// Subsets are really important. CHECK BELOW FOR MORE INFO
-
-import Today from '@/components/Today';
-const randomColor = () => Math.floor(Math.random() * 0xFFFFFF);
+'use client'
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { Button } from "@/components/ui/button";
+import Form from '@/components/form';
+import Vanta from '@/components/vanta';
+import { ReactTyped } from "react-typed";
 
 export default function Home() {
-  // Initialize each color with its own random value
-  const [highColor, setHigh] = useState(0x999999);
-  const [midColor, setMid] = useState(0x999999);
-  const [lowColor, setLow] = useState(0x999999);
-  const [base, setBase] = useState(0x0); // Keeping this white as per your original code
-  const [speed, setSpeed] = useState(1);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  // Store the initial random colors
-  const [initialHighColor] = useState(highColor);
-  const [initialMidColor] = useState(midColor);
-  const [initialLowColor] = useState(lowColor);
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      const { clientX, clientY } = event;
+      const { innerWidth, innerHeight } = window;
+      setMousePosition({
+        x: (clientX / innerWidth) * 2 - 1,
+        y: (clientY / innerHeight) * 2 - 1
+      });
+    };
 
-  const updateColors = () => {
-    setHigh(randomColor());
-    setMid(randomColor());
-    setLow(randomColor());
-    setBase(0xFFFFFF); // Keeping this white as per your original code
-    setSpeed(20);
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  const parallaxStyle = {
+    transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`,
+    transition: 'transform 0.1s ease-out'
   };
-
-  const useDefaults = () => {
-    setHigh(initialHighColor);
-    setMid(initialMidColor);
-    setLow(initialLowColor);
-    setBase(0xFFFFFF);
-    setSpeed(1);
-  };
- 
-
-  const key = useMemo(() => `${highColor}-${midColor}-${lowColor}-${base}-${speed}`, [highColor, midColor, lowColor, base, speed]);
 
   return (
-    
-    <main >
-  
-      <Calcantara />
-      
-      <div className="  flex flex-col items-center justify-center h-screen  z-10 relative">
-       
-        
-        <div className={`  w-[80%]  h-[40rem] fade-in-main-c  border-2  border-white bg-gradient-to-b from-[rgba(255,2550,255,.3)] to-[rgba(255,255,255,.93)] flex flex-col justify-center items-center shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.03),_0_6.7px_5.3px_rgba(0,_0,_0,_0.03),_0_12.5px_10px_rgba(0,_0,_0,_0.03),_0_22.3px_17.9px_rgba(0,_0,_0,_0.03),_0_41.8px_33.4px_rgba(0,_0,_0,_0.03),_0_100px_80px_rgba(0,_0,_0,_0.06)] p-10 rounded-[50px] z-10 relative `}>
-          <Bight />
-    
-     
-     
-      
+    <div className="min-h-screen flex flex-col bg-cover bg-center bg-fixed">
+      <Image
+        src="b.svg"
+        alt="Logo"
+        width={75}
+        height={75}
+        className="fixed left-1/2 transform -translate-x-1/2"
+        style={{ top: "40px" }}
+      />
 
+      <p
+        className="text-black fixed left-1/2 transform -translate-x-1/2 text-center font-bold text-2xl"
+        style={{ bottom: "180px" }}
+      >
+        <strong>No</strong>{" "}
+        <ReactTyped
+          strings={[
+            "more victorian hold music.",
+            "more endless FAQ pages.",
+            "more can you repeat that again?",
+            "more ",
+            "more frustration.",
+          ]}
+          typeSpeed={50}
+          backSpeed={30}
+          loop
+        />
+      </p>
 
-          <Interact
-            updateColors={updateColors}
-            useDefaults={useDefaults}
-           // assistantId={process.env.NEXT_PRIVATE_ASSISTANT_ID}
-           // apiKey={process.env.NEXT_PRIVATE_OPENAI_API_KEY}
-          />
-    
-      </div >
-   
-      <VantaComponent
-        highColor={highColor}
-        midColor={midColor}
-        lowColor={lowColor}
-        base={base}
-        speed={speed}
-         
-      />  
+      <div className="flex-grow flex items-center justify-center">
+        <div
+          className="w-4/6 max-w-3xl p-8 backdrop-blur-lg border-2 border-white bg-gradient-to-b from-[rgba(255,2550,255,.4)] to-[rgba(255,255,255,.93)] rounded-3xl shadow-2xl relative"
+          style={parallaxStyle}
+        >
+          <div className="max-w-3xl">
+            <Image
+              src="bight.svg"
+              alt="Logo"
+              width={200}
+              height={200}
+              className="   pb-5"
+              style={{  }}
+            />
+
+            <p className="text-xl font-medium  mb-8" style={{}}>
+              is a seamless support experience for businesses and customers
+              without the typical overhead.
+            </p>
+          </div>
+          <Form />
+          <p
+            className="text-2xl text-right mt-3 pt-10 cursor-help"
+            title="not all features here are described or shown (yet)"
+          >
+            ✶
+          </p>
+          <a
+            href="https://www.c-alcantara.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit my website"
+          >
+            <Image
+              src="c.svg"
+              alt="Logo"
+              width={45}
+              height={45}
+              style={{
+                position: "absolute",
+                bottom: "30px",
+                left: "30px",
+                cursor: "pointer",
+              }}
+            />
+          </a>
+        </div>
       </div>
-    </main>
+      <div>
+        <Vanta />
+      </div>
+      <div className="z-5 fixed left-0 ml-[-10rem] top-1/2 transform -translate-y-1/2 -rotate-90 origin-center">
+        <p className="text-sm text-black opacity-50 whitespace-nowrap x-5">
+          designed + developed by christian alcantara
+        </p>
+      </div>
+    </div>
   );
 }
-
-
