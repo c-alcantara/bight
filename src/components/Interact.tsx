@@ -180,7 +180,8 @@ const [isHovered, setIsHovered] = useState(false);
         body: JSON.stringify({
           action: 'createMessage',
           threadId: formData.thread!.id,
-          content: formData.query + "; Please limit your responses to " + formData.limit + "words except when generating code.",
+          content: formData.query,
+          //"; Please limit your responses to " + formData.limit + "words except when generating code.",
         }),
       });
 
