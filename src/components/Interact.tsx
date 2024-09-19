@@ -199,7 +199,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
       });
 
       // Create run
-      const runResponse = await fetch("/api/openai", {
+      const runResponse = await fetch("../api/openai", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -218,7 +218,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
       }
 
       const checkRunStatus = async () => {
-        const resResponse = await fetch("/api/openai", {
+        const resResponse = await fetch("../api/openai", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
