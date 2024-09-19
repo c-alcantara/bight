@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .fade-in {
   opacity: 0;
   animation: fade 1.5s ease forwards;

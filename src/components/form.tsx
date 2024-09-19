@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 
 export default function Form() {
   const [formData, setFormData] = useState({
-    name: "",
+   
     email: "",
   });
 
@@ -20,7 +20,7 @@ export default function Form() {
     const { id, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [id]: value,
+     
     }));
   };
 
@@ -44,24 +44,25 @@ export default function Form() {
       if (response.ok) {
         alert("Success!");
         setFormData({
-          name: "",
+         
           email: "",
         });
         setErrorMessage("");
       } else {
         setErrorMessage(responseData.error);
         if (responseData.error === "This event was already recorded.") {
-          alert(responseData.error);
+          setErrorMessage(responseData.error);
         }
       }
     } catch (error) {
-      setErrorMessage("An error occurred while submitting the form.");
+   
+      setErrorMessage("ERROR: "+ error + " :(");
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-lg">
-      <div className="space-y-2">
+      {/* <div className="space-y-2">
         <Label htmlFor="name" className="text-lg font-medium text-black/50">
           Name
         </Label>
@@ -73,12 +74,11 @@ export default function Form() {
           onChange={handleInputChange}
           required
         />
-      </div>
+      </div> */}
 
       <div className="space-y-2">
-        <Label htmlFor="email" className="text-lg font-medium text-black/50">
-          Email
-        </Label>
+     
+      
         <Input
           id="email"
           type="email"

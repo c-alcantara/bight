@@ -6,14 +6,13 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,jsx,ts,tsx}", // Adjust paths as necessary
   ],
-  plugins: [require("tailwindcss-animate")],
   theme: {
     extend: {
       fontFamily: {
         sans: ["var(--font-space-grotesk)", "sans-serif"],
       },
-
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -50,25 +49,16 @@ const config: Config = {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
-        border: "hsl(var(--border))",
+        border: {
+          DEFAULT: "hsl(var(--border))",
+          custom: "#e2e8f0", // Define your border color here
+        },
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
       },
     },
   },
-};
-module.exports = {
-  theme: {
-    extend: {
-      colors: {
-        border: "#e2e8f0", // Define your border color here
-      },
-    },
-  },
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}", // Adjust paths as necessary
-  ],
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };
 
 export default config;

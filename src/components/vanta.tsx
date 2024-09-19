@@ -1,4 +1,4 @@
-"use client";
+
 
 import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
@@ -24,11 +24,11 @@ const Vanta = () => {
           minHeight: 200.0,
           minWidth: 200.0,
           highlightColor: 0xFFFFFF,
-          midtoneColor: 0x0,
+          midtoneColor: 0x023707,
           lowlightColor: 0x0,
           baseColor: 0xFFFFFFFF,
           blurFactor: 0.42,
-          speed: 0.2,
+          speed: 0.1,
           zoom: 0.4,
         });
         vantaEffect.current = effect;

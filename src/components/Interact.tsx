@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Threads } from 'openai/resources/beta/index.mjs';
-import { Message } from 'openai/resources/beta/threads/index.mjs';
+
+import { Message } from 'openai/resources/beta/threads/messages';
+import { Threads } from 'openai/resources/beta/threads/threads';
 //import { OpenAI } from 'openai';
 import AudioPlayer from '../components/AudioPlayer';
 import { voice_ids } from '../private/voice_ids';

@@ -1,3 +1,4 @@
+"use client" 
 import React, { Component, RefObject, useEffect, useState } from 'react';
 import fog from "vanta/dist/vanta.fog.min"
 import * as THREE from "three";
