@@ -18,7 +18,7 @@ export default function Product() {
   const [midColor, setMid] = useState(0x999999);
   const [lowColor, setLow] = useState(0x999999);
   const [base, setBase] = useState(0x0); // Keeping this white as per your original code
-  const [speed, setSpeed] = useState(1);
+  const [speed, setSpeed] = useState(.75);
 
   // Store the initial random colors
   const [initialHighColor] = useState(highColor);
@@ -38,7 +38,7 @@ export default function Product() {
     setMid(initialMidColor);
     setLow(initialLowColor);
     setBase(0xFFFFFF);
-    setSpeed(1);
+    setSpeed(.75);
   };
  
 
