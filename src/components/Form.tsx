@@ -19,6 +19,7 @@ export default function Form() {
     const { id, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
+      [id]: value // Update the specific field in formData
     }));
   };
 
