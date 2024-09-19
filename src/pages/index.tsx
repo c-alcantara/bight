@@ -2,8 +2,8 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-import Form from "@/components/Form";
-import Vanta from "@/components/Vanta";
+import Form from "../components/Form";
+import Vanta from "../components/Vanta";
 import { ReactTyped } from "react-typed";
 
 export default function Home() {
