@@ -118,7 +118,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
   // const openai = new OpenAI({ apiKey: process.env.NEXT_PRIVATE_OPENAI_API_KEY, dangerouslyAllowBrowser: true });
   useEffect(() => {
     const newThread = async () => {
-      const response = await fetch("/api/openai", {
+      const response = await fetch("../api/openai", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -194,8 +194,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
         body: JSON.stringify({
           action: "createMessage",
           threadId: formData.thread!.id,
-          content: formData.query,
-          //"; Please limit your responses to " + formData.limit + "words except when generating code.",
+          content: formData.query + ". the business your going to help out with is  " + formData.business + "that you will communicate on behalf of the user",
         }),
       });
 
