@@ -4,6 +4,7 @@ import { Message } from 'openai/resources/beta/threads/messages';
 import { Threads } from 'openai/resources/beta/threads/threads';
 //import { OpenAI } from 'openai';
 import AudioPlayer from '../components/AudioPlayer';
+import Orb from '../components/Orb'
 import { voice_ids } from '../private/voice_ids';
 //import { SpinnerDotted } from 'spinners-react';
 import { PropagateLoader } from 'react-spinners';
@@ -464,6 +465,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
           >
             {formData.code && <CodePreview code={formData.code} />}
           </div>
+          <Orb />
         </div>
       )}
       {formData.audioPlayerVisible && (
