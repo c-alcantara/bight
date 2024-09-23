@@ -48,28 +48,35 @@ export default function Home() {
         title="Bight"
       >
         <Image
-          src={b}
+          src={bight}
           alt="Logo"
-          width={70}
-          height={70}
-          className="shadow-lg shadow-cyan-500/30 fixed left-1/2 transform -translate-x-1/2 rounded-2xl"
-          style={{ top: "25px" }}
+          width={220}
+          height={220}
+          className="fixed left-1/2 transform -translate-x-28 translate-y-8 origin-center "
         />
       </a>
       <div className="flex-grow flex items-center justify-center">
         <div
-          className="w-4/6 max-w-3xl p-6 backdrop-blur-lg border border-white bg-gradient-to-b to-[rgba(255,255,255,.65)] from-[rgba(245,255,255)] rounded-3xl shadow-xl relative"
+          className="w-5/6 max-w-4xl p-6 backdrop-blur-lg border border-white bg-gradient-to-b to-[rgba(255,255,255,.65)] from-[rgba(245,255,255)] rounded-3xl shadow-xl shadow-cyan-600/20 relative"
           style={parallaxStyle}
         >
           <div className="max-w-3xl">
-            <Image src={bight} alt="Logo" width={250} height={250} />
-            <caption className=" text-blue-600 pb-3 z-20">/’Bite’/ </caption>
+            <Image
+              src={b}
+              alt="Logo"
+              width={75}
+              height={75}
+              className=" shadow-lg shadow-cyan-500/30  transform  rounded-2xl"
+              style={{ top: "25px" }}
+            />
+
             <p
-              className="z-10 text-xl font-semibold mb-6 text-blue-600"
+              className="z-10 text-2xl font-medium mb-6 mt-5 text-blue-600"
               style={{}}
             >
-              is the do-it-for-you AI assistant that handles communication and
-              resolution between people and businesses worldwide.
+              Bight is the <strong>do-it-for-you</strong> AI assistant that
+              handles communication and resolution between people and businesses
+              worldwide.
             </p>
           </div>
           <Form />
@@ -87,6 +94,7 @@ export default function Home() {
           >
             <Image
               src="../../c2.svg"
+            
               alt="Logo"
               width={35}
               height={35}
@@ -106,7 +114,7 @@ export default function Home() {
           >
             <div className="z-5 fixed font-bold bottom-2 left-14 transform -translate-y-1/2   origin-center">
               <p className="text-xs text-blue-600  whitespace-nowrap ">
-                 c-alcantara.com
+                c-alcantara.com
               </p>
             </div>
           </a>

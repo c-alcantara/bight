@@ -104,7 +104,9 @@ export default function Form() {
         </Button>
       </div>
       <p className="font-medium text-lg text-blue-600">
-        Register before December 1, 2024 for unlimited support requests
+        <strong>
+          Register before December 1, 2024 for unlimited support requests.
+        </strong>
       </p>
     </form>
   );
