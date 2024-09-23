@@ -113,7 +113,7 @@ export default function Home() {
             "hold music.",
             "endless FAQ pages.",
             "useless chat bots.",
-            "'can you repeat that again?'",
+            "'what was that??'",
           ]}
           typeSpeed={50}
           backSpeed={25}
