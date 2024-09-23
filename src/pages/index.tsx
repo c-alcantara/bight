@@ -65,16 +65,15 @@ export default function Home() {
               alt="Logo"
               width={75}
               height={75}
-              className="shadow-lg shadow-cyan-500/30 transform rounded-2xl"
+              className="shadow-lg shadow-blue-500/30 transform rounded-[19px]"
               style={{ top: "30px" }}
             />
             <p
               className="z-10 text-2xl font-medium mb-6 mt-5 text-blue-600"
               style={{}}
             >
-              Bight is the <strong>do-it-for-you</strong> assistant
-              that handles communication and support between people and
-              businesses worldwide.
+              Bight is the <strong>do-it-for-you</strong> assistant that handles
+              communication and support between people and businesses worldwide.
             </p>
           </div>
           <Form />
