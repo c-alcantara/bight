@@ -9,10 +9,10 @@ const Backgr = () => {
         width="100%"
         height="110%"
       ></iframe>
-      
     </div>
   );
 }
 
 export default Backgr;
+
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import bight from "./../../public/bit.png";
-import b from "./../../public/b.png";
+import b from "./../../public/icons.png";
 import Form from "../components/Form";
 import Backgr from "@/components/Backgr";
 import { ReactTyped } from "react-typed";
@@ -56,7 +56,7 @@ export default function Home() {
       </a>
       <div className="flex-grow flex items-center justify-center">
         <div
-          className="w-5/6 max-w-4xl p-6 backdrop-blur-lg border border-white bg-gradient-to-b to-[rgba(255,255,255,.65)] from-[rgba(245,255,255)] rounded-3xl shadow-xl shadow-blue-600/15 relative"
+          className="w-5/6 max-w-4xl p-6 backdrop-blur-lg border border-white bg-gradient-to-b to-[rgba(255,255,255,.65)] from-[rgba(245,255,255,.95)] rounded-3xl shadow-xl shadow-blue-600/15 relative"
           style={parallaxStyle}
         >
           <div className="max-w-3xl">
@@ -72,9 +72,9 @@ export default function Home() {
               className="z-10 text-2xl font-medium mb-6 mt-5 text-blue-600"
               style={{}}
             >
-              Bight is the AI-powered <strong>do-it-for-you</strong> assistant
+              Bight is the <strong>do-it-for-you</strong> assistant
               that handles communication and support between people and
-              businesses worldwide
+              businesses worldwide.
             </p>
           </div>
           <Form />
@@ -108,7 +108,7 @@ export default function Home() {
         </div>
       </div>
       <p
-        className="text-blue-600 fixed left-1/2 transform -translate-x-2/4 text-center font-medium text-3xl"
+        className="text-blue-600 fixed left-1/2 transform -translate-x-2/4 text-center font-semibold text-3xl"
         style={{ bottom: "40px" }}
       >
         No more{" "}
