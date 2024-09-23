@@ -76,20 +76,20 @@ export default function Form() {
       <div className="flex space-x-3 max-w-xs">
         <Button
           type="submit"
-          className="text-md font-semibold flex-1 bg-blu text-white font-semibold py-2 px-2 rounded-xl transition duration-300 ease-in-out transform hover:bg-white border border-blue-600 hover:text-blu shadow-lg shadow-blu/30"
+          className="text-sm md:text-lg font-semibold flex-1 bg-blu text-white font-semibold py-2 px-2 rounded-xl transition duration-300 ease-in-out transform hover:bg-white border border-blue-600 hover:text-blu shadow-lg shadow-blu/30"
         >
           Register
         </Button>
 
         <Button
           type="button"
-          className="text-md font-semibold flex-1 bg-white/0 text-blu py-2 px-2 rounded-xl transition duration-300 ease-in-out transform hover:bg-blu hover:text-white hover:border-white hover:border-2 shadow-lg shadow-blu/20 border-2 border-blu"
+          className="text-sm md:text-lg font-semibold flex-1 bg-white/0 text-blu py-2 px-2 rounded-xl transition duration-300 ease-in-out transform hover:bg-blu hover:text-white hover:border-white hover:border-2 shadow-lg shadow-blu/20 border-2 border-blu"
           onClick={() => router.push("/Product")}
         >
           Try it out
         </Button>
       </div>
-      <p className="font-medium text-lg text-blu">
+      <p className="text-md md:text-lg font-medium  text-blu">
         ✦ Register before December 1, 2024 for unlimited support requests.
       </p>
     </form>

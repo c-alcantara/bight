@@ -49,9 +49,9 @@ export default function Home() {
         <Image
           src={bight}
           alt="Logo"
-          width={220}
-          height={220}
-          className="fixed left-1/2 transform -translate-x-28 translate-y-8 origin-center"
+         
+        
+          className="fixed left-1/2 transform -translate-x-1/2 translate-y-8 origin-center w-[150px] md:w-[220px] "
         />
       </a>
       <div className="flex-grow flex items-center justify-center">
@@ -65,11 +65,11 @@ export default function Home() {
               alt="Logo"
               width={75}
               height={75}
-              className="shadow-lg shadow-blu/30 transform rounded-[20px]"
+              className=" shadow-lg shadow-blu/20 transform rounded-[20px]"
               style={{ top: "30px" }}
             />
             <p
-              className="z-10 text-2xl font-medium mb-6 mt-5 text-blu"
+              className="text-md z-10 md:text-2xl font-medium mb-6 mt-5 text-blu"
               style={{}}
             >
               Bight is the <strong>do-it-for-you</strong> assistant that handles
@@ -90,13 +90,12 @@ export default function Home() {
               alt="Logo"
               width={35}
               height={35}
-             
               style={{
                 position: "absolute",
                 bottom: "15px",
                 right: "20px",
                 cursor: "pointer",
-                 opacity:'50% ',
+                opacity: "50% ",
               }}
             />
           </a>
@@ -109,7 +108,7 @@ export default function Home() {
         </div>
       </div>
       <p
-        className="text-blu fixed left-1/2 transform -translate-x-2/4 text-center font-semibold text-3xl"
+        className="text-blu fixed left-1/2 transform -translate-x-2/4 text-center font-semibold text-md md:text-2xl"
         style={{ bottom: "40px" }}
       >
         No more{" "}
