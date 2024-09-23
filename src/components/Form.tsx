@@ -58,7 +58,7 @@ export default function Form() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-lg">
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-xl">
       {/* <div className="space-y-2">
         <Label htmlFor="name" className="text-lg font-medium text-black/50">
           Name
@@ -78,31 +78,34 @@ export default function Form() {
           id="email"
           type="email"
           placeholder="Enter your email"
+          className=" text-blue-800 placeholder-blue-600 placeholder:text-blue-600/60 border border-blue-600 focus:outline-none active:outline-none bg-white/70 font-bold rounded-xl"
           value={formData.email}
           onChange={handleInputChange}
           required
         />
       </div>
 
-      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+      {errorMessage && <p className="text-500">{errorMessage}</p>}
 
       <div className="flex space-x-4 max-w-sm">
         <Button
           type="submit"
-          className="flex-1 bg-black text-white font-semibold py-2 px-4 rounded-xl transition duration-300 ease-in-out transform hover:bg-white hover:text-black hover:-translate-y-1 hover:shadow-xl shadow-lg"
+          className="text-md font-semibold flex-1  bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl transition duration-300 ease-in-out transform hover:bg-white border border-blue-600 hover:text-blue-600   shadow-lg shadow-blue-600/30"
         >
           Register
         </Button>
 
         <Button
           type="button"
-          className="flex-1 bg-white/50 text-black font-semibold py-2 px-4 rounded-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:bg-black hover:text-white hover:shadow-xl shadow-lg border border-white"
+          className="text-md font-semibold flex-1 bg-white/70 text-blue-600  py-2 px-4 rounded-xl transition duration-300 ease-in-out transform  hover:bg-blue-600 hover:text-white  shadow-lg shadow-blue-600/20 border border-blue-600"
           onClick={() => router.push("/Product")} // Use router.push to navigate
         >
-          Demo
+          Try it out
         </Button>
       </div>
-      <p>Register for unlimted messages post launch.</p>
+      <p className="font-medium text-lg text-blue-600">
+        Register before December 1, 2024 for unlimited support requests
+      </p>
     </form>
   );
 }

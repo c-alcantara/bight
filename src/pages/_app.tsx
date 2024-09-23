@@ -7,8 +7,8 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Your App Title</title>
-        <meta name="description" content="Your app description" />
+        <title>Bight</title>
+        <meta name="Bight" content="Your AI customer service representative" />
         {/* Add other meta tags as needed */}
       </Head>
       <Layout>

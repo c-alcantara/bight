@@ -2,34 +2,33 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import fog from "vanta/dist/vanta.fog.min";
+import clouds2 from "vanta/dist/vanta.clouds.min";
 
 const Vanta = () => {
   const vantaRef = useRef<HTMLDivElement>(null);
-  const vantaEffect = useRef<ReturnType<typeof fog> | null>(null);
+  const vantaEffect = useRef<ReturnType<typeof clouds2> | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const loadVanta = async () => {
-      const fogEffect = (await import("vanta/dist/vanta.fog.min")).default;
+      const clouds2Effect = (await import("vanta/dist/vanta.clouds.min")).default;
       const THREE = await import("three");
 
       if (!vantaEffect.current && vantaRef.current) {
-        const effect = fogEffect({
+        const effect = clouds2Effect({
           el: vantaRef.current,
           THREE: THREE,
-          mouseControls: true,
+          mouseControls: false,
           touchControls: true,
           gyroControls: false,
           minHeight: 200.0,
           minWidth: 200.0,
-          highlightColor: 0xFFFFFF,
-          midtoneColor: 0x023707,
-          lowlightColor: 0x0,
-          baseColor: 0xFFFFFFFF,
-          blurFactor: 0.42,
-          speed: 0.1,
-          zoom: 0.4,
+          scale: 2,
+          skyColor: 0x996f00,
+          cloudColor: 0xffffff,
+          lightColor: 0xffffff,
+          speed: 0.2,
+          texturePath: "../../public/noise.png",
         });
         vantaEffect.current = effect;
       }
