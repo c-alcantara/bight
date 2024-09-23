@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import bight from "./../../public/bit.png";
@@ -9,10 +8,10 @@ import { ReactTyped } from "react-typed";
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isMounted, setIsMounted] = useState(false); // Track if the component is mounted
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true); // Set mounted state to true on component mount
+    setIsMounted(true);
 
     const handleMouseMove = (event: MouseEvent) => {
       const { clientX, clientY } = event;
@@ -37,7 +36,7 @@ export default function Home() {
     transition: "transform 0.1s ease-out",
   };
 
-  if (!isMounted) return null; // Prevent rendering until mounted
+  if (!isMounted) return null;
 
   return (
     <div className="min-h-screen flex flex-col bg-cover bg-center bg-fixed">
@@ -52,12 +51,12 @@ export default function Home() {
           alt="Logo"
           width={220}
           height={220}
-          className="fixed left-1/2 transform -translate-x-28 translate-y-8 origin-center "
+          className="fixed left-1/2 transform -translate-x-28 translate-y-8 origin-center"
         />
       </a>
       <div className="flex-grow flex items-center justify-center">
         <div
-          className="w-5/6 max-w-4xl p-6 backdrop-blur-lg border border-white bg-gradient-to-b to-[rgba(255,255,255,.65)] from-[rgba(245,255,255)] rounded-3xl shadow-xl shadow-cyan-600/20 relative"
+          className="w-5/6 max-w-4xl p-6 backdrop-blur-lg border border-white bg-gradient-to-b to-[rgba(255,255,255,.65)] from-[rgba(245,255,255)] rounded-3xl shadow-xl shadow-blue-600/15 relative"
           style={parallaxStyle}
         >
           <div className="max-w-3xl">
@@ -66,42 +65,36 @@ export default function Home() {
               alt="Logo"
               width={75}
               height={75}
-              className=" shadow-lg shadow-cyan-500/30  transform  rounded-2xl"
-              style={{ top: "25px" }}
+              className="shadow-lg shadow-cyan-500/30 transform rounded-2xl"
+              style={{ top: "30px" }}
             />
-
             <p
               className="z-10 text-2xl font-medium mb-6 mt-5 text-blue-600"
               style={{}}
             >
-              Bight is the <strong>do-it-for-you</strong> AI assistant that
-              handles communication and resolution between people and businesses
-              worldwide.
+              Bight is the AI-powered <strong>do-it-for-you</strong> assistant
+              that handles communication and support between people and
+              businesses worldwide
             </p>
           </div>
           <Form />
-          <p
-            className="text-blue-600 text-xl font-semibold text-right mt-0 pt-8 cursor-help "
-            title="not all features here are described or shown (yet)"
-          >
-            ?
-          </p>
           <a
             href="https://www.c-alcantara.com"
             target="_blank"
             rel="noopener noreferrer"
             title="Visit my website"
           >
+            <br />
+            <br />
             <Image
               src="../../c2.svg"
-            
               alt="Logo"
               width={35}
               height={35}
               style={{
                 position: "absolute",
                 bottom: "15px",
-                left: "15px",
+                right: "20px",
                 cursor: "pointer",
               }}
             />
@@ -111,13 +104,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
             title="Visit my website"
-          >
-            <div className="z-5 fixed font-bold bottom-2 left-14 transform -translate-y-1/2   origin-center">
-              <p className="text-xs text-blue-600  whitespace-nowrap ">
-                c-alcantara.com
-              </p>
-            </div>
-          </a>
+          ></a>
         </div>
       </div>
       <p
