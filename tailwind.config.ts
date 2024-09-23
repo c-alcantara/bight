@@ -21,6 +21,7 @@ const config: Config = {
       colors: {
         background: "#ffffff", // Set your desired background color
         foreground: "#000000", // Set your desired foreground color
+
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -55,6 +56,7 @@ const config: Config = {
         },
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        blu: "#001EFF",
       },
     },
   },

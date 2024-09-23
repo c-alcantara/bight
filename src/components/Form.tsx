@@ -64,7 +64,7 @@ export default function Form() {
           id="email"
           type="email"
           placeholder="Email address"
-          className="shadow-inner shadow-blue-600/20 text-blue-800 placeholder-blue-600 placeholder:text-blue-600/60 border border-blue-600 focus:outline-none active:outline-none bg-white/70 font-bold rounded-xl"
+          className="shadow-inner shadow-blue-600/20 text-blu placeholder-blue-600 placeholder:text-blu/50 border border-blu focus:outline-none active:outline-none bg-white/70 font-bold rounded-xl"
           value={formData.email}
           onChange={handleInputChange}
           required
@@ -76,20 +76,20 @@ export default function Form() {
       <div className="flex space-x-3 max-w-xs">
         <Button
           type="submit"
-          className="text-md font-semibold flex-1 bg-blue-600 text-white font-semibold py-2 px-2 rounded-xl transition duration-300 ease-in-out transform hover:bg-white border border-blue-600 hover:text-blue-600 shadow-lg shadow-blue-600/30"
+          className="text-md font-semibold flex-1 bg-blu text-white font-semibold py-2 px-2 rounded-xl transition duration-300 ease-in-out transform hover:bg-white border border-blue-600 hover:text-blu shadow-lg shadow-blu/30"
         >
           Register
         </Button>
 
         <Button
           type="button"
-          className="text-md font-semibold flex-1 bg-white/0 text-blue-600 py-2 px-2 rounded-xl transition duration-300 ease-in-out transform hover:bg-blue-600 hover:text-white hover:border-white hover:border-2 shadow-lg shadow-blue-600/20 border-2 border-blue-600"
+          className="text-md font-semibold flex-1 bg-white/0 text-blu py-2 px-2 rounded-xl transition duration-300 ease-in-out transform hover:bg-blu hover:text-white hover:border-white hover:border-2 shadow-lg shadow-blu/20 border-2 border-blu"
           onClick={() => router.push("/Product")}
         >
           Try it out
         </Button>
       </div>
-      <p className="font-medium text-lg text-blue-600">
+      <p className="font-medium text-lg text-blu">
         ✦ Register before December 1, 2024 for unlimited support requests.
       </p>
     </form>
