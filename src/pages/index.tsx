@@ -69,7 +69,7 @@ export default function Home() {
               style={{}}
             >
               Bight is the <strong>do-it-for-you</strong> assistant that handles
-              communication and support between people and businesses worldwide.
+              communication and support for people and businesses worldwide.
             </p>
           </div>
           <Form />
