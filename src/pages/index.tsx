@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import bight from "./../../public/bit.png";
+import bight from "./../../public/bits.png";
 import b from "./../../public/icons.png";
 import Form from "../components/Form";
 import Backgr from "@/components/Backgr";
