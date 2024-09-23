@@ -49,27 +49,23 @@ export default function Home() {
         <Image
           src={bight}
           alt="Logo"
-         
-        
           className="fixed left-1/2 transform -translate-x-1/2 translate-y-8 origin-center w-[150px] md:w-[220px] "
         />
       </a>
       <div className="flex-grow flex items-center justify-center">
         <div
-          className="w-5/6 max-w-4xl p-6 backdrop-blur-lg border border-white bg-gradient-to-b to-[rgba(255,255,255,.65)] from-[rgba(245,255,255,.95)] rounded-3xl shadow-xl shadow-blu/15 relative"
+          className="w-5/6 max-w-5xl p-4 md:p-7 backdrop-blur-lg border border-white bg-gradient-to-b to-[rgba(255,255,255,.65)] from-[rgba(245,255,255,.95)] rounded-3xl  shadow-xl shadow-blu/15 relative"
           style={parallaxStyle}
         >
           <div className="max-w-3xl">
             <Image
               src={b}
               alt="Logo"
-              width={75}
-              height={75}
-              className=" shadow-lg shadow-blu/20 transform rounded-[20px]"
+              className=" w-[60px] md:w-[80px] shadow-lg shadow-blu/20 transform md:rounded-[20px] rounded-[15px]"
               style={{ top: "30px" }}
             />
             <p
-              className="text-md z-10 md:text-2xl font-medium mb-6 mt-5 text-blu"
+              className="text-sm z-10 md:text-2xl font-medium mb-6 mt-5 text-blu"
               style={{}}
             >
               Bight is the <strong>do-it-for-you</strong> assistant that handles
@@ -93,9 +89,9 @@ export default function Home() {
               style={{
                 position: "absolute",
                 bottom: "15px",
-                right: "20px",
+                right: "17px",
                 cursor: "pointer",
-                opacity: "50% ",
+                opacity: "100% ",
               }}
             />
           </a>

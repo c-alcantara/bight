@@ -89,7 +89,7 @@ export default function Form() {
           Try it out
         </Button>
       </div>
-      <p className="text-md md:text-lg font-medium  text-blu">
+      <p className="text-sm md:text-lg font-medium  text-blu">
         ✦ Register before December 1, 2024 for unlimited support requests.
       </p>
     </form>
