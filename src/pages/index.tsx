@@ -105,7 +105,7 @@ export default function Home() {
       </div>
       <p
         className="text-blu fixed left-1/2 transform -translate-x-2/4 text-center font-semibold text-xs md:text-2xl"
-        style={{ bottom: "30px" }}
+        style={{ bottom: "15px" }}
       >
         No more{" "}
         <ReactTyped
