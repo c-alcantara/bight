@@ -1,4 +1,5 @@
 import { Space_Grotesk } from "next/font/google";
+import Image from "next/image";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -12,6 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <div className={`${spaceGrotesk.variable} ${spaceGrotesk.className}`}>
+     
       {children}
     </div>
   );

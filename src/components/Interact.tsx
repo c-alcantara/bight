@@ -151,7 +151,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
         }),
       });
 
-      const runResponse = await fetch("/api/vapi", {
+      const runResponse = await fetch("../api/vapi.ts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -168,7 +168,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
       if (!runData.id) throw new Error("Failed to create run");
 
       const checkRunStatus = async () => {
-        const resResponse = await fetch("/api/vapi", {
+        const resResponse = await fetch("../api/vapi.ts", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

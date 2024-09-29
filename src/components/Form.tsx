@@ -32,7 +32,7 @@ export default function Form() {
     }
 
     try {
-      const response = await fetch("/api/submit", {
+      const response = await fetch("../api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -48,12 +48,10 @@ export default function Form() {
         setErrorMessage("");
       } else {
         setErrorMessage(responseData.error);
-        if (responseData.error === "This event was already recorded.") {
-          setErrorMessage(responseData.error);
-        }
+      
       }
     } catch (error) {
-      setErrorMessage("ERROR: " + error + " :(");
+      setErrorMessage(error + " :(");
     }
   };
 
@@ -64,7 +62,7 @@ export default function Form() {
           id="email"
           type="email"
           placeholder="Email address"
-          className="shadow-inner shadow-blue-600/20 text-blu placeholder-blue-600 placeholder:text-blu/50 border border-blu focus:outline-none active:outline-none bg-white/70 font-bold rounded-xl"
+          className="shadow-inner shadow-blue-600/20 text-blu placeholder-blu/50 placeholder:text-blu/50 border border-blu focus:outline-none active:outline-none bg-white/70 font-bold rounded-xl"
           value={formData.email}
           onChange={handleInputChange}
           required
@@ -76,14 +74,14 @@ export default function Form() {
       <div className="flex space-x-3 max-w-xs">
         <Button
           type="submit"
-          className="text-sm md:text-lg font-semibold flex-1 bg-blu text-white font-semibold py-2 px-2 rounded-xl transition duration-300 ease-in-out transform hover:bg-white border border-blue-600 hover:text-blu shadow-lg shadow-blu/30"
+          className="text-sm md:text-md font-semibold flex-1 bg-blu  text-white py-2 px-2 rounded-xl transition duration-300 ease-in-out transform hover:bg-blu/0 hover:text-blu/50 hover:font-bold hover:border-blu/50 shadow-lg shadow-blu/20 hover:shadow-blu/0 border border-blu"
         >
           Register
         </Button>
 
         <Button
           type="button"
-          className="text-sm md:text-lg font-semibold flex-1 bg-white/0 text-blu py-2 px-2 rounded-xl transition duration-300 ease-in-out transform hover:bg-blu hover:text-white hover:border-white hover:border-2 shadow-lg shadow-blu/20 border-2 border-blu"
+          className="text-sm md:text-md font-semibold flex-1 bg-white/0 bg-gradient-to-b from-[rgba(255,255,255,0)] to-[rgba(255,255,255,.95)]  text-blu py-2 px-2 rounded-xl transition duration-300 ease-in-out transform hover:bg-blu/0 hover:text-blu/50 hover:font-bold hover:border-blu/50 shadow-lg shadow-blu/20 hover:shadow-blu/0 border border-blu"
           onClick={() => router.push("/Product")}
         >
           Try it out

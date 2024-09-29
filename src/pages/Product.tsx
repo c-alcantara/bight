@@ -64,8 +64,7 @@ export default function Product() {
           <Interact
             updateColors={updateColors}
             useDefaults={useDefaults}
-           // assistantId={process.env.NEXT_PRIVATE_ASSISTANT_ID}
-           // apiKey={process.env.NEXT_PRIVATE_OPENAI_API_KEY}
+          
           />
     
       </div >

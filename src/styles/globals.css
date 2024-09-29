@@ -254,7 +254,14 @@ button{
 
 .body {
   font-family: 'SF-Pro Expanded Regular';
+     background-image: url('/public/back.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+ 
+
+
+
 
 .shrink {
   transition: width 0.5s ease-out;

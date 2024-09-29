@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import bight from "./../../public/bits.png";
+import bight from "./../../public/bight.png";
 import b from "./../../public/icons.png";
 import Form from "../components/Form";
 import Backgr from "@/components/Backgr";
 import { ReactTyped } from "react-typed";
+import { Fullscreen } from "lucide-react";
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -39,6 +40,7 @@ export default function Home() {
   if (!isMounted) return null;
 
   return (
+    
     <div className="min-h-screen flex flex-col bg-cover bg-center bg-fixed">
       <a
         href="https://www.bight.vercel.app"
@@ -49,7 +51,7 @@ export default function Home() {
         <Image
           src={bight}
           alt="Logo"
-          className="fixed left-1/2 transform -translate-x-1/2 translate-y-8 origin-center w-[150px] md:w-[220px] "
+          className=" fixed left-1/2 transform -translate-x-1/2 translate-y-8 origin-center w-[80px] md:w-[200px] "
         />
       </a>
       <div className="flex-grow flex items-center justify-center">
@@ -122,7 +124,10 @@ export default function Home() {
       </p>
       <div>
         <Backgr />
+        
       </div>
+      
     </div>
+ 
   );
 }

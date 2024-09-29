@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
+import Image from "next/image";
 const Backgr: React.FC = () => {
   const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
 
@@ -21,22 +21,28 @@ const Backgr: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed -top-[110px] w-full h-[110%] z-[-1]">
-      {!isSmallScreen ? (
-        <iframe
-          src="https://my.spline.design/planetcopy-71ad21479c38858f00adb8842172cfb9/"
-          width="100%"
-          height="110%"
-        ></iframe>
-      ) : (
-        <iframe
-          src="https://my.spline.design/planetcopycopy-1afe4191d0904d1c6154d3370e3e5193/"
-          width="100%"
-          height="150%"
-        ></iframe>
-      )}
+    <div>
+      <div className="fixed -top-[110px] w-full h-[110%] z-[-1]">
+        {!isSmallScreen ? (
+          <iframe
+            src="https://my.spline.design/planetcopy-71ad21479c38858f00adb8842172cfb9/"
+            width="100%"
+            height="110%"
+          ></iframe>
+        ) : (
+          <iframe
+            src="https://my.spline.design/planetcopycopy-57eb2574f487a2849f8b755f875507eb/"
+            width="100%"
+            height="150%"
+          ></iframe>
+        )}
+      </div>
     </div>
   );
 };
 
 export default Backgr;
+
+
+
+
