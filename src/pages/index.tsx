@@ -31,8 +31,8 @@ export default function Home() {
   }, []);
 
   const parallaxStyle = {
-    transform: `translate(${mousePosition.x * 10}px, ${
-      mousePosition.y * 10
+    transform: `translate(${mousePosition.x * 5}px, ${
+      mousePosition.y * 5
     }px)`,
     transition: "transform 0.1s ease-out",
   };
@@ -40,8 +40,10 @@ export default function Home() {
   if (!isMounted) return null;
 
   return (
-    
     <div className="min-h-screen flex flex-col bg-cover bg-center bg-fixed">
+      <div className=" fixed top-50 bg-gradient-to-b to-[rgba(0,0,0,.4)] from-[rgba(0,0,0,1)] w-full h-full">
+        {" "}
+      </div>
       <a
         href="https://www.bight.vercel.app"
         target="_blank"
@@ -51,19 +53,19 @@ export default function Home() {
         <Image
           src={bight}
           alt="Logo"
-          className=" fixed left-1/2 transform -translate-x-1/2 translate-y-8 origin-center w-[80px] md:w-[200px] "
+          className=" saturate-[1.4]  fixed left-1/2 transform -translate-x-1/2 translate-y-8 origin-center w-[180px] md:w-[260px] "
         />
       </a>
       <div className="flex-grow flex items-center justify-center">
         <div
-          className="w-5/6 max-w-5xl p-4 md:p-7 backdrop-blur-lg border border-white bg-gradient-to-b to-[rgba(255,255,255,.65)] from-[rgba(245,255,255,.95)] rounded-3xl  shadow-xl shadow-blu/15 relative"
+          className="w-5/6 max-w-5xl p-4 md:p-7 backdrop-blur-lg border border-white bg-gradient-to-b from-[rgba(190,255,210,.7)] to-[rgba(245,255,255,.95)] rounded-3xl  shadow-xl shadow-blu/15 relative"
           style={parallaxStyle}
         >
           <div className="max-w-3xl">
             <Image
               src={b}
               alt="Logo"
-              className=" w-[60px] md:w-[80px] shadow-lg shadow-blu/20 transform md:rounded-[20px] rounded-[15px]"
+              className=" w-[60px] md:w-[80px] shadow-lg shadow-gn/30 transform md:rounded-[22px] border border-black rounded-[15px]"
               style={{ top: "30px" }}
             />
             <p
@@ -86,6 +88,7 @@ export default function Home() {
             <Image
               src="../../c2.svg"
               alt="Logo"
+             
               width={35}
               height={35}
               style={{
@@ -106,7 +109,7 @@ export default function Home() {
         </div>
       </div>
       <p
-        className="text-blu fixed left-1/2 transform -translate-x-2/4 text-center font-semibold text-xs md:text-2xl"
+        className="text-white fixed left-1/2 transform -translate-x-2/4 text-center font-semibold text-xs md:text-2xl"
         style={{ bottom: "15px" }}
       >
         No more{" "}
@@ -124,10 +127,7 @@ export default function Home() {
       </p>
       <div>
         <Backgr />
-        
       </div>
-      
     </div>
- 
   );
 }

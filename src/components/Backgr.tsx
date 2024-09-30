@@ -25,13 +25,13 @@ const Backgr: React.FC = () => {
       <div className="fixed -top-[110px] w-full h-[110%] z-[-1]">
         {!isSmallScreen ? (
           <iframe
-            src="https://my.spline.design/planetcopy-71ad21479c38858f00adb8842172cfb9/"
+            src="https://my.spline.design/futuristicmapinterface-f34f00dd677e5b9199c70175289d0dd1/"
             width="100%"
             height="110%"
           ></iframe>
         ) : (
           <iframe
-            src="https://my.spline.design/planetcopycopy-57eb2574f487a2849f8b755f875507eb/"
+            src="https://my.spline.design/futuristicmapinterface-f34f00dd677e5b9199c70175289d0dd1/"
             width="100%"
             height="150%"
           ></iframe>
@@ -42,7 +42,3 @@ const Backgr: React.FC = () => {
 };
 
 export default Backgr;
-
-
-
-
