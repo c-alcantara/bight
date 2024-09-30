@@ -53,7 +53,7 @@ export default function Home() {
         <Image
           src={bight}
           alt="Logo"
-          className=" saturate-[1.4]  fixed left-1/2 transform -translate-x-1/2 translate-y-8 origin-center w-[180px] md:w-[260px] "
+          className=" saturate-[1.4]  fixed left-1/2 transform -translate-x-1/2 translate-y-8 origin-center w-[170px] md:w-[240px] "
         />
       </a>
       <div className="flex-grow flex items-center justify-center">
