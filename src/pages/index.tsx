@@ -69,7 +69,7 @@ export default function Home() {
               style={{ top: "30px" }}
             />
             <p
-              className="text-sm z-10 md:text-2xl font-medium mb-6 mt-5 text-blu"
+              className="text-lg z-10 md:text-2xl font-medium mb-6 mt-5 text-blu"
               style={{}}
             >
               Bight is the <strong>do-it-for-you</strong> assistant that handles
