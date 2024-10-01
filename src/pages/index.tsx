@@ -41,7 +41,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-cover bg-center bg-fixed">
-      <div className=" fixed top-50 bg-gradient-to-b to-[rgba(0,0,0,.4)] from-[rgba(0,0,0,1)] w-full h-full">
+      <div className=" fixed top-50 bg-gradient-to-b to-[rgba(0,0,0,.5)] from-[rgba(0,0,0,1)] w-full h-full">
         {" "}
       </div>
       <a
@@ -58,7 +58,7 @@ export default function Home() {
       </a>
       <div className="flex-grow flex items-center justify-center">
         <div
-          className="w-5/6 max-w-5xl p-4 md:p-7 backdrop-blur-lg border border-white bg-gradient-to-b from-[rgba(190,255,210,.7)] to-[rgba(245,255,255,.95)] rounded-3xl  shadow-xl shadow-blu/15 relative"
+          className="w-5/6 max-w-5xl p-4 md:p-7 backdrop-blur-lg border border-white bg-gradient-to-b from-[rgba(190,255,210,.76)] to-[rgba(245,255,255,.99)] rounded-3xl  shadow-xl shadow-blu/15 relative"
           style={parallaxStyle}
         >
           <div className="max-w-3xl">
