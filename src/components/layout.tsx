@@ -13,7 +13,6 @@ export default function RootLayout({
 }>) {
   return (
     <div className={`${spaceGrotesk.variable} ${spaceGrotesk.className}`}>
-     
       {children}
     </div>
   );
