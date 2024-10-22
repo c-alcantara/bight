@@ -31,9 +31,7 @@ export default function Home() {
   }, []);
 
   const parallaxStyle = {
-    transform: `translate(${mousePosition.x * 5}px, ${
-      mousePosition.y * 5
-    }px)`,
+    transform: `translate(${mousePosition.x * 5}px, ${mousePosition.y * 5}px)`,
     transition: "transform 0.1s ease-out",
   };
 
@@ -65,7 +63,7 @@ export default function Home() {
             <Image
               src={b}
               alt="Logo"
-              className=" w-[60px] md:w-[80px] shadow-lg shadow-gn/30 transform md:rounded-[22px] border border-black rounded-[15px]"
+              className=" w-[60px] md:w-[80px] shadow-lg shadow-gn/30 transform md:rounded-[22px] "
               style={{ top: "30px" }}
             />
             <p
@@ -88,7 +86,6 @@ export default function Home() {
             <Image
               src="../../c2.svg"
               alt="Logo"
-             
               width={35}
               height={35}
               style={{
