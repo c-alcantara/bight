@@ -63,7 +63,7 @@ export default function Home() {
             <Image
               src={b}
               alt="Logo"
-              className=" w-[60px] md:w-[80px] shadow-lg shadow-gn/30 transform md:rounded-[22px] "
+              className="saturate-[1.4] w-[60px] md:w-[80px] shadow-lg shadow-gn/30 transform md:rounded-[22px] "
               style={{ top: "30px" }}
             />
             <p

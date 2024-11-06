@@ -4,9 +4,9 @@ const Bight = () => {
   return (
    <div className=" flex justify-center hover:scale-200 transition-transform duration-100  z-55 pb-20 fade-in">
   <img
-    src="/Subtract.svg"
+    src="/icons.png"
     alt="Bight.ai"
-    width="320px"
+    width="160px"
   />
 </div>
   );

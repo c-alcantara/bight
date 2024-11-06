@@ -1,15 +1,21 @@
 import React, { FC, useEffect, useState } from "react";
+
+import { Message } from "openai/resources/beta/threads/messages";
+import { Threads } from "openai/resources/beta/threads/threads";
+//import { OpenAI } from 'openai';
 import AudioPlayer from "../components/AudioPlayer";
+import Orb from "../components/Orb";
 import { voice_ids } from "../private/voice_ids";
+//import { SpinnerDotted } from 'spinners-react';
 import { PropagateLoader } from "react-spinners";
 import CodePreview from "@/components/CodePreview";
 import languages from "../private/languages";
 import DownloadButton from "@/components/Download";
+//import beautify from '@/components/Beautify';
 import Translate from "../components/Translate";
 import { Random } from "@/components/Random";
-
+import { instruct, aldInstruct } from "../../public/instructions";
 import Beautify from "@/components/Beautify";
-
 interface BightProps {
   updateColors: () => void;
   useDefaults: () => void;
@@ -18,15 +24,15 @@ interface BightProps {
 interface FormData {
   placeholder: string;
   query: string;
-  language: string;
+  language: any;
   limit: number;
-  messageList: any[];
+  messageList: Message[];
   waiting: boolean;
   code: any;
   message: string;
   voice: string;
   business: string;
-  conversation: any | null;
+  thread: Threads.Thread | null;
   submitted: boolean;
   audioPlayerVisible: boolean;
   messageVisible: boolean;
@@ -34,6 +40,7 @@ interface FormData {
 
 const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
   const [isHovered, setIsHovered] = useState(false);
+
   const [formData, setFormData] = useState<FormData>({
     placeholder: "",
     query: "",
@@ -41,7 +48,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     waiting: false,
     message: "",
     voice: "1BUhH8aaMvGMUdGAmWVM",
-    conversation: null,
+    thread: null,
     limit: 30,
     submitted: false,
     code: null,
@@ -52,85 +59,124 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
   });
 
   useEffect(() => {
+    //optimize this
     const translatePlaceholder = async () => {
       const updatedPlaceholder = await Translate(
         "en",
         formData.language,
-        "How can we help? ✨"
+        "How can we help? ✨",
       );
-      setFormData((prevData) => ({
-        ...prevData,
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
         placeholder: updatedPlaceholder,
       }));
     };
+
     translatePlaceholder();
   }, [formData.language]);
 
+  // Inside your component
+  const [prevLimit, setPrevLimit] = useState(formData.limit);
+  const [animate, setAnimate] = useState(false);
+  const [animate2, setAnimate2] = useState(false);
   useEffect(() => {
-    const newConversation = async () => {
-      try {
-        const response = await fetch("/api/vapi", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ action: "createConversation" }),
-        });
-        const newConversation = await response.json();
-        setFormData((prevData) => ({
-          ...prevData,
-          conversation: newConversation,
-        }));
-      } catch (error) {
-        console.error("Error creating conversation:", error);
-      }
-    };
+    if (prevLimit !== formData.limit) {
+      setAnimate(true);
+      setPrevLimit(formData.limit);
+    }
+  }, [formData.limit]);
 
-    if (!formData.conversation) newConversation();
-  }, [formData.conversation]);
+  useEffect(() => {
+    if (animate) {
+      const timer = setTimeout(() => setAnimate(false), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [animate]);
+
+  // In your button
+  // useEffect(() => {
+  //   if (formData.voice === '') {
+  //     setFormData((prevData) => ({ ...prevData, messageVisible: true }));
+  //   } else {
+  //     setFormData((prevData) => ({ ...prevData, messageVisible: false }));
+  //   }
+  // },[formData.voice]);
+
+  useEffect(() => {
+    if (formData.audioPlayerVisible) {
+      setAnimate2(true);
+      formData.messageVisible = true;
+    } else {
+      setAnimate2(false);
+      formData.messageVisible = false;
+    }
+  }, [formData.audioPlayerVisible]);
+
+  //const openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
+  require("dotenv").config();
+  // const openai = new OpenAI({ apiKey: process.env.NEXT_PRIVATE_OPENAI_API_KEY, dangerouslyAllowBrowser: true });
+  // useEffect(() => {
+  //   const newThread = async () => {
+  //     const response = await fetch("../api/openai", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ action: "createThread" }),
+  //     });
+  //     const newThread = await response.json();
+  //     setFormData((prevData) => ({ ...prevData, thread: newThread }));
+  //   };
+
+  //   if (!formData.thread) newThread();
+  // }, []);
 
   const updateMessages = async () => {
-    if (!formData.conversation) return;
-
     try {
-      const response = await fetch("/api/vapi", {
+      const response = await fetch("/api/openai", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           action: "listMessages",
-          conversationId: formData.conversation.id,
+          threadId: formData.thread!.id,
         }),
       });
       const messages = await response.json();
-      const messageContent = generateMessageListString(
+      let messageContent = generateMessageListString(
         messages.data.reverse(),
-        formData.query
+        formData.query,
       );
+      messageContent = messageContent.includes("【")
+        ? messageContent.substring(0, messageContent.indexOf("【"))
+        : messageContent;
+      const between = /```([\s\S]*)```/;
+      let tech = between.exec(messageContent)?.[1]; // Extracting the matched first group
+      tech = tech?.substring(tech.indexOf("<"), tech.lastIndexOf(">") + 1);
+      //tech = tech?.substring(tech.indexOf('CREATE'), tech.lastIndexOf(');') + 1);
+      messageContent = messageContent.replace(/```[\s\S]*$/, "");
+      //alert(tech);
 
-      const translatedContent = await Translate(
-        "en",
-        formData.language,
-        messageContent
-      );
+      messageContent = await Translate("en", formData.language, messageContent);
 
       setFormData((prevData) => ({
         ...prevData,
         messageList: messages.data.reverse(),
-        message: translatedContent,
+        code: tech,
+        message: messageContent,
         audioPlayerVisible: true,
+        messageVisible: true,
         waiting: false,
       }));
     } catch (error) {
-      alert("An error occurred. Please try again.");
+      alert("An error occurred. Please try again. Keys?");
       console.error("API error or no keys provided", error);
     }
   };
 
   const handleQuery = async () => {
-    if (!formData.conversation) return;
-
     try {
       setFormData((prevData) => ({
         ...prevData,
@@ -139,47 +185,54 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
         waiting: true,
       }));
 
-      await fetch("/api/vapi", {
+      // Create message
+      await fetch("/api/openai", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          action: "sendMessage",
-          conversationId: formData.conversation.id,
-          message: `${formData.query}. The business you are going to help is ${formData.business}.`,
+          action: "createMessage",
+          threadId: formData.thread!.id,
+          content:
+            formData.query +
+            ". the business your going to help out with is  " +
+            formData.business +
+            "that you will communicate on behalf of the user",
         }),
       });
 
-      const runResponse = await fetch("../api/vapi.ts", {
+      // Create run
+      const runResponse = await fetch("../api/openai", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          action: "startRun",
-          conversationId: formData.conversation.id,
-         
-        
+          action: "createRun",
+          threadId: formData.thread!.id,
+          instructions: `${instruct}`,
+          additional_instructions: `${aldInstruct}`,
         }),
       });
-
       const runData = await runResponse.json();
-      if (!runData.id) throw new Error("Failed to create run");
+
+      if (!runData.id) {
+        throw new Error("Failed to create run");
+      }
 
       const checkRunStatus = async () => {
-        const resResponse = await fetch("../api/vapi.ts", {
+        const resResponse = await fetch("../api/openai", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            action: "getRun",
-            conversationId: formData.conversation.id,
+            action: "retrieveRun",
+            threadId: formData.thread!.id,
             runId: runData.id,
           }),
         });
-
         const res = await resResponse.json();
         if (res.status === "completed") {
           updateMessages();
@@ -192,7 +245,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
 
       checkRunStatus();
     } catch (error) {
-      alert("An error occurred. Please try again.");
+      alert("An error occurred. Please try again. OpenAI?");
       console.error("An error occurred:", error);
     }
   };
@@ -204,61 +257,77 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleQuery();
-    setFormData((prev) => ({ ...prev, submitted: true, query: "" }));
+    setFormData((prevData) => ({ ...prevData, submitted: true, query: "" }));
   };
 
   async function generateRandom() {
-    setFormData((prev) => ({
-      ...prev,
+    setFormData((prevData) => ({
+      ...prevData,
       query: Random.generateRandomQuery(),
       voice: Random.generateRandomVoice(),
     }));
   }
 
   function simplify() {
-    setFormData((prev) => ({
-      ...prev,
-      limit: prev.limit === 120 ? 30 : prev.limit + 30,
-    }));
+    if (formData.limit === 30) {
+      setFormData((prevData) => ({ ...prevData, limit: 60 }));
+    } else if (formData.limit === 60) {
+      setFormData((prevData) => ({ ...prevData, limit: 90 }));
+    } else if (formData.limit === 90) {
+      setFormData((prevData) => ({ ...prevData, limit: 120 }));
+    } else {
+      setFormData((prevData) => ({ ...prevData, limit: 30 }));
+    }
   }
 
   function generateMessageListString(
-    messageList: any[],
-    userQuery: string
+    messageList: Message[],
+    userQuery: string,
   ): string {
     let jsxString: string = "";
     for (let i = messageList.length - 1; i >= 0; i--) {
       const message = messageList[i];
       if (message.role === "user") continue;
-      jsxString = message.content; // Use the message content directly
-      return jsxString;
+      for (let j = message.content.length - 1; j >= 0; j--) {
+        const contentBlock = message.content[j];
+        if (contentBlock.type === "text") {
+          const textValue = contentBlock.text.value;
+          if (textValue !== userQuery) {
+            jsxString = textValue;
+            return jsxString;
+          }
+        }
+      }
     }
     return jsxString;
   }
 
-  const businesses = [
-    "Joe's Coffee Shop",
-    "Sally's Bakery",
-    "Techie Gadgets",
-    "Green Thumb Nursery",
-    "Artisan Crafts",
-  ];
+  
 
   return (
-    <div className="w-[100%] items-center justify-center lg:container">
+    <div className="   w-[100%] items-center justify-center lg:container    ">
       <form
         onSubmit={handleSubmit}
-        className={`flex items-center justify-center hover:scale-105 ${
+        className={`flex items-center justify-center hover:scale-105  ${
           formData.waiting ? "fade-out-main" : "fade-in-main"
-        }`}
+        } `}
       >
-        <div className="border border-white overflow-hidden hover:scale-x-105 transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black p-1 rounded-[20px] shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.05),_0_6.7px_5.3px_rgba(0,_0,_0,_0.06),_0_12.5px_10px_rgba(0,_0,_0,_0.07),_0_22.3px_17.9px_rgba(0,_0,_0,_0.09),_0_41.8px_33.4px_rgba(0,_0,_0,_0.1),_0_100px_80px_rgba(0,_0,_0,_0.14)]">
+        <div className="overflow-hidden hover:scale-x-105 transition-all duration-300 bounce items-center justify-center z-10 flex w-4/5 bg-black p-1.5  rounded-full shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.05),_0_6.7px_5.3px_rgba(0,_0,_0,_0.06),_0_12.5px_10px_rgba(0,_0,_0,_0.07),_0_22.3px_17.9px_rgba(0,_0,_0,_0.09),_0_41.8px_33.4px_rgba(0,_0,_0,_0.1),_0_100px_80px_rgba(0,_0,_0,_0.14)] ">
           {formData.code && (
             <DownloadButton formData={{ code: formData.code }} />
           )}
           {formData.code && <Beautify formData={{ code: formData.code }} />}
-          <select
-            className="pl-2 text-lg focus:outline-none cursor-pointer font-bold focus:ring-0 transition-transform duration-500 ease-in-out custom-select"
+          <button
+    className="pl-1 hover:scale-90 transition-all duration-500  ease-out "
+    id="randomButton"
+    type="button"
+            title="Generate random query"
+    onClick={generateRandom}
+>
+    <img src="/random.svg" alt="Random" />
+</button>
+          {/* <select
+            className=" pl-2 text-lg focus:outline-none cursor-pointer font-bold focus:ring-0  transition-transform duration-500 ease-in-out custom-select"
             value={formData.business}
             title="Choose a business"
             onChange={(e) =>
@@ -269,7 +338,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             }
             style={{
               borderRadius: "20px 20px 20px 20px",
-              width: "190px",
+              width: "190px", // Adjusted width for better display
               height: "38px",
               WebkitAppearance: "none",
             }}
@@ -282,18 +351,32 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
                 {business}
               </option>
             ))}
-          </select>
+          </select> */}
           <input
             style={{ flex: 1 }}
             onChange={handleQueryChange}
             value={formData.query}
             id="query"
             placeholder={formData.placeholder}
-            className="caret-white text-white pl-2 focus:outline-none focus:ring-0 rounded-xl font-bold grayscale bg-transparent"
+            className="caret-white text-white pl-2 focus:outline-none focus:ring-0 rounded-xl  font-bold grayscale bg-transparent"
             autoFocus
           />
+
+          <button
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className={`hover:scale-90 transition-all duration-500 leading-5 ease-out rounded-xl bg-white px-4 mr-1.5 py-2 pr-1.5 pl-1.5 transition-all   ${formData.limit === 30 ? 'font-semibold text-sm' : ''} ${formData.limit === 60 ? 'font-bold text-md' : ''} ${formData.limit === 90 ? 'font-extrabold text-lg' : ''} ${formData.limit === 120 ? 'font-black text-xl' : ''}`}
+            id="simplify"
+            title="Choose response length"
+            type="button"
+            onClick={simplify}
+          >
+            <span style={{ fontSize: '15px' }}>{''}</span>
+            {(formData.limit === 30 ? '30' : formData.limit === 60 ? '60' : formData.limit === 90 ? '90' : formData.limit === 120 ? '120' : '') }
+
+          </button>
           <select
-            className="pl-1 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 font-bold text-sm transition-transform duration-500 ease-out"
+            className=" pl-1 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90  font-bold text-sm transition-transform duration-500 ease-out "
             value={formData.voice}
             title="Customize voice"
             onChange={(e) =>
@@ -325,7 +408,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             </optgroup>
           </select>
           <select
-            className="ml-1.5 pl-1.5 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
+            className="ml-1.5 pl-1.5 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90  transition-transform duration-500 ease-in-out custom-select"
             value={formData.language}
             title="Choose a language"
             onChange={(e) =>
@@ -351,10 +434,11 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
       </form>
       {formData.waiting ? (
         <div
-          className={`flex absolute left-0 right-0 justify-center items-center ${
+          className={`flex absolute  left-0 right-0  justify-center items-center ${
             formData.waiting ? "fade-in" : "fade-out"
           }`}
         >
+          {/* <SpinnerDotted size={45} thickness={160} speed={400} color="rgba(0, 0, 0, 1)" /> */}
           <PropagateLoader color="#000000" size={18} speedMultiplier={1.5} />
         </div>
       ) : (
@@ -362,7 +446,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
           {formData.messageVisible && (
             <div>
               <p
-                className={`flex justify-center items-center flex-col pt-4 leading-7 font-medium text-md ${
+                className={` flex  justify-center items-center flex-col pt-4 leading-7 font-medium text-md ${
                   !formData.waiting ? "fade-in-main" : "fade-out-main"
                 }`}
               >
@@ -377,6 +461,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
           >
             {formData.code && <CodePreview code={formData.code} />}
           </div>
+          
         </div>
       )}
       {formData.audioPlayerVisible && (
