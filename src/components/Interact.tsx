@@ -16,11 +16,11 @@ import Beautify from "@/components/Beautify";
 
 // Initialize OpenAI client
 const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+  apiKey: process.env.NEXT_PRIVATE_OPENAI_API_KEY,
   dangerouslyAllowBrowser: true, // Corrected syntax
 });
 
-const assistantId = process.env.NEXT_PUBLIC_ASSISTANT_ID;
+const assistantId = process.env.NEXT_PRIVATE_ASSISTANT_ID;
 const personality = getPersonalityByName("The Challenger");
 
 interface BightProps {
