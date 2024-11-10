@@ -244,8 +244,11 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
           "words.)"
       );
 
-      const run = await createRun(formData.thread.id, personality?.name, personality?.instructions);
- 
+      const run = await createRun(
+        formData.thread.id,
+        personality?.name ?? "", // default to empty string if undefined
+        personality?.instructions ?? ""
+      );
       if (!run.id) {
         throw new Error("Failed to create run");
       }
