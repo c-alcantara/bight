@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Speak = async (inputText: string, voiceChoice: string) => {
-  const API_KEY = process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY; // Make sure to use a public key in the frontend
+  const API_KEY = process.env.NEXT_PRIVATE_ELEVENLABS_API_KEY; // Make sure to use a public key in the frontend
 
   try {
     const response = await axios.post(
