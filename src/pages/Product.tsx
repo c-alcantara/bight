@@ -43,7 +43,7 @@ export default function Product() {
 
   return (
     <main className="relative">
-      <Calcantara />
+     
       <div className="relative z-10 flex h-screen flex-col items-center justify-center">
         <div className="relative z-10 flex h-3/4 w-4/5 flex-col items-center justify-center rounded-3xl border border-white bg-gradient-to-b from-white/20 to-white/95 p-3 shadow-lg">
           <Bight />

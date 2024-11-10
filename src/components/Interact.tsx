@@ -67,6 +67,52 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     messageVisible: true,
   });
 
+
+  const [isListening, setIsListening] = useState(false);
+
+  // Function to handle speech recognition
+  const startListening = () => {
+    const SpeechRecognition =
+      (window as any).SpeechRecognition ||
+      (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert("Speech Recognition is not supported in this browser.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-US"; // Set language for recognition
+    recognition.interimResults = false; // Only return final results
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+      setIsListening(true);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      setFormData((prevData) => ({
+        ...prevData,
+        query: transcript, // Update query with recognized text
+      }));
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error("Speech recognition error:", event.error);
+      alert(event.error);
+      setIsListening(false);
+    };
+
+    recognition.start();
+  };
+
+
+
   // OpenAI API Functions
   const createThread = async () => {
     try {
@@ -344,6 +390,9 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             onClick={generateRandom}
           >
             <img src="/random.svg" alt="Random" />
+          </button>
+          <button type="button" onClick={startListening} className="">
+            🎤 
           </button>
 
           <input
