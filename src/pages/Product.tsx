@@ -13,7 +13,7 @@ export default function Product() {
   const [highColor, setHigh] = useState(0x999999);
   const [midColor, setMid] = useState(0x999999);
   const [lowColor, setLow] = useState(0x999999);
-  const [base, setBase] = useState(0xffffff);
+  const [base, setBase] = useState(0x0);
   const [speed, setSpeed] = useState(0.75);
 
   const [initialHighColor] = useState(highColor);
@@ -24,7 +24,7 @@ export default function Product() {
     setHigh(randomColor());
     setMid(randomColor());
     setLow(randomColor());
-    setBase(0xffffff);
+    setBase(0x0);
     setSpeed(20);
   };
 
@@ -45,9 +45,9 @@ export default function Product() {
     <main className="relative">
       <Calcantara />
       <div className="relative z-10 flex h-screen flex-col items-center justify-center">
-        <div className="relative z-10 flex h-3/4 w-4/5 flex-col items-center justify-center rounded-3xl border border-black bg-gradient-to-b from-black/50 to-black/95 p-10 shadow-lg">
+        <div className="relative z-10 flex h-3/4 w-4/5 flex-col items-center justify-center rounded-3xl border border-white bg-gradient-to-b from-white/20 to-white/95 p-3 shadow-lg">
           <Bight />
-          <Interact updateColors={updateColors} useDefaults={useDefaults} />
+          <Interact updateColors={updateColors} useDefaults={useDefaults}  />
         </div>
         <VantaComponent
           highColor={highColor}

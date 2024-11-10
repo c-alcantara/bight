@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import Speak from './Speak';
+import React, { useState, useEffect } from "react";
+import Speak from "./Speak";
 
 interface AudioProps {
   inputText: string;
@@ -8,36 +8,35 @@ interface AudioProps {
   onEnded: () => void;
 }
 
-
-const AudioPlayer: React.FC<AudioProps> = ({ inputText, voiceChoice, onPlay, onEnded }) => {
+const AudioPlayer: React.FC<AudioProps> = ({
+  inputText,
+  voiceChoice,
+  onPlay,
+  onEnded,
+}) => {
   const [audioURL, setAudioURL] = useState<string | null>(null);
 
   useEffect(() => {
-  
     const handleAudioFetch = async () => {
-      if (voiceChoice == '') { /* DEMO LINE */return; } /*  UNCOMMENT AFTER DEMO */
-      
-       
-      
       try {
-        
-        const data = await Speak(inputText, voiceChoice);
-        if (data != null){
-        const url = URL.createObjectURL(new Blob([data], { type: 'audio/mpeg' }));
-        setAudioURL(url);
+        // Call Speak and get the audio URL directly
+        const audioUrl = await Speak(inputText, voiceChoice);
+        if (audioUrl) {
+          setAudioURL(audioUrl); // Set the URL directly
         }
       } catch (error) {
-        alert("error!");
-        console.error('ERROR!!! 😡', error);
+        alert("Error fetching audio!");
+        console.error("Error:", error);
       }
     };
 
     if (inputText.trim() && !audioURL) handleAudioFetch();
 
+    // Cleanup function to revoke object URLs
     return () => {
       if (audioURL) URL.revokeObjectURL(audioURL);
     };
-  }, []);
+  }, [inputText, voiceChoice, audioURL]);
 
   return (
     <div>
@@ -51,5 +50,3 @@ const AudioPlayer: React.FC<AudioProps> = ({ inputText, voiceChoice, onPlay, onE
 };
 
 export default AudioPlayer;
-
-
