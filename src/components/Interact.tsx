@@ -377,6 +377,7 @@ const toggleSelection = (personalityName: string) => {
                   <div style={{ display: "flex", alignItems: "center" }}>
                     {personality.name}
                   </div>
+                  
                 </option>
               ))}
             </optgroup>

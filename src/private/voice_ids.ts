@@ -31,6 +31,7 @@ export const voice_ids = {
     "👩🏼‍🦱": "jsCqWAovK2LkecY7zXl4",
     "👩🏻‍🔬": "XB0fDUnXU5powFXDhCwa",
     "👩🏻‍💻": "Xb7hH8MSUJpSbSDYk0k2",
+    OF: "aEO01A4wXwd1O8GPgGlF",
   },
   they: {
     "🧖🏻‍♀️": "LcfcDJNUP1GQjkzn1xUU",

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useRef } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import VantaComponent from "@/components/VantaComponent";
 import Bight from "@/components/Bight";
 import Interact from "@/components/Interact";
@@ -17,48 +17,43 @@ export default function Product() {
   const [initialLowColor] = useState(0x0);
   const [initialSpeed] = useState(0.5);
 
-  // Ref to store the interval ID
-  const intervalRef = useRef(null);
+  // Ref to control stopping the color update loop
+  const stopLoopRef = useRef(false);
 
-  // Function to smoothly update colors every 500ms
+  // Function to smoothly update colors with pauses between each color change
   const updateColors = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current); // Clear any existing interval
-    }
+     setSpeed(10);
+    stopLoopRef.current = false; // Ensure the loop runs when called
 
-    // Start a new interval that updates colors every 500ms
-    intervalRef.current = setInterval(() => {
-      setHigh(randomColor());
-      setMid(randomColor());
-      setLow(randomColor());
-    }, 200);
+    const colorLoop = async () => {
+      while (!stopLoopRef.current) {
+        // Change 'high' color
+        setHigh(randomColor());
+         setMid(randomColor());
+         setLow(randomColor());
+        await new Promise((resolve) => setTimeout(resolve, 200));
+
+        
+      }
+    };
+
+    colorLoop(); // Start the loop
 
     // Set speed for smooth transitions
-    setSpeed(10);
+   
   };
 
   // Function to reset colors and stop cycling
   const useDefaults = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current); // Stop the color cycling when resetting to defaults
-      intervalRef.current = null; // Reset the ref
-    }
+    stopLoopRef.current = true; // Stop the color loop
 
+    // Reset colors and speed to their initial values
     setHigh(initialHighColor);
     setMid(initialMidColor);
     setLow(initialLowColor);
-    setBase(0xffffff); // Reset base color
+    setBase(0x0); // Reset base color
     setSpeed(initialSpeed); // Reset speed
   };
-
-  // Ensure that the interval is cleared when component unmounts
-  useEffect(() => {
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current); // Cleanup on unmount
-      }
-    };
-  }, []);
 
   const key = useMemo(
     () => `${highColor}-${midColor}-${lowColor}-${base}-${speed}`,
@@ -79,6 +74,7 @@ export default function Product() {
           lowColor={lowColor}
           base={base}
           speed={speed}
+          key={key} // Ensure VantaComponent re-renders when key changes
         />
       </div>
     </main>
