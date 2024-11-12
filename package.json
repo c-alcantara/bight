@@ -33,6 +33,7 @@
     "react-dom": "^18.3.1",
     "react-speech-recognition": "^3.10.0",
     "react-spinners": "0.14.1",
+    "react-spring": "^9.7.4",
     "react-typed": "^2.0.12",
     "regenerator-runtime": "^0.14.1",
     "rimraf": "^6.0.1",

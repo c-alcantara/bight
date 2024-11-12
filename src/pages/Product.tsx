@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from "react";
+import React, { useRef, useState, useMemo } from "react";
+import { useSpring, animated } from "react-spring"; // Import react-spring
 import VantaComponent from "@/components/VantaComponent";
 import Bight from "@/components/Bight";
 import Interact from "@/components/Interact";
@@ -10,52 +11,64 @@ import { voice_ids } from "@/private/voice_ids";
 const randomColor = () => Math.floor(Math.random() * 0xffffff);
 
 export default function Product() {
-  const [highColor, setHigh] = useState(0x999999);
-  const [midColor, setMid] = useState(0x999999);
-  const [lowColor, setLow] = useState(0x999999);
+  const [highColor, setHigh] = useState(0x0);
+  const [midColor, setMid] = useState(0xffffff);
+  const [lowColor, setLow] = useState(0xffffff);
   const [base, setBase] = useState(0x0);
-  const [speed, setSpeed] = useState(0.75);
+  const [speed, setSpeed] = useState(.1);
+  const [truth, setTruth] = useState(false); // Correctly initialize with useState
 
-  const [initialHighColor] = useState(highColor);
-  const [initialMidColor] = useState(midColor);
-  const [initialLowColor] = useState(lowColor);
+  const [initialHighColor] = useState(0xffffff);
+  const [initialMidColor] = useState(0x0);
+  const [initialLowColor] = useState(0x0);
+  const [initialSpeed] = useState(0.5);
+
 
   const updateColors = () => {
-    setHigh(randomColor());
-    setMid(randomColor());
-    setLow(randomColor());
-    setBase(0x0);
-    setSpeed(20);
+
+    
+    
+    setSpeed(10);
+  
+       setMid(randomColor());
+        setHigh(randomColor());
+         setLow(randomColor());
+ 
+
+  
+  
   };
 
   const useDefaults = () => {
+    
     setHigh(initialHighColor);
     setMid(initialMidColor);
     setLow(initialLowColor);
     setBase(0xffffff);
-    setSpeed(0.75);
+    setSpeed(initialSpeed);
   };
 
   const key = useMemo(
     () => `${highColor}-${midColor}-${lowColor}-${base}-${speed}`,
-    [highColor, midColor, lowColor, base, speed],
+    [highColor, midColor, lowColor, base, speed]
   );
 
   return (
     <main className="relative">
-     
       <div className="relative z-10 flex h-screen flex-col items-center justify-center">
-        <div className="relative z-10 flex h-3/4 w-4/5 flex-col items-center justify-center rounded-3xl  bg-gradient-to-b from-black/10 to-black/75 p-3 shadow-lg">
+        <div className="relative z-10 flex h-3/4 w-4/5 flex-col items-center justify-center rounded-3xl bg-gradient-to-b from-white/5 to-white/90 p-3 shadow-xl">
           <Bight />
-          <Interact updateColors={updateColors} useDefaults={useDefaults}  />
+          <Interact updateColors={updateColors} useDefaults={useDefaults} />
         </div>
-        <VantaComponent
-          highColor={highColor}
-          midColor={midColor}
-          lowColor={lowColor}
-          base={base}
-          speed={speed}
-        />
+       
+          <VantaComponent
+            highColor={highColor}
+            midColor={midColor}
+            lowColor={lowColor}
+            base={base}
+            speed={speed}
+          />
+        
       </div>
     </main>
   );

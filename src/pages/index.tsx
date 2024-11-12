@@ -42,30 +42,26 @@ export default function Home() {
       <div className=" fixed top-50 bg-gradient-to-b to-[rgba(0,0,0,.5)] from-[rgba(0,0,0,1)] w-full h-full">
         {" "}
       </div>
-      <a
-        href="https://www.bight.vercel.app"
-        target="_blank"
-        rel="noopener noreferrer"
-        title="Bight"
-      >
-        <Image
-          src={bight}
-          alt="Logo"
-          className=" saturate-[1.4]  fixed left-1/2 transform -translate-x-1/2 translate-y-8 origin-center w-[170px] md:w-[240px] "
-        />
-      </a>
+
       <div className="flex-grow flex items-center justify-center">
         <div
           className="w-5/6 max-w-5xl p-4 md:p-7 backdrop-blur-lg border border-white bg-gradient-to-b from-[rgba(190,255,210,.76)] to-[rgba(245,255,255,.99)] rounded-3xl  shadow-xl shadow-blu/15 relative"
           style={parallaxStyle}
         >
           <div className="max-w-3xl">
-            <Image
-              src={b}
-              alt="Logo"
-              className="saturate-[1.4] w-[60px] md:w-[80px] shadow-lg shadow-gn/30 transform md:rounded-[22px] "
-              style={{ top: "30px" }}
-            />
+           
+            <a
+              href="https://www.bight.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Bight"
+            >
+              <Image
+                src={bight}
+                alt="Logo"
+                className=" saturate-[1.4]  saturate-[1.4] w-[60px] md:w-[200px] "
+              />
+            </a>
             <p
               className="text-lg z-10 md:text-2xl font-medium mb-6 mt-5 text-blu"
               style={{}}

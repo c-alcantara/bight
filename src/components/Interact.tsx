@@ -6,7 +6,6 @@ import OpenAI from "openai";
 import AudioPlayer from "../components/AudioPlayer";
 import { voice_ids } from "../private/voice_ids";
 import { PropagateLoader } from "react-spinners";
-import CodePreview from "@/components/CodePreview";
 import languages from "../private/languages";
 import DownloadButton from "@/components/Download";
 import Translate from "../components/Translate";
@@ -66,7 +65,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     message: "",
     voice: "1BUhH8aaMvGMUdGAmWVM",
     thread: null,
-    limit: 30,
+    limit: 15,
     submitted: false,
     code: null,
     language: "🇺🇸",
@@ -75,48 +74,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     messageVisible: true,
   });
 
-  const [isListening, setIsListening] = useState(false);
-
-  // Function to handle speech recognition
-  const startListening = () => {
-    const SpeechRecognition =
-      (window as any).SpeechRecognition ||
-      (window as any).webkitSpeechRecognition;
-
-    if (!SpeechRecognition) {
-      alert("Speech Recognition is not supported in this browser.");
-      return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = "en-US"; // Set language for recognition
-    recognition.interimResults = false; // Only return final results
-    recognition.maxAlternatives = 1;
-
-    recognition.onstart = () => {
-      setIsListening(true);
-    };
-
-    recognition.onend = () => {
-      setIsListening(false);
-    };
-
-    recognition.onresult = (event: any) => {
-      const transcript = event.results[0][0].transcript;
-      setFormData((prevData) => ({
-        ...prevData,
-        query: transcript, // Update query with recognized text
-      }));
-    };
-
-    recognition.onerror = (event: any) => {
-      console.error("Speech recognition error:", event.error);
-      alert(event.error);
-      setIsListening(false);
-    };
-
-    recognition.start();
-  };
+  
 
   // OpenAI API Functions
   const createThread = async () => {
@@ -184,7 +142,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
       const updatedPlaceholder = await Translate(
         "en",
         formData.language,
-        "Let's talk... "
+        "Let's chat... "
       );
 
       setFormData((prevFormData) => ({
@@ -339,14 +297,14 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
   }
 
   function simplify() {
-    if (formData.limit === 30) {
+    if (formData.limit === 5) {
       setFormData((prevData) => ({ ...prevData, limit: 60 }));
     } else if (formData.limit === 60) {
       setFormData((prevData) => ({ ...prevData, limit: 90 }));
     } else if (formData.limit === 90) {
       setFormData((prevData) => ({ ...prevData, limit: 120 }));
     } else {
-      setFormData((prevData) => ({ ...prevData, limit: 30 }));
+      setFormData((prevData) => ({ ...prevData, limit: 15 }));
     }
   }
 
@@ -380,12 +338,12 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
           formData.waiting ? "fade-out-main" : "fade-in-main"
         } `}
       >
-        <div className="overflow-hidden hover:scale-x-105 transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black p-1.5 rounded-full shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.05),_0_6.7px_5.3px_rgba(0,_0,_0,_0.06),_0_12.5px_10px_rgba(0,_0,_0,_0.07),_0_22.3px_17.9px_rgba(0,_0,_0,_0.09),_0_41.8px_33.4px_rgba(0,_0,_0,_0.1),_0_100px_80px_rgba(0,_0,_0,_0.14)] ">
-          {formData.code && (
+        <div className="overflow-hidden hover:scale-x-105 transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black/100 p-1.5 rounded-full shadow-xl shadow-black/30 ">
+          {/* {formData.code && (
             <DownloadButton formData={{ code: formData.code }} />
           )}
-          {formData.code && <Beautify formData={{ code: formData.code }} />}
-          <button
+          {formData.code && <Beautify formData={{ code: formData.code }} />} */}
+          {/* <button
             className="pl-1 hover:scale-90 transition-all duration-500 ease-out "
             id="randomButton"
             type="button"
@@ -393,17 +351,9 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             onClick={generateRandom}
           >
             <img src="/random.svg" alt="Random" />
-          </button>
+          </button> */}
 
-          <div>
-            <p>Microphone: {listening ? "on" : "off"}</p>
-            <button onClick={startListening}>Start</button>
-            <button onClick={() => SpeechRecognition.stopListening()}>
-              Stop
-            </button>
-            <button onClick={resetTranscript}>Reset</button>
-            <p>{transcript}</p>
-          </div>
+       
 
           <input
             style={{ flex: 1 }}
@@ -411,7 +361,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             value={formData.query}
             id="query"
             placeholder={formData.placeholder}
-            className="caret-white text-white pl-2 focus:outline-none focus:ring-0 rounded-xl font-bold grayscale bg-transparent"
+            className="caret-white text-white pl-2 focus:outline-none focus:ring-0    bg-transparent"
             autoFocus
           />
 
@@ -419,7 +369,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className={`hover:scale-90 transition-all duration-500 leading-5 ease-out rounded-xl bg-white px-4 mr-1.5 py-2 pr-1.5 pl-1.5 transition-all   ${
-              formData.limit === 30 ? "font-semibold text-sm" : ""
+              formData.limit === 15 ? "font-semibold text-sm" : ""
             } ${formData.limit === 60 ? "font-bold text-md" : ""} ${
               formData.limit === 90 ? "font-extrabold text-lg" : ""
             } ${formData.limit === 120 ? "font-black text-xl" : ""}`}
@@ -429,8 +379,8 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             onClick={simplify}
           >
             <span style={{ fontSize: "15px" }}>{""}</span>
-            {formData.limit === 30
-              ? "30"
+            {formData.limit === 15
+              ? "15"
               : formData.limit === 60
               ? "60"
               : formData.limit === 90
@@ -491,7 +441,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
                 </option>
               ))}
             </optgroup>
-            <optgroup label="Animatec">
+            <optgroup label="Animated">
               {Object.entries(voice_ids.animated).map(([name, id]) => (
                 <option key={name} value={id}>
                   {name}
@@ -551,7 +501,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             formData.waiting ? "fade-in" : "fade-out"
           }`}
         >
-          <PropagateLoader color="#ffffff" size={18} speedMultiplier={1.5} />
+          <PropagateLoader color="#000000" size={18} speedMultiplier={1.4} />
         </div>
       ) : (
         <div className="mt-0">
@@ -562,7 +512,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
                   !formData.waiting ? "fade-in-main" : "fade-out-main"
                 }`}
               >
-                {formData.message}
+                {/* {formData.message} */}
               </p>
             </div>
           )}
@@ -571,7 +521,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
               formData.waiting ? "fade-in" : "fade-out"
             }`}
           >
-            {formData.code && <CodePreview code={formData.code} />}
+            {/* {formData.code && <CodePreview code={formData.code} />} */}
           </div>
         </div>
       )}
