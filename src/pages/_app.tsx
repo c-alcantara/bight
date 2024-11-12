@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Layout from "../components/layout"
 import Head from "next/head"; // Import Head for metadata
-
+import "regenerator-runtime/runtime";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>

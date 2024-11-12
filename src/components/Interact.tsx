@@ -1,3 +1,4 @@
+// src/components/Interact.tsx
 import React, { FC, useEffect, useState } from "react";
 import { Message } from "openai/resources/beta/threads/messages";
 import { Threads } from "openai/resources/beta/threads/threads";
@@ -10,9 +11,11 @@ import languages from "../private/languages";
 import DownloadButton from "@/components/Download";
 import Translate from "../components/Translate";
 import { Random } from "@/components/Random";
-//import { instruct } from "../../public/instructions";
-import { getPersonalityByName } from "../../public/instructions"; // Import from 
+import { getPersonalityByName } from "../../public/instructions"; // Import from
 import Beautify from "@/components/Beautify";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -26,8 +29,6 @@ const personality = getPersonalityByName("The Challenger");
 interface BightProps {
   updateColors: () => void;
   useDefaults: () => void;
-
-      
 }
 
 interface FormData {
@@ -48,6 +49,13 @@ interface FormData {
 }
 
 const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
+
   const [isHovered, setIsHovered] = useState(false);
 
   const [formData, setFormData] = useState<FormData>({
@@ -66,7 +74,6 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     audioPlayerVisible: false,
     messageVisible: true,
   });
-
 
   const [isListening, setIsListening] = useState(false);
 
@@ -111,8 +118,6 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     recognition.start();
   };
 
-
-
   // OpenAI API Functions
   const createThread = async () => {
     try {
@@ -149,15 +154,13 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
   const createRun = async (
     threadId: string,
     name: string,
-    instructions: string,
-   
+    instructions: string
   ) => {
     try {
       if (!assistantId) throw new Error("Assistant ID is not configured");
       const run = await openai.beta.threads.runs.create(threadId, {
-       
         assistant_id: assistantId,
-        instructions: instructions || undefined
+        instructions: instructions || undefined,
       });
       return run;
     } catch (error) {
@@ -287,7 +290,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
         formData.query +
           "(Please limit your response to " +
           formData.limit +
-          "words.)"
+          " words.)"
       );
 
       const run = await createRun(
@@ -370,20 +373,20 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
   }
 
   return (
-    <div className="   w-[100%] items-center justify-center lg:container    ">
+    <div className="w-[100%] items-center justify-center lg:container">
       <form
         onSubmit={handleSubmit}
-        className={`flex items-center justify-center hover:scale-105  ${
+        className={`flex items-center justify-center hover:scale-105 ${
           formData.waiting ? "fade-out-main" : "fade-in-main"
         } `}
       >
-        <div className="overflow-hidden hover:scale-x-105 transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black p-1.5  rounded-full shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.05),_0_6.7px_5.3px_rgba(0,_0,_0,_0.06),_0_12.5px_10px_rgba(0,_0,_0,_0.07),_0_22.3px_17.9px_rgba(0,_0,_0,_0.09),_0_41.8px_33.4px_rgba(0,_0,_0,_0.1),_0_100px_80px_rgba(0,_0,_0,_0.14)] ">
+        <div className="overflow-hidden hover:scale-x-105 transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black p-1.5 rounded-full shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.05),_0_6.7px_5.3px_rgba(0,_0,_0,_0.06),_0_12.5px_10px_rgba(0,_0,_0,_0.07),_0_22.3px_17.9px_rgba(0,_0,_0,_0.09),_0_41.8px_33.4px_rgba(0,_0,_0,_0.1),_0_100px_80px_rgba(0,_0,_0,_0.14)] ">
           {formData.code && (
             <DownloadButton formData={{ code: formData.code }} />
           )}
           {formData.code && <Beautify formData={{ code: formData.code }} />}
           <button
-            className="pl-1 hover:scale-90 transition-all duration-500  ease-out "
+            className="pl-1 hover:scale-90 transition-all duration-500 ease-out "
             id="randomButton"
             type="button"
             title="Generate random query"
@@ -391,9 +394,16 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
           >
             <img src="/random.svg" alt="Random" />
           </button>
-          <button type="button" onClick={startListening} className="">
-            🎤 
-          </button>
+
+          <div>
+            <p>Microphone: {listening ? "on" : "off"}</p>
+            <button onClick={startListening}>Start</button>
+            <button onClick={() => SpeechRecognition.stopListening()}>
+              Stop
+            </button>
+            <button onClick={resetTranscript}>Reset</button>
+            <p>{transcript}</p>
+          </div>
 
           <input
             style={{ flex: 1 }}
@@ -401,7 +411,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             value={formData.query}
             id="query"
             placeholder={formData.placeholder}
-            className="caret-white text-white pl-2 focus:outline-none focus:ring-0 rounded-xl  font-bold grayscale bg-transparent"
+            className="caret-white text-white pl-2 focus:outline-none focus:ring-0 rounded-xl font-bold grayscale bg-transparent"
             autoFocus
           />
 
@@ -430,7 +440,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
               : ""}
           </button>
           <select
-            className=" pl-1 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90  font-bold text-sm transition-transform duration-500 ease-out "
+            className="pl-1 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 font-bold text-sm transition-transform duration-500 ease-out "
             value={formData.voice}
             title="Customize voice"
             onChange={(e) =>
@@ -511,7 +521,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             </optgroup>
           </select>
           <select
-            className="ml-1.5 pl-1.5 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90  transition-transform duration-500 ease-in-out custom-select"
+            className="ml-1.5 pl-1.5 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
             value={formData.language}
             title="Choose a language"
             onChange={(e) =>
@@ -537,23 +547,22 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
       </form>
       {formData.waiting ? (
         <div
-          className={`flex absolute  left-0 right-0  justify-center items-center ${
+          className={`flex absolute left-0 right-0 justify-center items-center ${
             formData.waiting ? "fade-in" : "fade-out"
           }`}
         >
-          {/* <SpinnerDotted size={45} thickness={160} speed={400} color="rgba(0, 0, 0, 1)" /> */}
-          <PropagateLoader color="#000000" size={18} speedMultiplier={1.5} />
+          <PropagateLoader color="#ffffff" size={18} speedMultiplier={1.5} />
         </div>
       ) : (
         <div className="mt-0">
           {formData.messageVisible && (
             <div>
               <p
-                className={` flex  justify-center items-center flex-col pt-4 leading-7 font-medium text-md ${
+                className={`flex justify-center items-center flex-col p-4 font-medium text-md text-white ${
                   !formData.waiting ? "fade-in-main" : "fade-out-main"
                 }`}
               >
-                {/* {formData.message} */}
+                {formData.message}
               </p>
             </div>
           )}
