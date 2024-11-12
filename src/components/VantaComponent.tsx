@@ -1,19 +1,17 @@
-"use client" 
-import React, { Component, RefObject, useEffect, useState } from 'react';
-import fog from "vanta/dist/vanta.fog.min"
+"use client";
+import React, { Component, RefObject } from "react";
+import fog from "vanta/dist/vanta.fog.min";
 import * as THREE from "three";
 
 interface Props {
-  highColor?: number,
-  midColor?: number,
-  lowColor?: number,
-  base?: number,
-  speed: number
+  highColor?: number;
+  midColor?: number;
+  lowColor?: number;
+  base?: number;
+  speed: number;
 }
 
 class VantaComponent extends Component<Props> {
-  //const[transitionDuration, setTransitionDuration] = useState(1000);
-  randomColor = () => Math.floor(Math.random() * 0xffffff);
   private sceneRef: RefObject<HTMLDivElement>;
   private vantaEffect: any;
 
@@ -55,21 +53,15 @@ class VantaComponent extends Component<Props> {
         midtoneColor: this.props.midColor,
         lowlightColor: this.props.lowColor,
         baseColor: this.props.base,
-        blurFactor: 0.8,
+        blurFactor: 0.6,
         speed: this.props.speed,
-        zoom: 0.9,
+        zoom: 0.3,
       });
     }
   }
 
   startColorTransition(prevProps: Props) {
-    var transitionDuration: any = "";
-
-    if (prevProps.speed != 20) {
-      transitionDuration = 500; // Transition duration in milliseconds
-    } else {
-      transitionDuration = 1300; // Transition duration in milliseconds
-    }
+    const transitionDuration = prevProps.speed === 20 ? 1300 : 500; // Set transition duration based on speed
     const stepDuration = 10; // Step duration in milliseconds
     const steps = transitionDuration / stepDuration;
 
@@ -81,7 +73,7 @@ class VantaComponent extends Component<Props> {
       // Interpolate each color component
       const newHighColor = this.interpolateColor(
         prevProps.highColor,
-       this.props.highColor,
+        this.props.highColor,
         t
       );
       const newMidColor = this.interpolateColor(
@@ -95,71 +87,74 @@ class VantaComponent extends Component<Props> {
         t
       );
 
-      this.vantaEffect.setOptions({
-        highlightColor: newHighColor,
-        midtoneColor: newMidColor,
-        lowlightColor: newLowColor,
-      });
-
-      if (currentStep >= steps) {
-        clearInterval(intervalId);
+      // Update Vanta effect with new colors
+      if (this.vantaEffect) {
+        this.vantaEffect.setOptions({
+          highlightColor: newHighColor,
+          midtoneColor: newMidColor,
+          lowlightColor: newLowColor,
+        });
       }
+
+      if (currentStep >= steps) clearInterval(intervalId);
     }, stepDuration);
   }
+
   interpolateColor(
     startColor: number | undefined,
     endColor: number | undefined,
     t: number
   ): number {
-    if (startColor === undefined || endColor === undefined) return 0;
+    if (startColor === undefined || endColor === undefined)
+      return startColor || endColor || 0;
+
     const startRGB = [
-      (startColor >> 16) & 255,
-      (startColor >> 8) & 255,
-      startColor & 255,
+      (startColor >> 16) & 255, // Red
+      (startColor >> 8) & 255, // Green
+      startColor & 255, // Blue
     ];
+
     const endRGB = [
-      (endColor >> 16) & 255,
-      (endColor >> 8) & 255,
-      endColor & 255,
+      (endColor >> 16) & 255, // Red
+      (endColor >> 8) & 255, // Green
+      endColor & 255, // Blue
     ];
-    const newRGB = startRGB.map((start, i) =>
+
+    const interpolatedRGB = startRGB.map((start, i) =>
       Math.round(start + (endRGB[i] - start) * t)
     );
-    return (newRGB[0] << 16) | (newRGB[1] << 8) | newRGB[2];
+
+    return (
+      (interpolatedRGB[0] << 16) |
+      (interpolatedRGB[1] << 8) |
+      interpolatedRGB[2]
+    );
   }
+
   updateSpeed() {
-    if (this.vantaEffect) {
-      var transitionDuration: any = "";
+    const transitionDuration = this.props.speed === 20 ? 500 : 1100; // Set transition duration based on speed
+    const stepDuration = 10;
+    const steps = transitionDuration / stepDuration;
 
-      if (this.props.speed != 20) {
-        transitionDuration = 1100; // Transition duration in milliseconds
-      } else {
-        transitionDuration = 500; // Transition duration in milliseconds
-      }
+    let currentStep = 0;
+    const startSpeed = this.vantaEffect?.options?.speed || this.props.speed;
+    const speedStep = (this.props.speed - startSpeed) / steps;
 
-      const startSpeed = this.vantaEffect.options.speed;
-      const endSpeed = this.props.speed;
-      //const transitionDuration = 500; // Transition duration in milliseconds
-      const stepDuration = 10; // Step duration in milliseconds
-      const steps = transitionDuration / stepDuration;
-      const speedStep = (endSpeed - startSpeed) / steps;
+    const intervalId = setInterval(() => {
+      currentStep += 1;
+      const newSpeed = startSpeed + speedStep * currentStep;
 
-      let currentStep = 0;
-      const intervalId = setInterval(() => {
-        currentStep += 1;
-        const newSpeed = startSpeed + speedStep * currentStep;
+      if (this.vantaEffect) {
         this.vantaEffect.setOptions({
           speed: newSpeed,
           highlightColor: this.props.highColor,
           midtoneColor: this.props.midColor,
           lowlightColor: this.props.lowColor,
         });
+      }
 
-        if (currentStep >= steps) {
-          clearInterval(intervalId);
-        }
-      }, stepDuration);
-    }
+      if (currentStep >= steps) clearInterval(intervalId);
+    }, stepDuration);
   }
 
   destroyVantaEffect() {
@@ -170,12 +165,7 @@ class VantaComponent extends Component<Props> {
   }
 
   render() {
-    return (
-      <div
-        ref={this.sceneRef}
-        className=" w-full h-screen absolute z-0 transition-all duration-500 ease-out "
-      />
-    );
+    return <div ref={this.sceneRef} className="w-full h-screen absolute z-0" />;
   }
 }
 

@@ -1,5 +1,4 @@
-// src/components/Interact.tsx
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { Message } from "openai/resources/beta/threads/messages";
 import { Threads } from "openai/resources/beta/threads/threads";
 import OpenAI from "openai";
@@ -7,23 +6,31 @@ import AudioPlayer from "../components/AudioPlayer";
 import { voice_ids } from "../private/voice_ids";
 import { PropagateLoader } from "react-spinners";
 import languages from "../private/languages";
-import DownloadButton from "@/components/Download";
 import Translate from "../components/Translate";
-import { Random } from "@/components/Random";
-import { getPersonalityByName } from "../../public/instructions"; // Import from
-import Beautify from "@/components/Beautify";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
+import { getInstructionsByName } from "../../public/instructions"; 
+import { getPersonalityByName } from "../../public/instructions";
 
-// Initialize OpenAI client
+import Spline from "@splinetool/react-spline";
+
+
+import {
+  Carousel,
+  CarouselContent,
+
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
+
+import { personalities } from "../../public/instructions";
 const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
   dangerouslyAllowBrowser: true, // Corrected syntax
 });
 
 const assistantId = process.env.NEXT_PUBLIC_ASSISTANT_ID;
-const personality = getPersonalityByName("The Challenger");
+
 
 interface BightProps {
   updateColors: () => void;
@@ -34,13 +41,13 @@ interface FormData {
   placeholder: string;
   query: string;
   language: any;
-  limit: number;
   messageList: Message[];
   waiting: boolean;
   code: any;
   message: string;
+
   voice: string;
-  business: string;
+  attitude:string;
   thread: Threads.Thread | null;
   submitted: boolean;
   audioPlayerVisible: boolean;
@@ -48,14 +55,7 @@ interface FormData {
 }
 
 const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition,
-  } = useSpeechRecognition();
-
-  const [isHovered, setIsHovered] = useState(false);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const [formData, setFormData] = useState<FormData>({
     placeholder: "",
@@ -63,20 +63,18 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     messageList: [],
     waiting: false,
     message: "",
-    voice: "1BUhH8aaMvGMUdGAmWVM",
+    voice: "",
+    attitude: "str",
     thread: null,
-    limit: 15,
     submitted: false,
     code: null,
     language: "🇺🇸",
-    business: "",
     audioPlayerVisible: false,
     messageVisible: true,
   });
 
-  
+   
 
-  // OpenAI API Functions
   const createThread = async () => {
     try {
       const thread = await openai.beta.threads.create();
@@ -111,7 +109,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
 
   const createRun = async (
     threadId: string,
-    name: string,
+   
     instructions: string
   ) => {
     try {
@@ -154,33 +152,9 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     translatePlaceholder();
   }, [formData.language]);
 
-  const [prevLimit, setPrevLimit] = useState(formData.limit);
-  const [animate, setAnimate] = useState(false);
-  const [animate2, setAnimate2] = useState(false);
 
-  useEffect(() => {
-    if (prevLimit !== formData.limit) {
-      setAnimate(true);
-      setPrevLimit(formData.limit);
-    }
-  }, [formData.limit]);
 
-  useEffect(() => {
-    if (animate) {
-      const timer = setTimeout(() => setAnimate(false), 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [animate]);
 
-  useEffect(() => {
-    if (formData.audioPlayerVisible) {
-      setAnimate2(true);
-      formData.messageVisible = true;
-    } else {
-      setAnimate2(false);
-      formData.messageVisible = false;
-    }
-  }, [formData.audioPlayerVisible]);
 
   useEffect(() => {
     const newThread = async () => {
@@ -245,20 +219,20 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
 
       await createMessage(
         formData.thread.id,
-        formData.query +
-          "(Please limit your response to " +
-          formData.limit +
-          " words.)"
+        formData.query
+          
       );
 
-      const run = await createRun(
-        formData.thread.id,
-        personality?.name ?? "", // default to empty string if undefined
-        personality?.instructions ?? ""
-      );
+      const instructions = getInstructionsByName(formData.attitude);
+      if (!instructions) {
+        throw new Error("Instructions not found for the given attitude");
+      }
+
+      const run = await createRun(formData.thread.id, instructions);
       if (!run.id) {
         throw new Error("Failed to create run");
       }
+      
 
       const checkRunStatus = async () => {
         const res = await retrieveRun(formData.thread!.id, run.id);
@@ -288,26 +262,42 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     setFormData((prevData) => ({ ...prevData, submitted: true, query: "" }));
   };
 
-  async function generateRandom() {
-    setFormData((prevData) => ({
-      ...prevData,
-      query: Random.generateRandomQuery(),
-      voice: Random.generateRandomVoice(),
-    }));
-  }
+  // async function generateRandom() {
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     query: Random.generateRandomQuery(),
+  //     voice: Random.generateRandomVoice(),
+  //   }));
+  // }
 
-  function simplify() {
-    if (formData.limit === 5) {
-      setFormData((prevData) => ({ ...prevData, limit: 60 }));
-    } else if (formData.limit === 60) {
-      setFormData((prevData) => ({ ...prevData, limit: 90 }));
-    } else if (formData.limit === 90) {
-      setFormData((prevData) => ({ ...prevData, limit: 120 }));
-    } else {
-      setFormData((prevData) => ({ ...prevData, limit: 15 }));
-    }
-  }
+const toggleSelection = (personalityName: string) => {
+   
+  setSelectedItems((prev) => {
+    const newSelection = prev.includes(personalityName)
+      ? prev.filter((item) => item !== personalityName)
+      : [...prev, personalityName];
 
+    return newSelection;
+  });
+
+  // Fetch the instructions for each selected personality
+  const instructionsArray = selectedItems
+    .map((name) => getInstructionsByName(name))
+    .filter(Boolean);
+
+  // Join the instructions into a single string
+  let str = instructionsArray.join(", + ");
+
+  // Update form data with the concatenated instructions
+  setFormData((prevData) => ({
+    ...prevData,
+    attitude: str,
+  }));
+
+};
+
+
+  
   function generateMessageListString(
     messageList: Message[],
     userQuery: string
@@ -353,8 +343,6 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             <img src="/random.svg" alt="Random" />
           </button> */}
 
-       
-
           <input
             style={{ flex: 1 }}
             onChange={handleQueryChange}
@@ -365,32 +353,37 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             autoFocus
           />
 
-          <button
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className={`hover:scale-90 transition-all duration-500 leading-5 ease-out rounded-xl bg-white px-4 mr-1.5 py-2 pr-1.5 pl-1.5 transition-all   ${
-              formData.limit === 15 ? "font-semibold text-sm" : ""
-            } ${formData.limit === 60 ? "font-bold text-md" : ""} ${
-              formData.limit === 90 ? "font-extrabold text-lg" : ""
-            } ${formData.limit === 120 ? "font-black text-xl" : ""}`}
-            id="simplify"
-            title="Choose response length"
-            type="button"
-            onClick={simplify}
-          >
-            <span style={{ fontSize: "15px" }}>{""}</span>
-            {formData.limit === 15
-              ? "15"
-              : formData.limit === 60
-              ? "60"
-              : formData.limit === 90
-              ? "90"
-              : formData.limit === 120
-              ? "120"
-              : ""}
-          </button>
           <select
-            className="pl-1 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 font-bold text-sm transition-transform duration-500 ease-out "
+            className="fixed  pl-1 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 font-bold text-sm transition-transform duration-500 ease-out"
+            value={formData.attitude}
+            title="Customize attitude"
+            onChange={(e) => {
+              const selectedPersonality = getPersonalityByName(e.target.value);
+              setFormData((prevData) => ({
+                ...prevData,
+                attitude: selectedPersonality ? selectedPersonality.name : "",
+              }));
+            }}
+            style={{
+              borderRadius: "12px",
+              width: "77px",
+              height: "37px",
+              WebkitAppearance: "none",
+            }}
+          >
+            <optgroup label="Attitude">
+              {personalities.map((personality) => (
+                <option key={personality.name} value={personality.name}>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    {personality.name}
+                  </div>
+                </option>
+              ))}
+            </optgroup>
+          </select>
+
+          <select
+            className="pl-1.5 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 font-bold text-xl transition-transform duration-500 ease-out "
             value={formData.voice}
             title="Customize voice"
             onChange={(e) =>
@@ -401,69 +394,27 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             }
             style={{
               borderRadius: "12px",
-              width: "63px",
+              width: "37px",
               height: "37px",
               WebkitAppearance: "none",
             }}
           >
-            <optgroup label="Silent">
-              {Object.entries(voice_ids.silent).map(([name, id]) => (
+            <optgroup label="He/Him">
+              {Object.entries(voice_ids.he).map(([name, id]) => (
                 <option key={name} value={id}>
                   {name}
                 </option>
               ))}
             </optgroup>
-            <optgroup label="Formal">
-              {Object.entries(voice_ids.formal).map(([name, id]) => (
+            <optgroup label="She/Her">
+              {Object.entries(voice_ids.her).map(([name, id]) => (
                 <option key={name} value={id}>
                   {name}
                 </option>
               ))}
             </optgroup>
-            <optgroup label="Casual">
-              {Object.entries(voice_ids.casual).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="Soft">
-              {Object.entries(voice_ids.soft).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="Sassy">
-              {Object.entries(voice_ids.sassy).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="Animated">
-              {Object.entries(voice_ids.animated).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="Cinematic">
-              {Object.entries(voice_ids.cinematic).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="Intelligent">
-              {Object.entries(voice_ids.intelligent).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="Informative">
-              {Object.entries(voice_ids.informative).map(([name, id]) => (
+            <optgroup label="They/Them">
+              {Object.entries(voice_ids.they).map(([name, id]) => (
                 <option key={name} value={id}>
                   {name}
                 </option>
@@ -495,6 +446,9 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
           </select>
         </div>
       </form>
+      <div className="scale-150 overflow-hidden">
+        {/* <Spline scene="https://prod.spline.design/efovozZ1Mdzz734Z/scene.splinecode" /> */}
+      </div>
       {formData.waiting ? (
         <div
           className={`flex absolute left-0 right-0 justify-center items-center ${
@@ -508,11 +462,11 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
           {formData.messageVisible && (
             <div>
               <p
-                className={`flex justify-center items-center flex-col p-4 font-medium text-md text-white ${
+                className={`flex justify-center items-center flex-col p-4 font-medium text-md text-black ${
                   !formData.waiting ? "fade-in-main" : "fade-out-main"
                 }`}
               >
-                {/* {formData.message} */}
+                {formData.message}
               </p>
             </div>
           )}

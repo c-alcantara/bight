@@ -22,18 +22,18 @@ const Backgr: React.FC = () => {
 
   return (
     <div>
-      <div className="fixed -top-[110px] w-full h-[110%] z-[-1]">
+      <div className="saturate-[1.3] fixed top-0 w-full h-[100%] z-[-1]">
         {!isSmallScreen ? (
           <iframe
-            src="https://my.spline.design/futuristicmapinterface-f34f00dd677e5b9199c70175289d0dd1/"
+            src="https://my.spline.design/dunes-d42eb74064aa3adeb8d90152c4b5a51d/"
             width="100%"
-            height="110%"
+            height="100%"
           ></iframe>
         ) : (
           <iframe
-            src="https://my.spline.design/futuristicmapinterface-f34f00dd677e5b9199c70175289d0dd1/"
+            src="https://my.spline.design/dunes-d42eb74064aa3adeb8d90152c4b5a51d/"
             width="100%"
-            height="150%"
+            height="100%"
           ></iframe>
         )}
       </div>
