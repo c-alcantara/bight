@@ -374,9 +374,9 @@ const toggleSelection = (personalityName: string) => {
             <optgroup label="Attitude">
               {personalities.map((personality) => (
                 <option key={personality.name} value={personality.name}>
-                  <div style={{ display: "flex", alignItems: "center" }}>
+                
                     {personality.name}
-                  </div>
+               
                   
                 </option>
               ))}
@@ -467,7 +467,7 @@ const toggleSelection = (personalityName: string) => {
                   !formData.waiting ? "fade-in-main" : "fade-out-main"
                 }`}
               >
-                {formData.message}
+                {/* {formData.message} */}
               </p>
             </div>
           )}
