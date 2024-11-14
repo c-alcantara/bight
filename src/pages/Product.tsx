@@ -8,7 +8,7 @@ import Spline from "@splinetool/react-spline";
 const randomColor = () => Math.floor(Math.random() * 0xffffff);
 
 // Utility function to interpolate between two colors
-const interpolateColor = (startColor, endColor, factor) => {
+const interpolateColor = (startColor: number, endColor: number, factor: number) => {
   const start = {
     r: (startColor >> 16) & 0xff,
     g: (startColor >> 8) & 0xff,
@@ -149,7 +149,7 @@ export default function Product() {
           <Bight /> {/* Assuming this was a typo */}
           <Interact updateColors={updateColors} useDefaults={useDefaults} />
         </div>
-<Spline />
+{/* <Spline /> */}
         <VantaComponent
           highColor={highColor}
           midColor={midColor}
