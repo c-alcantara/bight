@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useRef } from "react";
 import VantaComponent from "@/components/VantaComponent";
-import Bright from "@/components/Bight"; // Assuming this was a typo
+import Bight from "@/components/Bight"; // Assuming this was a typo
 import Interact from "@/components/Interact";
+import Spline from "@splinetool/react-spline";
 
 // Utility function to generate random color
 const randomColor = () => Math.floor(Math.random() * 0xffffff);
@@ -28,7 +29,7 @@ const interpolateColor = (startColor, endColor, factor) => {
 
 export default function Product() {
   const [highColor, setHigh] = useState(0xffffff);
-  const [midColor, setMid] = useState(0xffffff);
+  const [midColor, setMid] = useState(0x0);
   const [lowColor, setLow] = useState(0xffffff);
   const [base, setBase] = useState(0x0);
   const [blur, setBlur] = useState(.8);
@@ -48,19 +49,19 @@ export default function Product() {
     let targetMidColor = Math.floor(Math.random() * 0xffffff);
     let targetLowColor = Math.floor(Math.random() * 0xffffff);
 
-    let startSpeed = 0.8;
+    let startSpeed = 0.6;
     let targetSpeed = 8;
 
     let startBlur = .8;
     let targetBlur = 0.6;
 
     let progress = 0;
-    const duration = 200; // Adjust duration for smoothness
+    const duration = 100; // Adjust duration for smoothness
 
     const colorLoop = () => {
       if (stopLoopRef.current) return; // Stop loop if requested
 
-      progress += speed / duration;
+      progress += 1 / duration;
 
       if (progress >= 1) {
         // Once transition completes, reset progress and pick new target colors
@@ -111,7 +112,7 @@ export default function Product() {
     let startBlur = blur;
     let targetBlur = .8;
     let startSpeed = speed;
-    let targetSpeed = 0.8;
+    let targetSpeed = 0.6;
 
     let progress = 0;
     const duration = 500; // Adjust duration for smoothness
@@ -144,11 +145,11 @@ export default function Product() {
   return (
     <main className="relative">
       <div className="relative z-10 flex h-screen flex-col items-center justify-center">
-        <div className="backdrop-blur-lg relative z-10 flex h-3/4 w-4/5 flex-col items-center justify-center rounded-3xl bg-gradient-to-b from-white/5 to-white/90 p-3 shadow-xl">
-          <Bright /> {/* Assuming this was a typo */}
+        <div className="backdrop-blur-lg relative z-10 flex h-3/4 w-4/5  flex-col items-center justify-center rounded-3xl bg-gradient-to-b from-black/20 to-black/90 p-3  shadow-lg">
+          <Bight /> {/* Assuming this was a typo */}
           <Interact updateColors={updateColors} useDefaults={useDefaults} />
         </div>
-
+<Spline />
         <VantaComponent
           highColor={highColor}
           midColor={midColor}

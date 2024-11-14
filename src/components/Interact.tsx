@@ -328,7 +328,7 @@ const toggleSelection = (personalityName: string) => {
           formData.waiting ? "fade-out-main" : "fade-in-main"
         } `}
       >
-        <div className="overflow-hidden hover:scale-x-105 transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black/100 p-1.5 rounded-full shadow-xl shadow-black/30 ">
+        <div className="overflow-hidden hover:scale-x-105 transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black/100 p-1.5 rounded-full shadow-xl shadow-black/30 border-white/20 border ">
           {/* {formData.code && (
             <DownloadButton formData={{ code: formData.code }} />
           )}
