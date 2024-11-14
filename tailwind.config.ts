@@ -57,7 +57,7 @@ const config: Config = {
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         blu: "#000000",
-        gn: "#06AF00",
+        gn: "#000000",
       },
     },
   },

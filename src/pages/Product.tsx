@@ -145,14 +145,16 @@ export default function Product() {
   return (
     <main className=" relative">
       <div className=" relative z-10 flex h-screen  items-center justify-center">
-        <div className=" pt-36 flex-col space-y-36 backdrop-blur-xl relative z-10 flex  h-[90%]  w-[92%] flex-col items-center justify-center rounded-[30px] bg-gradient-to-b from-black/10 to-black/80   shadow-lg">
+        <div className=" pt-36 flex-col space-y-28 backdrop-blur-xl relative z-10 flex  h-[90%]  w-[92%] flex-col items-center justify-center rounded-[30px] bg-gradient-to-b from-black/10 to-black/80   shadow-lg">
           <Bight /> {/* Assuming this was a typo */}
           {/* Add margin for spacing */}
           <Interact updateColors={updateColors} useDefaults={useDefaults} />
         </div>
-        {/* <div className="relative z-10 flex h-screen flex-col items-center justify-center">
-          <Spline scene="https://prod.spline.design/IRRkK1WC036LqGSe/scene.splinecode"  />
-        </div> */}
+        <div className="">
+          {/* <Spline
+        scene="https://prod.spline.design/UsT7F4lC7Ac6xJS2/scene.splinecode" 
+      /> */}
+        </div>
         <VantaComponent
           highColor={highColor}
           midColor={midColor}

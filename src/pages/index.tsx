@@ -39,9 +39,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-cover bg-center bg-fixed">
-      <div className="fixed top-50  w-full h-full">
-        {" "}
-      </div>
+      <div className="fixed top-50  w-full h-full"> </div>
 
       <div className="flex-grow flex items-center justify-center">
         <div
@@ -49,7 +47,6 @@ export default function Home() {
           style={parallaxStyle}
         >
           <div className="max-w-3xl">
-           
             <a
               href="https://www.bight.vercel.app"
               target="_blank"
@@ -59,15 +56,16 @@ export default function Home() {
               <Image
                 src={bight}
                 alt="Logo"
-                className=" saturate-[1.4]  saturate-[1.4] w-[60px] md:w-[200px] "
+                className=" opacity-100  w-[70px] md:w-[220px] "
               />
             </a>
             <p
               className="text-lg z-10 md:text-2xl font-medium mb-6 mt-5 text-blu"
               style={{}}
             >
-              Bight is the <strong>do-it-for-you</strong> assistant that handles
-              communication and support for people and businesses worldwide.
+              Bight is the customizable digital{" "}
+              <strong>buddy</strong> that bridges the gap between humans and
+              robots.
             </p>
           </div>
           <Form />
@@ -102,7 +100,7 @@ export default function Home() {
         </div>
       </div>
       <p
-        className="text-white fixed left-1/2 transform -translate-x-2/4 text-center font-semibold text-xs md:text-2xl"
+        className="text-black fixed left-1/2 transform -translate-x-2/4 text-center font-semibold text-xs md:text-2xl"
         style={{ bottom: "20px" }}
       >
         No more{" "}

@@ -25,13 +25,13 @@ const Backgr: React.FC = () => {
       <div className="saturate-[1.3] fixed top-0 w-full h-[100%] z-[-1]">
         {!isSmallScreen ? (
           <iframe
-            src="https://my.spline.design/dunes-d42eb74064aa3adeb8d90152c4b5a51d/"
+            src="https://my.spline.design/dunes-85ea128f1e916cace7cad5814d34d979/"
             width="100%"
             height="100%"
           ></iframe>
         ) : (
           <iframe
-            src="https://my.spline.design/dunes-d42eb74064aa3adeb8d90152c4b5a51d/"
+            src="https://my.spline.design/dunes-85ea128f1e916cace7cad5814d34d979/"
             width="100%"
             height="100%"
           ></iframe>

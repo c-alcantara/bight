@@ -131,7 +131,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
       const updatedPlaceholder = await Translate(
         "en",
         formData.language,
-        "Clock it... "
+        "Go off... "
       );
 
       setFormData((prevFormData) => ({
