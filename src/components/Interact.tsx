@@ -131,7 +131,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
       const updatedPlaceholder = await Translate(
         "en",
         formData.language,
-        "Let's chat... "
+        "Clock it... "
       );
 
       setFormData((prevFormData) => ({
@@ -284,7 +284,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
   }
 
   return (
-    <div className="w-[100%] items-center justify-center lg:container">
+    <div className="w-[100%] ">
       <form
         onSubmit={handleSubmit}
         className={`flex items-center justify-center hover:scale-105 ${
@@ -303,7 +303,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
           />
         </div>
         <select
-          className="   text-white ml-2 pl-2 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
+          className="  grayscale text-white ml-2 pl-2 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
           value={formData.language}
           title="Choose a language"
           onChange={(e) =>
@@ -327,9 +327,9 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
         </select>
       </form>
       {/* Moved dropdowns outside the form */}
-      <div className="opacity-90 w-full flex items-center justify-center mt-4">
+      <div className="opacity-0 w-full flex items-center justify-center mt-4">
         <select
-          className=" pl-3 mr-1 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 font-bold text-sm transition-transform duration-500 ease-out"
+          className="  pl-3 mr-1 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 font-bold text-sm transition-transform duration-500 ease-out"
           value={formData.attitude}
           title="Customize attitude"
           onChange={(e) => {
