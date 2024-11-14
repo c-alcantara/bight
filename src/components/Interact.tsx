@@ -244,22 +244,22 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     setFormData((prevData) => ({ ...prevData, submitted: true, query: "" }));
   };
 
-  const toggleSelection = (personalityName: string) => {
-    let str = selectedItems.join(", + ");
-    alert(str);
-    setSelectedItems((prev) => {
-      const newSelection = prev.includes(personalityName)
-        ? prev.filter((item) => item !== personalityName)
-        : [...prev, getInstructionsByName(personalityName)].filter(Boolean); // Ensure no undefined values
+  // const toggleSelection = (personalityName: string) => {
+  //   let str = selectedItems.join(", + ");
+  //   alert(str);
+  //   setSelectedItems((prev) => {
+  //     const newSelection = prev.includes(personalityName)
+  //       ? prev.filter((item) => item !== personalityName)
+  //       : [...prev, getInstructionsByName(personalityName)].filter(Boolean); // Ensure no undefined values
 
-      setFormData((prevData) => ({
-        ...prevData,
-        attitude: str,
-      }));
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       attitude: str,
+  //     }));
 
-      return newSelection;
-    });
-  };
+  //     return newSelection;
+  //   });
+  // };
 
   function generateMessageListString(
     messageList: Message[],
