@@ -7,16 +7,14 @@ import { voice_ids } from "../private/voice_ids";
 import { PropagateLoader } from "react-spinners";
 import languages from "../private/languages";
 import Translate from "../components/Translate";
-import { getInstructionsByName } from "../../public/instructions"; 
+import { getInstructionsByName } from "../../public/instructions";
 import { getPersonalityByName } from "../../public/instructions";
 
 import Spline from "@splinetool/react-spline";
 
-
 import {
   Carousel,
   CarouselContent,
-
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
@@ -26,11 +24,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { personalities } from "../../public/instructions";
 const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-  dangerouslyAllowBrowser: true, // Corrected syntax
+  dangerouslyAllowBrowser: true,
 });
 
 const assistantId = process.env.NEXT_PUBLIC_ASSISTANT_ID;
-
 
 interface BightProps {
   updateColors: () => void;
@@ -47,7 +44,7 @@ interface FormData {
   message: string;
 
   voice: string;
-  attitude:string;
+  attitude: string;
   thread: Threads.Thread | null;
   submitted: boolean;
   audioPlayerVisible: boolean;
@@ -72,8 +69,6 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     audioPlayerVisible: false,
     messageVisible: true,
   });
-
-   
 
   const createThread = async () => {
     try {
@@ -107,11 +102,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     }
   };
 
-  const createRun = async (
-    threadId: string,
-   
-    instructions: string
-  ) => {
+  const createRun = async (threadId: string, instructions: string) => {
     try {
       if (!assistantId) throw new Error("Assistant ID is not configured");
       const run = await openai.beta.threads.runs.create(threadId, {
@@ -151,10 +142,6 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
 
     translatePlaceholder();
   }, [formData.language]);
-
-
-
-
 
   useEffect(() => {
     const newThread = async () => {
@@ -217,11 +204,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
         waiting: true,
       }));
 
-      await createMessage(
-        formData.thread.id,
-        formData.query
-          
-      );
+      await createMessage(formData.thread.id, formData.query);
 
       const instructions = getInstructionsByName(formData.attitude);
       if (!instructions) {
@@ -232,7 +215,6 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
       if (!run.id) {
         throw new Error("Failed to create run");
       }
-      
 
       const checkRunStatus = async () => {
         const res = await retrieveRun(formData.thread!.id, run.id);
@@ -262,42 +244,23 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     setFormData((prevData) => ({ ...prevData, submitted: true, query: "" }));
   };
 
-  // async function generateRandom() {
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     query: Random.generateRandomQuery(),
-  //     voice: Random.generateRandomVoice(),
-  //   }));
-  // }
+  const toggleSelection = (personalityName: string) => {
+    let str = selectedItems.join(", + ");
+    alert(str);
+    setSelectedItems((prev) => {
+      const newSelection = prev.includes(personalityName)
+        ? prev.filter((item) => item !== personalityName)
+        : [...prev, getInstructionsByName(personalityName)].filter(Boolean); // Ensure no undefined values
 
-const toggleSelection = (personalityName: string) => {
-   
-  setSelectedItems((prev) => {
-    const newSelection = prev.includes(personalityName)
-      ? prev.filter((item) => item !== personalityName)
-      : [...prev, personalityName];
+      setFormData((prevData) => ({
+        ...prevData,
+        attitude: str,
+      }));
 
-    return newSelection;
-  });
+      return newSelection;
+    });
+  };
 
-  // Fetch the instructions for each selected personality
-  const instructionsArray = selectedItems
-    .map((name) => getInstructionsByName(name))
-    .filter(Boolean);
-
-  // Join the instructions into a single string
-  let str = instructionsArray.join(", + ");
-
-  // Update form data with the concatenated instructions
-  setFormData((prevData) => ({
-    ...prevData,
-    attitude: str,
-  }));
-
-};
-
-
-  
   function generateMessageListString(
     messageList: Message[],
     userQuery: string
@@ -328,125 +291,110 @@ const toggleSelection = (personalityName: string) => {
           formData.waiting ? "fade-out-main" : "fade-in-main"
         } `}
       >
-        <div className="overflow-hidden hover:scale-x-105 transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black/100 p-1.5 rounded-full shadow-xl shadow-black/30 border-white/20 border ">
-          {/* {formData.code && (
-            <DownloadButton formData={{ code: formData.code }} />
-          )}
-          {formData.code && <Beautify formData={{ code: formData.code }} />} */}
-          {/* <button
-            className="pl-1 hover:scale-90 transition-all duration-500 ease-out "
-            id="randomButton"
-            type="button"
-            title="Generate random query"
-            onClick={generateRandom}
-          >
-            <img src="/random.svg" alt="Random" />
-          </button> */}
-
+        <div className="overflow-hidden hover:scale-x-105 transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black/100 p-1.5 rounded-[30px] shadow-xl shadow-black/30  ">
           <input
             style={{ flex: 1 }}
             onChange={handleQueryChange}
             value={formData.query}
             id="query"
             placeholder={formData.placeholder}
-            className="caret-white text-white pl-2 focus:outline-none focus:ring-0    bg-transparent"
+            className="caret-white text-white pl-2 focus:outline-none focus:ring-0 bg-transparent"
             autoFocus
           />
-
-          <select
-            className="fixed  pl-1 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 font-bold text-sm transition-transform duration-500 ease-out"
-            value={formData.attitude}
-            title="Customize attitude"
-            onChange={(e) => {
-              const selectedPersonality = getPersonalityByName(e.target.value);
-              setFormData((prevData) => ({
-                ...prevData,
-                attitude: selectedPersonality ? selectedPersonality.name : "",
-              }));
-            }}
-            style={{
-              borderRadius: "12px",
-              width: "77px",
-              height: "37px",
-              WebkitAppearance: "none",
-            }}
-          >
-            <optgroup label="Attitude">
-              {personalities.map((personality) => (
-                <option key={personality.name} value={personality.name}>
-                
-                    {personality.name}
-               
-                  
-                </option>
-              ))}
-            </optgroup>
-          </select>
-
-          <select
-            className="pl-2 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 font-medium text-lg transition-transform duration-500 ease-out "
-            value={formData.voice}
-            title="Customize voice"
-            onChange={(e) =>
-              setFormData((prevData) => ({
-                ...prevData,
-                voice: e.target.value,
-              }))
-            }
-            style={{
-              borderRadius: "12px",
-              width: "80px",
-              height: "39px",
-              WebkitAppearance: "none",
-            }}
-          >
-            <optgroup label="He/Him">
-              {Object.entries(voice_ids.he).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="She/Her">
-              {Object.entries(voice_ids.her).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="They/Them">
-              {Object.entries(voice_ids.they).map(([name, id]) => (
-                <option key={name} value={id}>
-                  {name}
-                </option>
-              ))}
-            </optgroup>
-          </select>
-          <select
-            className="ml-1.5 pl-1.5 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
-            value={formData.language}
-            title="Choose a language"
-            onChange={(e) =>
-              setFormData((prevData) => ({
-                ...prevData,
-                language: e.target.value,
-              }))
-            }
-            style={{
-              borderRadius: "13px 20px 20px 13px",
-              width: "39px",
-              height: "38px",
-              WebkitAppearance: "none",
-            }}
-          >
-            {Object.entries(languages).map(([name, flag]) => (
-              <option key={flag} value={name}>
-                {flag}
+        </div>
+        <select
+          className="   text-white ml-2 pl-2 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
+          value={formData.language}
+          title="Choose a language"
+          onChange={(e) =>
+            setFormData((prevData) => ({
+              ...prevData,
+              language: e.target.value,
+            }))
+          }
+          style={{
+            borderRadius: "20px",
+            width: "42px",
+            height: "37px",
+            WebkitAppearance: "none",
+          }}
+        >
+          {Object.entries(languages).map(([name, flag]) => (
+            <option key={flag} value={name}>
+              {flag}
+            </option>
+          ))}
+        </select>
+      </form>
+      {/* Moved dropdowns outside the form */}
+      <div className="opacity-90 w-full flex items-center justify-center mt-4">
+        <select
+          className=" pl-3 mr-1 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 font-bold text-sm transition-transform duration-500 ease-out"
+          value={formData.attitude}
+          title="Customize attitude"
+          onChange={(e) => {
+            const selectedPersonality = getPersonalityByName(e.target.value);
+            setFormData((prevData) => ({
+              ...prevData,
+              attitude: selectedPersonality ? selectedPersonality.name : "",
+            }));
+          }}
+          style={{
+            borderRadius: "20px 11px 11px 20px",
+            width: "77px",
+            height: "39px",
+            WebkitAppearance: "none",
+          }}
+        >
+          <optgroup label="Attitude">
+            {personalities.map((personality) => (
+              <option key={personality.name} value={personality.name}>
+                {personality.name}
               </option>
             ))}
-          </select>
-        </div>
-      </form>
+          </optgroup>
+        </select>
+
+        <select
+          className="  pl-2 focus:outline-none cursor-pointer bg-gradient-to-b from-white/50 to-white focus:ring-0 hover:scale-90 font-semibold text-md transition-transform duration-500 ease-out"
+          value={formData.voice}
+          title="Customize voice"
+          onChange={(e) =>
+            setFormData((prevData) => ({
+              ...prevData,
+              voice: e.target.value,
+            }))
+          }
+          style={{
+            borderRadius: "12px",
+            width: "70px",
+            height: "39px",
+            WebkitAppearance: "none",
+          }}
+        >
+          <optgroup label="He/Him">
+            {Object.entries(voice_ids.he).map(([name, id]) => (
+              <option key={name} value={id}>
+                {name}
+              </option>
+            ))}
+          </optgroup>
+          <optgroup label="She/Her">
+            {Object.entries(voice_ids.her).map(([name, id]) => (
+              <option key={name} value={id}>
+                {name}
+              </option>
+            ))}
+          </optgroup>
+          <optgroup label="They/Them">
+            {Object.entries(voice_ids.they).map(([name, id]) => (
+              <option key={name} value={id}>
+                {name}
+              </option>
+            ))}
+          </optgroup>
+        </select>
+      </div>
       <div className="scale-150 overflow-hidden">
         {/* <Spline scene="https://prod.spline.design/efovozZ1Mdzz734Z/scene.splinecode" /> */}
       </div>

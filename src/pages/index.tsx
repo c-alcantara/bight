@@ -45,7 +45,7 @@ export default function Home() {
 
       <div className="flex-grow flex items-center justify-center">
         <div
-          className="w-5/6 max-w-5xl p-4 md:p-7 backdrop-blur-lg border border-white bg-gradient-to-b from-[rgba(255,255,255,.4)] to-[rgba(245,255,255,.99)] rounded-3xl  shadow-xl shadow-blu/15 relative"
+          className="w-5/6 max-w-5xl p-4 md:p-7 backdrop-blur-lg border border-white bg-gradient-to-b from-[rgba(255,255,255,.4)] to-[rgba(245,255,255,.99)] rounded-[30px]  shadow-xl shadow-blu/15 relative"
           style={parallaxStyle}
         >
           <div className="max-w-3xl">

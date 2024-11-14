@@ -28,9 +28,9 @@ const interpolateColor = (startColor: number, endColor: number, factor: number) 
 };
 
 export default function Product() {
-  const [highColor, setHigh] = useState(0xffffff);
-  const [midColor, setMid] = useState(0x0);
-  const [lowColor, setLow] = useState(0xffffff);
+  const [highColor, setHigh] = useState(0x0);
+  const [midColor, setMid] = useState(0xffffff);
+  const [lowColor, setLow] = useState(0x0);
   const [base, setBase] = useState(0x0);
   const [blur, setBlur] = useState(.8);
   const [speed, setSpeed] = useState(0.8);
@@ -145,11 +145,13 @@ export default function Product() {
   return (
     <main className="relative">
       <div className="relative z-10 flex h-screen flex-col items-center justify-center">
-        <div className="backdrop-blur-lg relative z-10 flex h-3/4 w-4/5  flex-col items-center justify-center rounded-3xl bg-gradient-to-b from-black/20 to-black/90 p-3  shadow-lg">
+        <div className="backdrop-blur-xl relative z-10 flex h-4/5 w-4/5  flex-col items-center justify-center rounded-[30px] bg-gradient-to-b from-black/10 to-black/80   shadow-lg">
           <Bight /> {/* Assuming this was a typo */}
           <Interact updateColors={updateColors} useDefaults={useDefaults} />
         </div>
-{/* <Spline /> */}
+        {/* <div className="relative z-10 flex h-screen flex-col items-center justify-center">
+          <Spline scene="https://prod.spline.design/IRRkK1WC036LqGSe/scene.splinecode"  />
+        </div> */}
         <VantaComponent
           highColor={highColor}
           midColor={midColor}
