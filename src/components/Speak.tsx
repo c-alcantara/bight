@@ -9,10 +9,10 @@ const Speak = async (inputText: string, voiceChoice: string) => {
       {
         text: inputText,
         use_speaker_boost: true,
-        style: 30,
-        stability: 6,
-        similarity_boost: 5,
-        model_id: "eleven_turbo_v2",
+        style: 50,
+        stability: 50,
+        similarity_boost: 50,
+        model_id: "eleven_turbo_v2_5",
       },
       {
         headers: {

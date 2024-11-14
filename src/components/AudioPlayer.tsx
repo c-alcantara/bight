@@ -25,7 +25,7 @@ const AudioPlayer: React.FC<AudioProps> = ({
           setAudioURL(audioUrl); // Set the URL directly
         }
       } catch (error) {
-        alert("Error fetching audio!");
+        alert(error);
         console.error("Error:", error);
       }
     };
