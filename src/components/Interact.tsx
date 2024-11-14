@@ -384,7 +384,7 @@ const toggleSelection = (personalityName: string) => {
           </select>
 
           <select
-            className="pl-1.5 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 font-bold text-xl transition-transform duration-500 ease-out "
+            className="pl-2 focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 font-medium text-lg transition-transform duration-500 ease-out "
             value={formData.voice}
             title="Customize voice"
             onChange={(e) =>
@@ -395,8 +395,8 @@ const toggleSelection = (personalityName: string) => {
             }
             style={{
               borderRadius: "12px",
-              width: "37px",
-              height: "37px",
+              width: "80px",
+              height: "39px",
               WebkitAppearance: "none",
             }}
           >
