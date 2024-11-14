@@ -63,7 +63,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     messageList: [],
     waiting: false,
     message: "",
-    voice: "",
+    voice: "dY9fWBb7TNkZB7UPeFK1",
     attitude: "str",
     thread: null,
     submitted: false,
