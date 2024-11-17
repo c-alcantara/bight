@@ -62,7 +62,7 @@ export default function Product() {
     let targetBlur = 0.6;
 
     let progress = 0;
-    const duration = 200; // Adjust duration for smoothness
+    const duration = 100; // Adjust duration for smoothness
 
     const colorLoop = () => {
       if (stopLoopRef.current) return; // Stop loop if requested
