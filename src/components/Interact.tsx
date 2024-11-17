@@ -60,8 +60,8 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     messageList: [],
     waiting: false,
     message: "",
-    voice: "T0pkYhIZ7UMOc26gqqeX",
-    attitude: "Gen-Z",
+    voice: "eVItLK1UvXctxuaRV2Oq",
+    attitude: "Sexy Villain",
     thread: null,
     submitted: false,
     code: null,
@@ -287,23 +287,12 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     <div className="w-[100%] ">
       <form
         onSubmit={handleSubmit}
-        className={`flex items-center justify-center hover:scale-105 ${
+        className={`flex items-center justify-center  ${
           formData.waiting ? "fade-out-main" : "fade-in-main"
         } `}
       >
-        <div className="overflow-hidden hover:scale-x-105 transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black/100 p-1.5 rounded-[30px] shadow-xl shadow-black/30  ">
-          <input
-            style={{ flex: 1 }}
-            onChange={handleQueryChange}
-            value={formData.query}
-            id="query"
-            placeholder={formData.placeholder}
-            className="caret-white text-white pl-2 focus:outline-none focus:ring-0 bg-transparent"
-            autoFocus
-          />
-        </div>
         <select
-          className="  grayscale text-white ml-2 pl-2 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
+          className="   text-white mr-2 pl-2 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
           value={formData.language}
           title="Choose a language"
           onChange={(e) =>
@@ -314,8 +303,8 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
           }
           style={{
             borderRadius: "20px",
-            width: "42px",
-            height: "37px",
+            width: "43px",
+            height: "42px",
             WebkitAppearance: "none",
           }}
         >
@@ -325,6 +314,31 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             </option>
           ))}
         </select>
+        
+        <div className="outline outline-white overflow-hidden  transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black/100 p-1.5 rounded-[30px] shadow-xl shadow-black/30  ">
+          <input
+            style={{ flex: 1 }}
+            onChange={handleQueryChange}
+            value={formData.query}
+            id="query"
+            placeholder={formData.placeholder}
+            className="caret-white text-white pl-2 focus:outline-none focus:ring-0 bg-transparent"
+            autoFocus
+          />
+        </div>
+
+        <button
+          type="submit" // Ensure this is a submit button
+          className="bg-white text-black ml-2  text-xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
+          style={{
+            borderRadius: "20px",
+            width: "42px", // Adjust width as needed
+            height: "37px",
+            WebkitAppearance: "none",
+          }}
+        >
+          ↑
+        </button>
       </form>
       {/* Moved dropdowns outside the form */}
       <div className="opacity-0 w-full flex items-center justify-center mt-4">
@@ -404,7 +418,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
             formData.waiting ? "fade-in" : "fade-out"
           }`}
         >
-          <PropagateLoader color="#000000" size={18} speedMultiplier={1.4} />
+          <PropagateLoader color="#ffffff" size={18} speedMultiplier={1.8} />
         </div>
       ) : (
         <div className="mt-0">

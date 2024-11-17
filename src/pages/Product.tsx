@@ -1,3 +1,4 @@
+// src/pages/Product.tsx
 import React, { useState, useMemo, useRef } from "react";
 import VantaComponent from "@/components/VantaComponent";
 import Bight from "@/components/Bight"; // Assuming this was a typo
@@ -8,7 +9,11 @@ import Spline from "@splinetool/react-spline";
 const randomColor = () => Math.floor(Math.random() * 0xffffff);
 
 // Utility function to interpolate between two colors
-const interpolateColor = (startColor: number, endColor: number, factor: number) => {
+const interpolateColor = (
+  startColor: number,
+  endColor: number,
+  factor: number
+) => {
   const start = {
     r: (startColor >> 16) & 0xff,
     g: (startColor >> 8) & 0xff,
@@ -29,34 +34,35 @@ const interpolateColor = (startColor: number, endColor: number, factor: number) 
 
 export default function Product() {
   const [highColor, setHigh] = useState(0x0);
-  const [midColor, setMid] = useState(0xffffff);
+  const [midColor, setMid] = useState(0x0);
   const [lowColor, setLow] = useState(0x0);
   const [base, setBase] = useState(0x0);
-  const [blur, setBlur] = useState(.8);
-  const [speed, setSpeed] = useState(0.8);
+  const [blur, setBlur] = useState(1);
+  const [speed, setSpeed] = useState(0.1);
 
   const stopLoopRef = useRef(false);
 
   // Function to smoothly update colors, speed, and blur
   const updateColors = () => {
     stopLoopRef.current = false; // Ensure the loop runs when called
-
+    
     let startHighColor = highColor;
     let startMidColor = midColor;
     let startLowColor = lowColor;
 
-    let targetHighColor = Math.floor(Math.random() * 0xffffff);
-    let targetMidColor = Math.floor(Math.random() * 0xffffff);
-    let targetLowColor = Math.floor(Math.random() * 0xffffff);
+    let targetHighColor = randomColor()*4; // Use the randomColor function
+    let targetMidColor = randomColor()*3; // Use the randomColor function
+    let targetLowColor = randomColor()*2; // Use the randomColor function
+  
 
-    let startSpeed = 0.6;
-    let targetSpeed = 8;
+    let startSpeed = 0.1;
+    let targetSpeed = 4;
 
-    let startBlur = .8;
+    let startBlur = 1;
     let targetBlur = 0.6;
 
     let progress = 0;
-    const duration = 100; // Adjust duration for smoothness
+    const duration = 200; // Adjust duration for smoothness
 
     const colorLoop = () => {
       if (stopLoopRef.current) return; // Stop loop if requested
@@ -67,16 +73,16 @@ export default function Product() {
         // Once transition completes, reset progress and pick new target colors
         progress = 0;
         startHighColor = targetHighColor;
-        targetHighColor = Math.floor(Math.random() * 0xffffff);
+        targetHighColor = randomColor()*2; // Use the randomColor function
 
         startMidColor = targetMidColor;
-        targetMidColor = Math.floor(Math.random() * 0xffffff);
+        targetMidColor = randomColor()*3; // Use the randomColor function
 
         startLowColor = targetLowColor;
-        targetLowColor = Math.floor(Math.random() * 0xffffff);
+        targetLowColor = randomColor(); // Use the randomColor function
 
         startSpeed = targetSpeed;
-        targetSpeed = 8; // Reset target speed to 10 for continuous increase
+        targetSpeed = 4; // Reset target speed to 10 for continuous increase
 
         startBlur = targetBlur;
         targetBlur = 0.6; // Reset target blur for continuous decrease
@@ -104,15 +110,16 @@ export default function Product() {
     let startHighColor = highColor;
     let startMidColor = midColor;
     let startLowColor = lowColor;
-
-    let targetHighColor = 0xffffff;
-    let targetMidColor = 0xffffff;
-    let targetLowColor = 0xffffff;
+    let startBaseColor = base;
+    let targetHighColor = 0x0;
+    let targetMidColor = 0x0;
+    let targetLowColor = 0x0;
+    let targetBaseColor = 0x0; // Reset target base color
 
     let startBlur = blur;
-    let targetBlur = .8;
+    let targetBlur = 1;
     let startSpeed = speed;
-    let targetSpeed = 0.6;
+    let targetSpeed = 0.1;
 
     let progress = 0;
     const duration = 500; // Adjust duration for smoothness
@@ -126,6 +133,7 @@ export default function Product() {
       setHigh(interpolateColor(startHighColor, targetHighColor, progress));
       setMid(interpolateColor(startMidColor, targetMidColor, progress));
       setLow(interpolateColor(startLowColor, targetLowColor, progress));
+      setBase(interpolateColor(startBaseColor, targetBaseColor, progress)); // Interpolate base color
 
       // Interpolate blur and speed based on progress
       setBlur(startBlur + (targetBlur - startBlur) * progress);
@@ -145,7 +153,7 @@ export default function Product() {
   return (
     <main className=" relative">
       <div className=" relative z-10 flex h-screen  items-center justify-center">
-        <div className=" pt-36 flex-col space-y-28 backdrop-blur-xl relative z-10 flex  h-[88%]  w-[92%] flex-col items-center justify-center rounded-[30px] bg-gradient-to-b from-black/10 to-black/80   shadow-lg">
+        <div className=" pt-36 flex-col space-y-28  relative z-10 flex  h-[88%]  w-[92%] flex-col items-center justify-center rounded-[30px] bg-gradient-to-b from-white/0 to-black/00  ">
           <Bight /> {/* Assuming this was a typo */}
           {/* Add margin for spacing */}
           <Interact updateColors={updateColors} useDefaults={useDefaults} />

@@ -39,6 +39,7 @@ export const voice_ids = {
   },
   they: {
     "🧖🏻‍♀️": "LcfcDJNUP1GQjkzn1xUU",
+    "v": "eVItLK1UvXctxuaRV2Oq",
     "🙎🏼": "GBv7mTt0atIp3Br8iCZE",
     "💆🏼‍♀️": "piTKgcLEGmPE4e6mEKli",
     "🧏🏼": "g5CIjZEefAph4nQFvHAz",
@@ -89,5 +90,6 @@ export const voice_ids = {
 //     "🧏🏼 Ethan": "g5CIjZEefAph4nQFvHAz",
 //     "👩🏻‍🎤 Elli": "MF3mGyEYCl7XYWbV9V6O",
 //     "👩🏻‍✈️ Domi": "AZnzlk1XvdvUeBnXmlld",
+
 //   },
 // };
