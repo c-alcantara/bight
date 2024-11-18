@@ -32,7 +32,7 @@ const Speak = async (inputText: string, voiceChoice: string) => {
     return audioUrl; // Return the generated audio URL
   } catch (error) {
     console.error("Error calling ElevenLabs API:", error);
-    throw new Error("Error processing text-to-speech");
+    throw new Error("Error processing text-to-speech"+ error);
   }
 };
 
