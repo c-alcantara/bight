@@ -60,8 +60,8 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     messageList: [],
     waiting: false,
     message: "",
-    voice: "eVItLK1UvXctxuaRV2Oq",
-    attitude: "Sexy Villain",
+    voice: "jsCqWAovK2LkecY7zXl4",
+    attitude: "Gen-Z",
     thread: null,
     submitted: false,
     code: null,
@@ -242,6 +242,13 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
     e.preventDefault();
     handleQuery();
     setFormData((prevData) => ({ ...prevData, submitted: true, query: "" }));
+
+  // Dismiss the keyboard on mobile by blurring the input
+  const inputElement = document.getElementById("query") as HTMLInputElement;
+  if (inputElement) {
+    inputElement.blur(); // This will dismiss the keyboard
+  }
+
   };
 
   // const toggleSelection = (personalityName: string) => {
@@ -291,31 +298,30 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
           formData.waiting ? "fade-out-main" : "fade-in-main"
         } `}
       >
-        <select
-          className="   text-white mr-2 pl-2 text-2xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
-          value={formData.language}
-          title="Choose a language"
-          onChange={(e) =>
-            setFormData((prevData) => ({
-              ...prevData,
-              language: e.target.value,
-            }))
-          }
-          style={{
-            borderRadius: "20px",
-            width: "43px",
-            height: "42px",
-            WebkitAppearance: "none",
-          }}
-        >
-          {Object.entries(languages).map(([name, flag]) => (
-            <option key={flag} value={name}>
-              {flag}
-            </option>
-          ))}
-        </select>
-        
-        <div className="outline outline-white overflow-hidden  transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black/100 p-1.5 rounded-[30px] shadow-xl shadow-black/30  ">
+        <div className="bg-white/20 outline outline-white overflow-hidden  transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black/100 p-1.5 rounded-[30px] shadow-xl shadow-black/30  ">
+          <select
+            className="   text-white mr-2 pl-2 text-xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
+            value={formData.language}
+            title="Choose a language"
+            onChange={(e) =>
+              setFormData((prevData) => ({
+                ...prevData,
+                language: e.target.value,
+              }))
+            }
+            style={{
+              borderRadius: "20px 10px 10px 20px",
+              width: "38px",
+              height: "32px",
+              WebkitAppearance: "none",
+            }}
+          >
+            {Object.entries(languages).map(([name, flag]) => (
+              <option key={flag} value={name}>
+                {flag}
+              </option>
+            ))}
+          </select>
           <input
             style={{ flex: 1 }}
             onChange={handleQueryChange}
@@ -329,15 +335,15 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
 
         <button
           type="submit" // Ensure this is a submit button
-          className="bg-white text-black ml-2  text-xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
+          className="bg-white text-black ml-1.5  text-xl font-bold focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
           style={{
             borderRadius: "20px",
-            width: "42px", // Adjust width as needed
-            height: "37px",
+            width: "40px", // Adjust width as needed
+            height: "40px",
             WebkitAppearance: "none",
           }}
         >
-          ↑
+          ✦
         </button>
       </form>
       {/* Moved dropdowns outside the form */}
@@ -425,7 +431,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
           {formData.messageVisible && (
             <div>
               <p
-                className={`flex justify-center items-center flex-col p-4 font-medium text-md text-black ${
+                className={`flex justify-center items-center flex-col p-4 font-medium text-md text-white ${
                   !formData.waiting ? "fade-in-main" : "fade-out-main"
                 }`}
               >
