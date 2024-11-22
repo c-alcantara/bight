@@ -56,10 +56,10 @@ export default function Product() {
   
 
     let startSpeed = 0.1;
-    let targetSpeed = 4;
+    let targetSpeed = 6;
 
     let startBlur = 1;
-    let targetBlur = 0.6;
+    let targetBlur = 0.5;
 
     let progress = 0;
     const duration = 100; // Adjust duration for smoothness
@@ -82,10 +82,10 @@ export default function Product() {
         targetLowColor = randomColor(); // Use the randomColor function
 
         startSpeed = targetSpeed;
-        targetSpeed = 4; // Reset target speed to 10 for continuous increase
+        targetSpeed = 6; // Reset target speed to 10 for continuous increase
 
         startBlur = targetBlur;
-        targetBlur = 0.6; // Reset target blur for continuous decrease
+        targetBlur = 0.5; // Reset target blur for continuous decrease
       }
 
       // Interpolate colors based on progress
@@ -122,7 +122,7 @@ export default function Product() {
     let targetSpeed = 0.1;
 
     let progress = 0;
-    const duration = 500; // Adjust duration for smoothness
+    const duration = 280; // Adjust duration for smoothness
 
     const resetLoop = () => {
       if (progress >= 1) return; // Stop loop when transition completes
