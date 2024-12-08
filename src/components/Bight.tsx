@@ -1,11 +1,12 @@
-import Image from 'next/image';
-
 const Bight = () => {
   return (
-    <div className=" flex justify-center hover:scale-200 transition-transform duration-100  z-55 pb-20 fade-in">
-      <img src="/icons2.png"  alt="Bight.ai" width="160px" />
-    </div>
-  );
-}
+    <iframe
+      src="https://my.spline.design/interactivesparkletterwithparticleeffect-28e9188418277b13606bb3bc28c4ac6a/"
+      width="940%"
+      height="700%"
+    ></iframe>
+  ); // Fixed closing of return statement
+};
 
-export default Bight;
+// ... existing code ...
+export default Bight

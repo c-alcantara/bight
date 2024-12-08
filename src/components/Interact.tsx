@@ -298,7 +298,7 @@ const Interact: FC<BightProps> = ({ updateColors, useDefaults }) => {
           formData.waiting ? "fade-out-main" : "fade-in-main"
         } `}
       >
-        <div className="bg-white/20 outline outline-white overflow-hidden  transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black/100 p-1.5 rounded-[30px] shadow-xl shadow-black/30  ">
+        <div className="bg-white/0 outline outline-white overflow-hidden  transition-all duration-300 bounce items-center justify-center z-10 flex w-5/5 bg-black/100 p-1.5 rounded-[30px] shadow-xl shadow-black/30  ">
           <select
             className="   text-white mr-2 pl-2 text-xl focus:outline-none cursor-pointer focus:ring-0 hover:scale-90 transition-transform duration-500 ease-in-out custom-select"
             value={formData.language}

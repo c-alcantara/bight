@@ -153,8 +153,8 @@ export default function Product() {
   return (
     <main className=" relative">
       <div className=" relative z-10 flex h-screen  items-center justify-center">
-        <div className=" pt-36 flex-col space-y-28  relative z-10 flex  h-[88%]  w-[92%] flex-col items-center justify-center rounded-[30px] bg-gradient-to-b from-white/0 to-black/00  ">
-          <Bight /> {/* Assuming this was a typo */}
+        <div className=" pt-36 flex-col space-y-28  relative z-10 flex  h-[100%]  w-[100%] flex-col items-center justify-center rounded-[30px] bg-gradient-to-b from-white/0 to-black/00  ">
+          <Bight /> Assuming this was a typo
           {/* Add margin for spacing */}
           <Interact updateColors={updateColors} useDefaults={useDefaults} />
         </div>

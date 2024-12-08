@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import bight from "./../../public/bight.png";
-import b from "./../../public/icons.png";
+import bight from "./../../public/gooo.svg";
+import b from "./../../public/gooo.svg";
 import Form from "../components/Form";
 import Backgr from "@/components/Backgr";
 import { ReactTyped } from "react-typed";
@@ -56,16 +56,15 @@ export default function Home() {
               <Image
                 src={bight}
                 alt="Logo"
-                className=" opacity-100  w-[70px] md:w-[220px] "
+                className=" opacity-100  w-[50px] md:w-[175px] "
               />
             </a>
             <p
-              className="text-lg z-10 md:text-2xl font-medium mb-6 mt-5 text-blu"
+              className="text-lg z-10 md:text-2xl font-light mb-6  text-blu"
               style={{}}
             >
-              Bight is the customizable digital{" "}
-              <strong>buddy</strong> that bridges the gap between humans and
-              robots.
+              is the ultimate <strong> digital human</strong>{" "}
+               that bridges the gap between your emotions and AI.
             </p>
           </div>
           <Form />
@@ -103,13 +102,13 @@ export default function Home() {
         className="text-black fixed left-1/2 transform -translate-x-2/4 text-center font-semibold text-xs md:text-2xl"
         style={{ bottom: "20px" }}
       >
-        No more{" "}
+        No{" "}
         <ReactTyped
           strings={[
-            "hold music.",
-            "endless FAQ pages.",
-            "useless chat bots.",
-            "'what was that again?'",
+            "cap",
+            "bad vibes",
+            "drama",
+            "fake energy",
           ]}
           typeSpeed={50}
           backSpeed={25}
