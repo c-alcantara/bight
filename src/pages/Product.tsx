@@ -133,7 +133,7 @@ export default function Product() {
       setHigh(interpolateColor(startHighColor, targetHighColor, progress));
       setMid(interpolateColor(startMidColor, targetMidColor, progress));
       setLow(interpolateColor(startLowColor, targetLowColor, progress));
-      setBase(interpolateColor(startBaseColor, targetBaseColor, progress)); // Interpolate base color
+      setBase(interpolateColor(sta33rtBaseColor, targetBaseColor, progress)); // Interpolate base color
 
       // Interpolate blur and speed based on progress
       setBlur(startBlur + (targetBlur - startBlur) * progress);
